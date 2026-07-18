@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Great Adventure | K2 &amp; Baltistan Expeditions, Treks &amp; Cultural Tours</title>
+<meta name="description" content="Great Adventure is a Skardu-based expedition company with 26 years of on-ground experience in Baltistan. K2 Base Camp treks, Concordia, Deosai, Nanga Parbat and custom Karakoram journeys.">
+<meta name="keywords" content="Great Adventure, K2 tour, K2 base camp trek, Baltistan tourism, Skardu tours, Concordia trek, Deosai tour, Karakoram expeditions, Gilgit Baltistan tour company">
+<meta property="og:title" content="Great Adventure — K2 & Baltistan Expeditions">
+<meta property="og:description" content="26 years of on-ground Karakoram experience. K2 Base Camp, Concordia, Deosai and custom treks in Baltistan.">
+<meta property="og:type" content="website">
+<link rel="icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0A0860;
+    --navy-2:#0F0C7A;
+    --deep:#06044A;
+    --stone:#4A5A61;
+    --mist:#C7CEE8;
+    --blue:#2552FF;
+    --blue-dim:#1B3FD6;
+    --cream:#F3F4FA;
+    --paper:#FBFAFD;
+    --ink:#171833;
+    --ink-soft:#52546E;
+    --line:rgba(10,8,96,0.12);
+    --line-lt:rgba(255,255,255,0.16);
+    --gold:#E8B84B;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter',sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.serif{font-family:'Fraunces',serif;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 32px;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--blue-dim);
+  }
+  .eyebrow.on-dark{color:#7C93FF;}
+  .placeholder{
+    background:repeating-linear-gradient(135deg, rgba(10,8,96,0.05), rgba(10,8,96,0.05) 8px, rgba(10,8,96,0.09) 8px, rgba(10,8,96,0.09) 16px);
+    border:1px dashed rgba(10,8,96,0.35);
+  }
+  .placeholder-tag{
+    font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.05em;text-transform:uppercase;
+    color:var(--blue-dim);background:#fff;padding:3px 8px;border-radius:20px;border:1px solid var(--line);
+  }
+
+  /* NAV */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(10,8,96,0.94);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line-lt);
+  }
+  nav{display:flex;align-items:center;justify-content:space-between;max-width:1160px;margin:0 auto;padding:12px 32px;}
+  .brand{display:flex;align-items:center;gap:10px;}
+  .brand img{height:38px;width:38px;}
+  .brand-name{color:var(--paper);font-family:'Fraunces',serif;font-weight:600;font-size:18px;letter-spacing:0.01em;}
+  .brand-name span{color:#7C93FF;}
+  .navlinks{display:flex;gap:32px;}
+  .navlinks a{color:var(--mist);font-size:14px;letter-spacing:0.02em;transition:color .2s;}
+  .navlinks a:hover{color:var(--paper);}
+  .nav-cta{
+    background:var(--blue);color:#fff;font-size:14px;font-weight:500;
+    padding:10px 20px;border-radius:2px;letter-spacing:0.02em;
+  }
+
+  /* offer banner */
+  #offer-banner{display:none;background:var(--gold);color:var(--deep);text-align:center;padding:10px 20px;font-size:14px;font-weight:600;position:relative;z-index:99;margin-top:62px;}
+
+  /* HERO */
+  .hero{
+    position:relative;min-height:100vh;
+    background:linear-gradient(180deg,var(--navy) 0%, var(--navy-2) 65%, #14109A 100%);
+    color:var(--paper);
+    overflow:hidden;
+    display:flex;align-items:flex-end;
+  }
+  .hero-inner{
+    position:relative;z-index:3;
+    max-width:1160px;margin:0 auto;padding:180px 32px 100px;
+    width:100%;
+  }
+  .hero h1{
+    font-size:clamp(40px,6vw,78px);
+    font-weight:500;
+    line-height:1.03;
+    letter-spacing:-0.01em;
+    max-width:820px;
+    margin:18px 0 22px;
+  }
+  .hero h1 em{font-style:italic;color:#7C93FF;}
+  .hero p.lede{
+    font-size:18px;color:var(--mist);max-width:480px;margin-bottom:36px;font-weight:400;
+  }
+  .hero-ctas{display:flex;gap:16px;flex-wrap:wrap;}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:15px 26px;font-size:14px;font-weight:500;letter-spacing:0.02em;
+    border-radius:2px;transition:transform .15s ease, background .2s;
+    cursor:pointer;border:1px solid transparent;
+  }
+  .btn-primary{background:var(--blue);color:#fff;}
+  .btn-primary:hover{background:#3E64FF;transform:translateY(-1px);}
+  .btn-ghost{border-color:var(--line-lt);color:var(--paper);}
+  .btn-ghost:hover{border-color:var(--paper);}
+
+  .peaks{position:absolute;bottom:0;left:0;width:100%;z-index:1;opacity:0.9;}
+  .peaks-fore{position:absolute;bottom:0;left:0;width:100%;z-index:2;}
+  .hero-stats{
+    position:absolute;top:100px;right:32px;z-index:3;
+    display:flex;flex-direction:column;gap:14px;
+    font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--mist);
+    text-align:right;
+  }
+  .hero-stats b{display:block;color:var(--paper);font-size:20px;font-family:'IBM Plex Mono',monospace;font-weight:500;}
+
+  /* TRUST STRIP */
+  .trust-strip{background:var(--deep);border-top:1px solid var(--line-lt);border-bottom:1px solid var(--line-lt);}
+  .trust-grid{display:flex;justify-content:space-between;flex-wrap:wrap;padding:24px 0;gap:20px;}
+  .trust-item{display:flex;align-items:center;gap:10px;color:var(--mist);font-size:13px;}
+  .trust-item .dot{width:7px;height:7px;border-radius:50%;background:#7C93FF;flex-shrink:0;}
+  .trust-item b{color:var(--paper);font-weight:500;}
+
+  /* SECTION generic */
+  section{padding:100px 0;}
+  .section-head{max-width:640px;margin-bottom:52px;}
+  .section-head h2{font-size:clamp(30px,4vw,42px);font-weight:500;margin-top:14px;line-height:1.1;}
+  .section-head p{color:var(--ink-soft);font-size:16px;margin-top:16px;max-width:520px;}
+
+  /* ABOUT */
+  .about{background:var(--paper);}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:start;}
+  .about-copy p{color:var(--ink-soft);font-size:16px;margin-bottom:18px;}
+  .about-copy p:first-of-type{font-size:19px;color:var(--ink);font-family:'Fraunces',serif;font-weight:400;line-height:1.5;}
+  .years-badge{border:1px solid var(--line);padding:34px 30px;border-radius:2px;background:var(--cream);}
+  .years-badge .num{font-family:'Fraunces',serif;font-size:64px;font-weight:500;line-height:1;color:var(--navy);}
+  .years-badge .cap{font-size:13px;color:var(--ink-soft);letter-spacing:0.04em;text-transform:uppercase;margin-top:10px;}
+  .stat-row{display:flex;gap:0;margin-top:28px;border-top:1px solid var(--line);}
+  .stat-row div{flex:1;padding:18px 0 0;border-right:1px solid var(--line);}
+  .stat-row div:last-child{border-right:none;}
+  .stat-row .n{font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:500;color:var(--navy);}
+  .stat-row .l{font-size:12px;color:var(--ink-soft);margin-top:4px;}
+  .reg-badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px;}
+  .reg-badge{
+    display:flex;align-items:center;gap:7px;border:1px solid var(--line);background:#fff;
+    padding:8px 12px;border-radius:20px;font-size:12px;color:var(--ink-soft);font-family:'IBM Plex Mono',monospace;
+  }
+  .reg-badge .tick{color:var(--blue);}
+
+  /* ROUTE */
+  .route{background:var(--navy);color:var(--paper);}
+  .route .section-head p{color:var(--mist);}
+  .route .section-head h2{color:var(--paper);}
+  .route-line{position:relative;padding:60px 0 10px;}
+  .route-svg{width:100%;height:auto;display:block;}
+  .route-labels{display:flex;justify-content:space-between;margin-top:18px;}
+  .route-stop{flex:1;text-align:left;padding-right:14px;}
+  .route-stop .place{font-family:'Fraunces',serif;font-size:15px;font-weight:500;}
+  .route-stop .alt{font-family:'IBM Plex Mono',monospace;font-size:12px;color:#7C93FF;margin-top:3px;}
+
+  /* VISA / TRAVEL INFO */
+  .visa{background:var(--cream);}
+  .visa-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .visa-card{background:var(--paper);border:1px solid var(--line);border-radius:2px;padding:26px;}
+  .visa-card h3{font-size:18px;font-weight:500;margin-bottom:10px;}
+  .visa-card p{color:var(--ink-soft);font-size:14px;}
+
+  /* SERVICES */
+  .services{background:var(--paper);}
+  .card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+  .tcard{
+    background:var(--cream);border:1px solid var(--line);padding:0;border-radius:2px;
+    display:flex;flex-direction:column;transition:border-color .2s;overflow:hidden;
+  }
+  .tcard:hover{border-color:var(--blue-dim);}
+  .tcard-img{height:150px;display:flex;align-items:center;justify-content:center;}
+  .tcard-body{padding:24px 22px;display:flex;flex-direction:column;gap:12px;flex:1;}
+  .tcard .tag{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--blue-dim);letter-spacing:0.06em;text-transform:uppercase;}
+  .tcard h3{font-size:21px;font-weight:500;}
+  .tcard p{color:var(--ink-soft);font-size:14px;flex:1;}
+  .badge-row{display:flex;gap:8px;flex-wrap:wrap;}
+  .badge{font-size:11px;padding:4px 10px;border-radius:20px;font-family:'IBM Plex Mono',monospace;}
+  .badge.diff{background:rgba(37,82,255,0.1);color:var(--blue-dim);}
+  .badge.season{background:rgba(232,184,75,0.18);color:#9A7412;}
+  .tcard .meta{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:14px;font-size:13px;color:var(--ink-soft);}
+  .tcard .meta b{color:var(--ink);font-weight:600;}
+  .tcard .price{font-family:'IBM Plex Mono',monospace;color:var(--navy);}
+
+  /* TEAM */
+  .team{background:var(--cream);}
+  .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+  .team-card{text-align:center;}
+  .team-photo{width:100%;aspect-ratio:1;border-radius:2px;margin-bottom:14px;display:flex;align-items:center;justify-content:center;}
+  .team-card h4{font-size:16px;font-weight:500;}
+  .team-card .role{font-size:12px;color:var(--blue-dim);font-family:'IBM Plex Mono',monospace;margin-top:2px;text-transform:uppercase;letter-spacing:0.04em;}
+
+  /* GALLERY */
+  .gallery{background:var(--paper);}
+  .gal-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:150px;gap:10px;}
+  .gal-grid div{border-radius:2px;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:12px;}
+  .gal-grid div span{color:var(--deep);font-size:11px;font-family:'IBM Plex Mono',monospace;font-weight:500;background:rgba(255,255,255,0.85);padding:3px 8px;border-radius:3px;}
+  .gal-grid div:nth-child(1){grid-column:span 2;grid-row:span 2;}
+  .gal-grid div:nth-child(4){grid-column:span 2;}
+
+  /* NEWS */
+  .news{background:var(--cream);}
+  .news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+  .news-card{background:var(--paper);border:1px solid var(--line);border-radius:2px;overflow:hidden;}
+  .news-img{height:130px;}
+  .news-body{padding:20px 22px;}
+  .news-date{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--blue-dim);}
+  .news-body h4{font-size:16px;font-weight:500;margin-top:8px;line-height:1.4;}
+
+  /* TESTIMONIALS */
+  .testi{background:var(--navy);color:var(--paper);}
+  .testi .section-head h2, .testi .section-head p{color:var(--paper);}
+  .testi .section-head p{color:var(--mist);}
+  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+  .tquote{border:1px solid var(--line-lt);padding:26px 22px;border-radius:2px;}
+  .tquote p{font-family:'Fraunces',serif;font-size:16.5px;font-style:italic;line-height:1.5;color:var(--mist);}
+  .tquote .who{display:flex;align-items:center;gap:10px;margin-top:20px;}
+  .tquote .avatar{width:34px;height:34px;border-radius:50%;flex-shrink:0;}
+  .tquote .who-text{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#7C93FF;}
+
+  /* CONTACT */
+  .contact{background:var(--paper);}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;}
+  .cform label{display:block;font-size:12px;letter-spacing:0.04em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px;margin-top:18px;}
+  .cform input,.cform select,.cform textarea{
+    width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:2px;background:var(--cream);
+    font-family:'Inter',sans-serif;font-size:14.5px;color:var(--ink);
+  }
+  .cform textarea{min-height:100px;resize:vertical;}
+  .cform button{margin-top:26px;width:100%;}
+  .cinfo p{color:var(--ink-soft);font-size:15px;margin-bottom:22px;}
+  .cinfo .row{display:flex;gap:14px;align-items:flex-start;margin-bottom:18px;}
+  .cinfo .row b{display:block;font-size:15px;}
+  .cinfo .row span{color:var(--ink-soft);font-size:13.5px;}
+  .map-embed{margin-top:18px;height:200px;border-radius:2px;overflow:hidden;}
+  .float-stack{position:fixed;bottom:26px;right:26px;z-index:90;display:flex;flex-direction:column;gap:12px;}
+  .float-btn{
+    width:54px;height:54px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;
+    box-shadow:0 4px 14px rgba(0,0,0,0.25);
+  }
+  .wa-float{background:#25D366;}
+  .fb-float{background:#0084FF;}
+
+  footer{background:var(--deep);color:var(--mist);padding:50px 0 30px;}
+  .foot-grid{display:flex;justify-content:space-between;flex-wrap:wrap;gap:30px;border-bottom:1px solid var(--line-lt);padding-bottom:30px;margin-bottom:20px;}
+  .foot-brand{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+  .foot-brand img{height:32px;width:32px;}
+  .foot-links{display:flex;gap:40px;flex-wrap:wrap;}
+  .foot-links div h4{font-size:12px;text-transform:uppercase;letter-spacing:0.06em;color:var(--paper);margin-bottom:12px;}
+  .foot-links div a{display:block;font-size:13.5px;color:var(--mist);margin-bottom:8px;}
+  .foot-reg{font-size:12px;color:var(--mist);margin-bottom:20px;font-family:'IBM Plex Mono',monospace;}
+  .fine{font-size:12px;color:var(--stone);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+
+  @media(max-width:900px){
+    .about-grid,.contact-grid{grid-template-columns:1fr;gap:40px;}
+    .card-grid,.testi-grid,.news-grid,.visa-grid{grid-template-columns:1fr;}
+    .team-grid{grid-template-columns:repeat(2,1fr);}
+    .gal-grid{grid-template-columns:repeat(2,1fr);}
+    .navlinks{display:none;}
+    .hero-stats{display:none;}
+    .route-labels{flex-wrap:wrap;}
+    .route-stop{min-width:33%;margin-bottom:14px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="brand">
+      <img src="assets/logo.png" alt="Great Adventure logo">
+      <div class="brand-name">Great <span>Adventure</span></div>
+    </div>
+    <div class="navlinks">
+      <a href="#about">About</a>
+      <a href="#route">The route</a>
+      <a href="#tours">Tours</a>
+      <a href="#team">Team</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="#contact" class="nav-cta">Plan your trip</a>
+  </nav>
+</header>
+
+<div id="offer-banner"><span id="offer-banner-text"></span></div>
+
+<section class="hero">
+  <svg class="peaks" viewBox="0 0 1440 500" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <polygon points="0,500 0,320 180,180 320,300 480,120 620,280 780,90 900,260 1080,150 1220,290 1350,200 1440,300 1440,500" fill="#0F0C7A"/>
+  </svg>
+  <svg class="peaks-fore" viewBox="0 0 1440 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <polygon points="0,400 0,260 140,340 260,150 420,320 560,60 700,260 860,180 1000,340 1150,220 1300,320 1440,240 1440,400" fill="#0A0860"/>
+  </svg>
+  <div class="hero-stats">
+    <div>K2 SUMMIT<b>8,611 M</b></div>
+    <div>CONCORDIA<b>4,600 M</b></div>
+    <div>FOUNDED ON<b>26 YRS FIELD EXP.</b></div>
+  </div>
+  <div class="hero-inner">
+    <div class="eyebrow on-dark">Skardu, Gilgit-Baltistan &mdash; Est. 2026</div>
+    <h1>Twenty-six years on these trails,<br><em>now under one name.</em></h1>
+    <p class="lede">Great Adventure runs treks and expeditions across Baltistan &mdash; K2 Base Camp, Concordia, Deosai and beyond &mdash; guided by two and a half decades of on-ground experience in the Karakoram.</p>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn btn-primary">Start planning &rarr;</a>
+      <a href="#tours" class="btn btn-ghost">View tours</a>
+    </div>
+  </div>
+</section>
+
+<div class="trust-strip">
+  <div class="wrap trust-grid">
+    <div class="trust-item"><span class="dot"></span><span><b>26 years</b> Karakoram field experience</span></div>
+    <div class="trust-item"><span class="dot"></span><span>Licensed by <b class="placeholder-tag" style="padding:2px 6px;">GB Tourism Dept. — number needed</b></span></div>
+    <div class="trust-item"><span class="dot"></span><span>Member <b class="placeholder-tag" style="padding:2px 6px;">PATO / BAATO — confirm</b></span></div>
+    <div class="trust-item"><span class="dot"></span><span><b>24h</b> average reply time</span></div>
+  </div>
+</div>
+
+<section class="about" id="about">
+  <div class="wrap about-grid">
+    <div class="about-copy">
+      <div class="eyebrow">About us</div>
+      <h2 class="serif" style="font-size:36px;font-weight:500;margin:14px 0 24px;">Guided by someone who has actually walked the route.</h2>
+      <p>Great Adventure was built on twenty-six years of field experience in Baltistan &mdash; not borrowed credentials, not a rebrand, but the direct, on-ground work of planning and leading trips through some of the world's highest terrain.</p>
+      <p>That experience shows up in the details tourists notice first: routes planned around real weather windows, porters and guides who know each valley personally, and a response time that doesn't leave you waiting when you're trying to plan a trip from another country.</p>
+      <p>We now bring that same standard of service directly to travellers, under our own name.</p>
+      <div class="reg-badges">
+        <div class="reg-badge"><span class="tick">✓</span> GB Tourism Registered</div>
+        <div class="reg-badge"><span class="tick">✓</span> Local Skardu-Based Team</div>
+        <div class="reg-badge"><span class="tick">✓</span> Visa Assistance Available</div>
+      </div>
+    </div>
+    <div>
+      <div class="years-badge">
+        <div class="num">26</div>
+        <div class="cap">Years of Karakoram field experience</div>
+        <div class="stat-row">
+          <div><div class="n">1,200+</div><div class="l">Travellers guided</div></div>
+          <div><div class="n">18</div><div class="l">Routes covered</div></div>
+          <div><div class="n">24h</div><div class="l">Avg. reply time</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="route" id="route">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow on-dark">The classic line</div>
+      <h2>Skardu to K2 Base Camp, mapped in altitude.</h2>
+      <p>Our signature route &mdash; the one most travellers ask for first. Six stops, four thousand metres of climb, one of the most dramatic approaches on earth.</p>
+    </div>
+    <div class="route-line">
+      <svg class="route-svg" viewBox="0 0 1080 140" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <polyline points="20,110 190,95 370,80 550,55 730,35 900,15 1060,10" fill="none" stroke="#2552FF" stroke-width="2"/>
+        <circle cx="20" cy="110" r="5" fill="#2552FF"/>
+        <circle cx="190" cy="95" r="5" fill="#2552FF"/>
+        <circle cx="370" cy="80" r="5" fill="#2552FF"/>
+        <circle cx="550" cy="55" r="5" fill="#2552FF"/>
+        <circle cx="730" cy="35" r="5" fill="#2552FF"/>
+        <circle cx="900" cy="15" r="5" fill="#2552FF"/>
+        <circle cx="1060" cy="10" r="6" fill="#F3F4FA" stroke="#2552FF" stroke-width="2"/>
+      </svg>
+      <div class="route-labels">
+        <div class="route-stop"><div class="place">Skardu</div><div class="alt">2,228 m</div></div>
+        <div class="route-stop"><div class="place">Askole</div><div class="alt">3,000 m</div></div>
+        <div class="route-stop"><div class="place">Paiju</div><div class="alt">3,450 m</div></div>
+        <div class="route-stop"><div class="place">Urdukas</div><div class="alt">3,900 m</div></div>
+        <div class="route-stop"><div class="place">Concordia</div><div class="alt">4,600 m</div></div>
+        <div class="route-stop"><div class="place">K2 Base Camp</div><div class="alt">5,150 m</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="visa">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Before you travel</div>
+      <h2>What foreign travellers ask us first.</h2>
+      <p>The questions every international tourist has before booking a Pakistan trip.</p>
+    </div>
+    <div class="visa-grid">
+      <div class="visa-card">
+        <h3>Visa Assistance</h3>
+        <p>We help with invitation letters and guidance for Pakistan's e-visa process for trekking and tourist visas. <span class="placeholder-tag">Exact process to confirm</span></p>
+      </div>
+      <div class="visa-card">
+        <h3>Best Season</h3>
+        <p>June to September is peak trekking season for K2 Base Camp and Concordia. Deosai is best from July to early September.</p>
+      </div>
+      <div class="visa-card">
+        <h3>What's Included</h3>
+        <p>Guide, porters, camping equipment and meals on trek. <span class="placeholder-tag">Confirm exact inclusions per tour</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="tours">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Tours &amp; expeditions</div>
+      <h2>Six routes we know better than most.</h2>
+      <p>Every itinerary below is one we've personally run, not one assembled from a brochure.</p>
+    </div>
+    <div class="card-grid">
+      <div class="tcard">
+        <div class="tcard-img placeholder"><span class="placeholder-tag">Photo needed</span></div>
+        <div class="tcard-body">
+          <div class="tag">Trek</div>
+          <h3>K2 Base Camp &amp; Concordia</h3>
+          <p>The classic Karakoram trek to the base of the world's second-highest peak, through Baltoro glacier and Concordia's amphitheatre of 8,000ers.</p>
+          <div class="badge-row"><span class="badge diff">Difficulty: Challenging</span><span class="badge season">Jun–Sep</span></div>
+          <div class="meta"><span>Duration <b>16 days</b></span><span class="price placeholder-tag">Price needed</span></div>
+        </div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-img placeholder"><span class="placeholder-tag">Photo needed</span></div>
+        <div class="tcard-body">
+          <div class="tag">Trek</div>
+          <h3>Deosai Plains</h3>
+          <p>High-altitude alpine plateau known for brown bears, wildflowers and star-filled skies &mdash; a gentler, shorter alternative to glacier treks.</p>
+          <div class="badge-row"><span class="badge diff">Difficulty: Easy</span><span class="badge season">Jul–Sep</span></div>
+          <div class="meta"><span>Duration <b>4 days</b></span><span class="price placeholder-tag">Price needed</span></div>
+        </div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-img placeholder"><span class="placeholder-tag">Photo needed</span></div>
+        <div class="tcard-body">
+          <div class="tag">Expedition</div>
+          <h3>Nanga Parbat Base Camp</h3>
+          <p>Approach to the "Killer Mountain" via Fairy Meadows, one of the most accessible high-mountain views in the range.</p>
+          <div class="badge-row"><span class="badge diff">Difficulty: Moderate</span><span class="badge season">May–Oct</span></div>
+          <div class="meta"><span>Duration <b>7 days</b></span><span class="price placeholder-tag">Price needed</span></div>
+        </div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-img placeholder"><span class="placeholder-tag">Photo needed</span></div>
+        <div class="tcard-body">
+          <div class="tag">Culture</div>
+          <h3>Skardu &amp; Shigar Valley</h3>
+          <p>Forts, orchards and Balti heritage sites &mdash; a low-altitude introduction to the region for first-time visitors.</p>
+          <div class="badge-row"><span class="badge diff">Difficulty: Easy</span><span class="badge season">Year-round</span></div>
+          <div class="meta"><span>Duration <b>3 days</b></span><span class="price placeholder-tag">Price needed</span></div>
+        </div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-img placeholder"><span class="placeholder-tag">Photo needed</span></div>
+        <div class="tcard-body">
+          <div class="tag">Trek</div>
+          <h3>Gondogoro La Crossing</h3>
+          <p>A demanding high pass connecting the Baltoro to Hushe valley &mdash; for experienced trekkers seeking the full traverse.</p>
+          <div class="badge-row"><span class="badge diff">Difficulty: Challenging</span><span class="badge season">Jul–Aug</span></div>
+          <div class="meta"><span>Duration <b>18 days</b></span><span class="price placeholder-tag">Price needed</span></div>
+        </div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-img placeholder"><span class="placeholder-tag">Photo needed</span></div>
+        <div class="tcard-body">
+          <div class="tag">Custom</div>
+          <h3>Tailored itineraries</h3>
+          <p>Photography trips, private expeditions or family-paced journeys &mdash; built around your dates, fitness level and interests.</p>
+          <div class="badge-row"><span class="badge diff">Difficulty: Flexible</span><span class="badge season">Year-round</span></div>
+          <div class="meta"><span>Duration <b>Flexible</b></span><span class="price placeholder-tag">On request</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="team" id="team">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">The people behind the trips</div>
+      <h2>Meet the team.</h2>
+      <p>The route is only as good as the people leading it.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-photo placeholder"><span class="placeholder-tag">Founder photo</span></div>
+        <h4>Founder name needed</h4>
+        <div class="role">Founder — 26 yrs experience</div>
+      </div>
+      <div class="team-card">
+        <div class="team-photo placeholder"><span class="placeholder-tag">Guide photo</span></div>
+        <h4>Name needed</h4>
+        <div class="role">Lead Trekking Guide</div>
+      </div>
+      <div class="team-card">
+        <div class="team-photo placeholder"><span class="placeholder-tag">Coordinator photo</span></div>
+        <h4>Name needed</h4>
+        <div class="role">Logistics Coordinator</div>
+      </div>
+      <div class="team-card">
+        <div class="team-photo placeholder"><span class="placeholder-tag">Safety officer photo</span></div>
+        <h4>Name needed</h4>
+        <div class="role">Safety Officer</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery" id="gallery">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">From the trail</div>
+      <h2>What the route actually looks like.</h2>
+      <p>Photos from recent expeditions &mdash; replace with your own trip photography before launch.</p>
+    </div>
+    <div class="gal-grid">
+      <div class="placeholder"><span>Baltoro glacier — photo needed</span></div>
+      <div class="placeholder"><span>K2 sunrise — photo needed</span></div>
+      <div class="placeholder"><span>Urdukas camp — photo needed</span></div>
+      <div class="placeholder"><span>Deosai plateau — photo needed</span></div>
+      <div class="placeholder"><span>Shigar valley — photo needed</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="news">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Latest</div>
+      <h2>News from the region.</h2>
+      <p>Trail conditions, season updates and stories from recent trips — helps travellers plan, and helps Google find us.</p>
+    </div>
+    <div class="news-grid">
+      <div class="news-card">
+        <div class="news-img placeholder"><span class="placeholder-tag">Image needed</span></div>
+        <div class="news-body">
+          <div class="news-date placeholder-tag">Date needed</div>
+          <h4>Baltoro glacier conditions — season update</h4>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-img placeholder"><span class="placeholder-tag">Image needed</span></div>
+        <div class="news-body">
+          <div class="news-date placeholder-tag">Date needed</div>
+          <h4>Best time to book K2 Base Camp trek</h4>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-img placeholder"><span class="placeholder-tag">Image needed</span></div>
+        <div class="news-body">
+          <div class="news-date placeholder-tag">Date needed</div>
+          <h4>New route added: Gondogoro La Crossing</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testi" id="reviews">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow on-dark">In their words</div>
+      <h2>What travellers say after the trek.</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="tquote">
+        <p>"The kind of local knowledge you can't get from a guidebook &mdash; every camp, every water source, every mood of the weather."</p>
+        <div class="who"><div class="avatar placeholder"></div><div class="who-text placeholder-tag">Name/country needed</div></div>
+      </div>
+      <div class="tquote">
+        <p>"Replies came within hours even while we were mid-trip planning from overseas. Rare for this region."</p>
+        <div class="who"><div class="avatar placeholder"></div><div class="who-text placeholder-tag">Name/country needed</div></div>
+      </div>
+      <div class="tquote">
+        <p>"Felt like being guided by someone who has done this a thousand times, because he has."</p>
+        <div class="who"><div class="avatar placeholder"></div><div class="who-text placeholder-tag">Name/country needed</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap contact-grid">
+    <div class="cinfo">
+      <div class="eyebrow">Get in touch</div>
+      <h2 class="serif" style="font-size:32px;font-weight:500;margin:14px 0 20px;">Tell us what you have in mind.</h2>
+      <p>Whether it's a fixed departure or a fully custom itinerary, send us your dates and we'll reply with a plan &mdash; usually within a day.</p>
+      <div class="row"><div><b>WhatsApp</b><span class="placeholder-tag">Number needed</span></div></div>
+      <div class="row"><div><b>Email</b><span class="placeholder-tag">Confirm: hello@greatadventure.com</span></div></div>
+      <div class="row"><div><b>Based in</b><span>Skardu, Gilgit-Baltistan, Pakistan</span></div></div>
+      <div class="map-embed placeholder"><span class="placeholder-tag" style="margin:auto;">Office location / map pin needed</span></div>
+    </div>
+    <form class="cform" onsubmit="return false;">
+      <label>Full name</label>
+      <input type="text" placeholder="Your name">
+      <label>Email</label>
+      <input type="email" placeholder="you@email.com">
+      <label>Interested in</label>
+      <select>
+        <option>K2 Base Camp & Concordia</option>
+        <option>Deosai Plains</option>
+        <option>Nanga Parbat Base Camp</option>
+        <option>Skardu & Shigar Valley</option>
+        <option>Gondogoro La Crossing</option>
+        <option>Custom itinerary</option>
+      </select>
+      <label>Message</label>
+      <textarea placeholder="Preferred dates, group size, anything else we should know"></textarea>
+      <button type="submit" class="btn btn-primary">Send enquiry &rarr;</button>
+    </form>
+  </div>
+</section>
+
+<div class="float-stack">
+  <a href="#" class="float-btn wa-float" aria-label="Chat on WhatsApp" title="Chat on WhatsApp">&#9990;</a>
+  <a href="#" class="float-btn fb-float" aria-label="Message on Facebook" title="Message on Facebook">f</a>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand"><img src="assets/logo.png" alt="Great Adventure logo"><div class="brand-name" style="color:#fff;">Great <span style="color:#7C93FF;">Adventure</span></div></div>
+        <p style="font-size:13.5px;color:var(--stone);max-width:260px;">Twenty-six years of Karakoram field experience, now under one name.</p>
+      </div>
+      <div class="foot-links">
+        <div>
+          <h4>Explore</h4>
+          <a href="#about">About</a>
+          <a href="#tours">Tours</a>
+          <a href="#gallery">Gallery</a>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <a href="#contact">Enquire</a>
+          <a href="#">WhatsApp</a>
+          <a href="#">Instagram</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-reg placeholder-tag" style="background:transparent;border:none;padding:0;">GB Tourism Registration No. — needed · PATO/BAATO membership — confirm</div>
+    <div class="fine">
+      <span>&copy; 2026 Great Adventure. All rights reserved.</span>
+      <span>Skardu, Gilgit-Baltistan, Pakistan</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+  const SUPABASE_URL = "PASTE_YOUR_SUPABASE_URL_HERE";
+  const SUPABASE_ANON_KEY = "PASTE_YOUR_SUPABASE_ANON_KEY_HERE";
+
+  async function loadOfferBanner(){
+    if(SUPABASE_URL.indexOf("PASTE_") === 0) return;
+    try{
+      const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      const { data, error } = await sb.from("announcements").select("*").eq("id", 1).single();
+      if(error || !data || !data.active) return;
+      document.getElementById("offer-banner-text").textContent = data.title + (data.message ? " — " + data.message : "");
+      document.getElementById("offer-banner").style.display = "block";
+    }catch(e){ /* fail silently, site works fine without the banner */ }
+  }
+  loadOfferBanner();
+</script>
+</body>
+</html>
