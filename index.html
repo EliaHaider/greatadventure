@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=2">
+<link rel="stylesheet" href="css/style.css?v=3">
 </head>
 <body>
 
@@ -59,36 +59,37 @@
 <div id="offer-banner"><span id="offer-banner-text"></span></div>
 
 <section class="hero">
-  <div class="hero-glow"></div>
-  <div class="hero-particles" aria-hidden="true">
-    <span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span>
+  <div class="hero-photo" aria-hidden="true">
+    <img src="images/tours/tour-k2-base-camp.jpg" alt="" onerror="this.parentElement.classList.add('no-photo');this.style.display='none';">
   </div>
-  <svg class="peaks peaks-back" viewBox="0 0 1440 500" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <polygon points="0,500 0,340 160,220 300,320 460,160 610,300 760,130 900,290 1060,190 1210,310 1350,230 1440,320 1440,500" fill="#150F8A"/>
-  </svg>
-  <svg class="peaks peaks-mid" viewBox="0 0 1440 500" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <polygon points="0,500 0,320 180,180 320,300 480,120 620,280 780,90 900,260 1080,150 1220,290 1350,200 1440,300 1440,500" fill="#0F0C7A"/>
-  </svg>
-  <svg class="peaks peaks-fore" viewBox="0 0 1440 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <polygon points="0,400 0,260 140,340 260,150 420,320 560,60 700,260 860,180 1000,340 1150,220 1300,320 1440,240 1440,400" fill="#0A0860"/>
-  </svg>
-  <div class="hero-stats">
-    <div>K2 SUMMIT<b data-count="8611">0</b></div>
-    <div>CONCORDIA<b data-count="4600">0</b></div>
-    <div>FOUNDED ON<b>26 YRS FIELD EXP.</b></div>
-  </div>
+  <div class="hero-scrim"></div>
+
   <div class="hero-inner">
-    <div class="eyebrow on-dark">Skardu, Gilgit-Baltistan &mdash; Est. 2026</div>
-    <h1>Twenty-six years on these trails,<br><em>now under one name.</em></h1>
-    <p class="lede">Great Adventure runs treks and expeditions across Baltistan &mdash; K2 Base Camp, Concordia, Gasherbrum, Trango Towers, Deosai and beyond &mdash; guided by two and a half decades of on-ground experience in the Karakoram.</p>
+    <div class="hero-pill"><span class="pin">&#128205;</span> Skardu, Gilgit-Baltistan</div>
+    <h1>Twenty-six years on<br>these trails, <em>now<br>under one name.</em></h1>
+    <p class="lede">Great Adventure runs treks and expeditions across Baltistan &mdash; K2 Base Camp, Concordia, Gasherbrum, Trango Towers and beyond &mdash; guided by two and a half decades of on-ground Karakoram experience.</p>
     <div class="hero-ctas">
       <a href="#contact" class="btn btn-primary">Start planning &rarr;</a>
       <a href="#tours" class="btn btn-ghost">View tours</a>
     </div>
+
+    <div class="hero-badges-row">
+      <div class="hero-badge"><b data-count="26">0</b><span>Years experience</span></div>
+      <div class="hero-badge"><b>1,200+</b><span>Travellers guided</span></div>
+      <div class="hero-badge"><b>18</b><span>Routes covered</span></div>
+    </div>
   </div>
-  <a href="#tours" class="scroll-cue" aria-label="Scroll down"><span></span></a>
+
+  <div class="hero-float-cards" aria-hidden="true">
+    <a href="k2-base-camp.html" class="hfc hfc-1">
+      <div class="hfc-img-wrap"><img src="images/tours/tour-k2-base-camp.jpg" alt="" onerror="this.style.display='none';"></div>
+      <div class="hfc-cap"><span class="pin">&#128205;</span> K2 Base Camp<br><small>Concordia, Baltistan</small></div>
+    </a>
+    <a href="deosai-plains.html" class="hfc hfc-2">
+      <div class="hfc-img-wrap"><img src="images/tours/tour-deosai-plains.jpg" alt="" onerror="this.style.display='none';"></div>
+      <div class="hfc-cap"><span class="pin">&#128205;</span> Deosai Plains<br><small>Skardu, Baltistan</small></div>
+    </a>
+  </div>
 </section>
 
 
@@ -378,22 +379,22 @@
     <div class="team-grid">
       <div class="team-card">
         <div class="team-photo img-frame"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/team/team-founder.jpg" alt="Founder photo" loading="lazy"></div>
-        <h4>Founder name needed</h4>
+        <h4>Reehan Shah</h4>
         <div class="role">Founder — 26 yrs experience</div>
       </div>
       <div class="team-card">
         <div class="team-photo img-frame"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/team/team-lead-guide.jpg" alt="Lead Trekking Guide" loading="lazy"></div>
-        <h4>Name needed</h4>
+        <h4>Ali Raza</h4>
         <div class="role">Lead Trekking Guide</div>
       </div>
       <div class="team-card">
         <div class="team-photo img-frame"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/team/team-coordinator.jpg" alt="Logistics Coordinator" loading="lazy"></div>
-        <h4>Name needed</h4>
+        <h4>Rehman Ali</h4>
         <div class="role">Logistics Coordinator</div>
       </div>
       <div class="team-card">
         <div class="team-photo img-frame"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/team/team-safety-officer.jpg" alt="Safety Officer" loading="lazy"></div>
-        <h4>Name needed</h4>
+        <h4>Hira Khan</h4>
         <div class="role">Safety Officer</div>
       </div>
     </div>
@@ -452,26 +453,63 @@
 
 <section class="testi" id="reviews">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div class="eyebrow on-dark">In their words</div>
       <h2>What travellers say after the trek.</h2>
+      <p>Real reviews from real travellers — submitted directly through this site.</p>
     </div>
-    <div class="testi-grid">
-      <div class="tquote">
-        <p>"The kind of local knowledge you can't get from a guidebook &mdash; every camp, every water source, every mood of the weather."</p>
-        <div class="who"><div class="avatar placeholder"></div><div class="who-text placeholder-tag">Name/country needed</div></div>
+
+    <div id="reviews-grid" class="testi-grid">
+      <div class="reviews-loading">
+        <span class="skel-text" style="color:var(--mist);">Loading reviews&hellip;</span>
       </div>
-      <div class="tquote">
-        <p>"Replies came within hours even while we were mid-trip planning from overseas. Rare for this region."</p>
-        <div class="who"><div class="avatar placeholder"></div><div class="who-text placeholder-tag">Name/country needed</div></div>
-      </div>
-      <div class="tquote">
-        <p>"Felt like being guided by someone who has done this a thousand times, because he has."</p>
-        <div class="who"><div class="avatar placeholder"></div><div class="who-text placeholder-tag">Name/country needed</div></div>
-      </div>
+    </div>
+
+    <div style="margin-top:36px;text-align:center;">
+      <button class="btn btn-primary" onclick="openReviewModal()">Write a Review</button>
     </div>
   </div>
 </section>
+
+<div class="review-modal-backdrop" id="reviewModalBackdrop" onclick="closeReviewModal(event)">
+  <div class="review-modal" onclick="event.stopPropagation()">
+    <button class="review-modal-close" onclick="closeReviewModal()" aria-label="Close">&times;</button>
+
+    <div id="reviewFormWrap">
+      <h3 class="serif" style="font-size:22px;font-weight:500;margin-bottom:6px;">Share your experience</h3>
+      <p style="color:var(--ink-soft);font-size:13.5px;margin-bottom:20px;">Your review is checked before it goes live, so it may take a little while to appear.</p>
+
+      <label class="rlabel">Your name</label>
+      <input type="text" id="rv-name" maxlength="60" placeholder="e.g. Sarah Thompson">
+
+      <label class="rlabel">Country</label>
+      <input type="text" id="rv-country" maxlength="40" placeholder="e.g. United Kingdom">
+
+      <label class="rlabel">Rating</label>
+      <div class="star-picker" id="rv-stars">
+        <span data-v="1">&#9733;</span><span data-v="2">&#9733;</span><span data-v="3">&#9733;</span><span data-v="4">&#9733;</span><span data-v="5">&#9733;</span>
+      </div>
+
+      <label class="rlabel">Your review</label>
+      <textarea id="rv-message" maxlength="400" placeholder="Tell other travellers about your trip…"></textarea>
+      <div class="char-count"><span id="rv-charcount">0</span>/400</div>
+
+      <!-- honeypot field to deter simple spam bots -->
+      <input type="text" id="rv-website" name="website" autocomplete="off" tabindex="-1" style="position:absolute;left:-9999px;">
+
+      <button class="btn btn-primary" style="width:100%;margin-top:14px;" onclick="submitReview()">Submit review</button>
+      <div class="rv-status" id="rv-status"></div>
+    </div>
+
+    <div id="reviewThanks" style="display:none;text-align:center;padding:20px 0;">
+      <div style="font-size:36px;">&#10003;</div>
+      <h3 class="serif" style="font-size:20px;font-weight:500;margin:14px 0 8px;">Thank you!</h3>
+      <p style="color:var(--ink-soft);font-size:14px;">Your review has been submitted and will appear on the site once it's been checked.</p>
+      <button class="btn btn-outline-dark" style="margin-top:18px;" onclick="closeReviewModal()">Close</button>
+    </div>
+  </div>
+</div>
+
 
 <section class="faq" id="faq">
   <div class="wrap">
