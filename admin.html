@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Great Adventure — Admin</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,Segoe UI,Inter,sans-serif;}
+  body{background:#0A0860;color:#F3F4FA;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
+  .box{background:#0F0C7A;border:1px solid rgba(255,255,255,0.14);border-radius:6px;padding:36px;width:100%;max-width:420px;}
+  h1{font-size:20px;font-weight:600;margin-bottom:6px;}
+  p.sub{font-size:13px;color:#C7CEE8;margin-bottom:26px;}
+  label{display:block;font-size:12px;text-transform:uppercase;letter-spacing:0.04em;color:#C7CEE8;margin-bottom:6px;margin-top:16px;}
+  input,textarea{width:100%;padding:11px 13px;border-radius:4px;border:1px solid rgba(255,255,255,0.18);background:#0A0860;color:#F3F4FA;font-size:14px;}
+  textarea{min-height:80px;resize:vertical;}
+  button{margin-top:22px;width:100%;padding:13px;border:none;border-radius:4px;background:#2552FF;color:#fff;font-weight:600;font-size:14px;cursor:pointer;}
+  button:hover{background:#3E64FF;}
+  button.secondary{background:transparent;border:1px solid rgba(255,255,255,0.25);color:#F3F4FA;margin-top:10px;}
+  .toggle-row{display:flex;align-items:center;gap:10px;margin-top:18px;}
+  .toggle-row input{width:auto;}
+  .status{margin-top:16px;font-size:13px;padding:10px;border-radius:4px;display:none;}
+  .status.ok{display:block;background:rgba(107,192,120,0.15);color:#9BE1AC;}
+  .status.err{display:block;background:rgba(224,75,74,0.15);color:#F09595;}
+  .setup-note{font-size:12px;color:#8FA0A8;margin-top:20px;line-height:1.5;}
+</style>
+</head>
+<body>
+
+<div class="box" id="login-box">
+  <h1>Admin login</h1>
+  <p class="sub">Great Adventure — offer banner manager</p>
+  <label>Email</label>
+  <input type="email" id="login-email" placeholder="you@email.com">
+  <label>Password</label>
+  <input type="password" id="login-password" placeholder="Your password">
+  <button onclick="doLogin()">Log in</button>
+  <div class="status" id="login-status"></div>
+  <p class="setup-note" id="setup-note"></p>
+</div>
+
+<div class="box" id="editor-box" style="display:none;max-width:520px;">
+  <h1>Manage current offer</h1>
+  <p class="sub">Changes go live on the website immediately.</p>
+  <div class="toggle-row">
+    <input type="checkbox" id="active-toggle">
+    <label style="margin:0;">Show this offer on the website</label>
+  </div>
+  <label>Offer title</label>
+  <input type="text" id="offer-title" placeholder="e.g. New Year Special — 20% off K2 Base Camp trek">
+  <label>Offer details (optional)</label>
+  <textarea id="offer-message" placeholder="e.g. Valid for bookings made before Jan 31"></textarea>
+  <button onclick="saveOffer()">Save and publish</button>
+  <button class="secondary" onclick="doLogout()">Log out</button>
+  <div class="status" id="save-status"></div>
+</div>
+
+<div class="box" id="reviews-box" style="display:none;max-width:560px;margin-top:20px;">
+  <h1>Pending reviews</h1>
+  <p class="sub">New reviews submitted by visitors wait here until you approve them.</p>
+  <div id="pending-list"></div>
+  <h1 style="margin-top:30px;">Live reviews on the site</h1>
+  <p class="sub">Currently showing on the website. Delete any you want removed.</p>
+  <div id="approved-list"></div>
+</div>
+
+<style>
+  .rv-card{background:#0A0860;border:1px solid rgba(255,255,255,0.14);border-radius:4px;padding:14px 16px;margin-bottom:12px;}
+  .rv-card .meta{font-size:12px;color:#8FA0A8;margin-bottom:6px;}
+  .rv-card .msg{font-size:14px;color:#F3F4FA;margin-bottom:10px;line-height:1.5;}
+  .rv-card .actions{display:flex;gap:8px;}
+  .rv-card .actions button{margin-top:0;padding:8px 14px;font-size:12.5px;width:auto;}
+  .rv-card .btn-approve{background:#2E9E5B;}
+  .rv-card .btn-approve:hover{background:#38B86B;}
+  .rv-card .btn-delete{background:transparent;border:1px solid rgba(224,75,74,0.5);color:#F09595;}
+  .rv-card .btn-delete:hover{background:rgba(224,75,74,0.12);}
+  .empty-note{font-size:13px;color:#8FA0A8;padding:10px 0;}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+  const SUPABASE_URL = "PASTE_YOUR_SUPABASE_URL_HERE";
+  const SUPABASE_ANON_KEY = "PASTE_YOUR_SUPABASE_ANON_KEY_HERE";
+  let sb;
+  function showStatus(id, msg, ok){
+    const el = document.getElementById(id);
+    el.textContent = msg;
+    el.className = "status " + (ok ? "ok" : "err");
+  }
+  window.onload = function(){
+    if(SUPABASE_URL.indexOf("PASTE_") === 0){
+      document.getElementById("setup-note").innerHTML = "Setup needed: paste your Supabase URL and anon key into this file, then refresh. See SETUP-GUIDE.md.";
+      return;
+    }
+    sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    sb.auth.getSession().then(({data}) => { if(data.session) showEditor(); });
+  };
+  async function doLogin(){
+    const email = document.getElementById("login-email").value.trim();
+    const password = document.getElementById("login-password").value;
+    const { error } = await sb.auth.signInWithPassword({ email, password });
+    if(error){ showStatus("login-status", error.message, false); return; }
+    showEditor();
+  }
+  async function doLogout(){
+    await sb.auth.signOut();
+    document.getElementById("editor-box").style.display = "none";
+    document.getElementById("login-box").style.display = "block";
+  }
+  async function showEditor(){
+    document.getElementById("login-box").style.display = "none";
+    document.getElementById("editor-box").style.display = "block";
+    document.getElementById("reviews-box").style.display = "block";
+    const { data } = await sb.from("announcements").select("*").eq("id", 1).single();
+    if(data){
+      document.getElementById("active-toggle").checked = !!data.active;
+      document.getElementById("offer-title").value = data.title || "";
+      document.getElementById("offer-message").value = data.message || "";
+    }
+    loadReviewLists();
+  }
+  async function saveOffer(){
+    const payload = {
+      id: 1,
+      active: document.getElementById("active-toggle").checked,
+      title: document.getElementById("offer-title").value.trim(),
+      message: document.getElementById("offer-message").value.trim(),
+      updated_at: new Date().toISOString()
+    };
+    const { error } = await sb.from("announcements").upsert(payload);
+    if(error){ showStatus("save-status", error.message, false); return; }
+    showStatus("save-status", "Saved. Live on the website now.", true);
+  }
+
+  function stars(n){
+    n = Math.max(1, Math.min(5, parseInt(n,10) || 5));
+    let s = "";
+    for(let i=1;i<=5;i++) s += (i<=n) ? "★" : "☆";
+    return s;
+  }
+  function escapeHtml(str){
+    const d = document.createElement('div');
+    d.textContent = str || "";
+    return d.innerHTML;
+  }
+
+  async function loadReviewLists(){
+    const pendingEl = document.getElementById("pending-list");
+    const approvedEl = document.getElementById("approved-list");
+    pendingEl.innerHTML = "Loading…";
+    approvedEl.innerHTML = "Loading…";
+
+    const { data: pending } = await sb.from("reviews").select("*").eq("approved", false).order("created_at", { ascending: false });
+    const { data: approved } = await sb.from("reviews").select("*").eq("approved", true).order("created_at", { ascending: false });
+
+    pendingEl.innerHTML = (!pending || pending.length === 0)
+      ? '<p class="empty-note">No pending reviews right now.</p>'
+      : pending.map(r => `
+        <div class="rv-card">
+          <div class="meta">${escapeHtml(r.name)}${r.country ? " — " + escapeHtml(r.country) : ""} · ${stars(r.rating)}</div>
+          <div class="msg">${escapeHtml(r.message)}</div>
+          <div class="actions">
+            <button class="btn-approve" onclick="approveReview('${r.id}')">Approve</button>
+            <button class="btn-delete" onclick="deleteReview('${r.id}')">Delete</button>
+          </div>
+        </div>`).join("");
+
+    approvedEl.innerHTML = (!approved || approved.length === 0)
+      ? '<p class="empty-note">No live reviews yet.</p>'
+      : approved.map(r => `
+        <div class="rv-card">
+          <div class="meta">${escapeHtml(r.name)}${r.country ? " — " + escapeHtml(r.country) : ""} · ${stars(r.rating)}</div>
+          <div class="msg">${escapeHtml(r.message)}</div>
+          <div class="actions">
+            <button class="btn-delete" onclick="deleteReview('${r.id}')">Delete</button>
+          </div>
+        </div>`).join("");
+  }
+
+  async function approveReview(id){
+    await sb.from("reviews").update({ approved: true }).eq("id", id);
+    loadReviewLists();
+  }
+  async function deleteReview(id){
+    if(!confirm("Delete this review permanently?")) return;
+    await sb.from("reviews").delete().eq("id", id);
+    loadReviewLists();
+  }
+</script>
+</body>
+</html>
