@@ -223,7 +223,8 @@ async function submitInquiry(evt){
     showStatus("Thanks, " + name.split(' ')[0] + "! We've received your enquiry and will reply within a day.", false);
     document.getElementById('inquiryForm').reset();
   }catch(err){
-    showStatus("Something went wrong sending that — please try WhatsApp instead.", true);
+    const detail = (err && err.message) ? err.message : 'unknown error';
+    showStatus("Something went wrong: " + detail + " — please try WhatsApp instead.", true);
   }finally{
     btn.disabled = false;
     btn.textContent = originalText;
@@ -369,6 +370,7 @@ async function submitReview(){
     document.getElementById('reviewFormWrap').style.display = 'none';
     document.getElementById('reviewThanks').style.display = 'block';
   }catch(e){
-    showStatus('Something went wrong — please try again.', true);
+    const detail = (e && e.message) ? e.message : 'unknown error';
+    showStatus('Something went wrong: ' + detail, true);
   }
 }
