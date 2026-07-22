@@ -1,4 +1,33 @@
-// Mobile hamburger menu toggle
+// ============ Print / Save itinerary as PDF ============
+function printItinerary(){
+  window.print();
+}
+
+// ============ Tour filter tabs ============
+document.addEventListener('DOMContentLoaded', function(){
+  const filterBar = document.getElementById('tourFilters');
+  if(!filterBar) return;
+  const cards = document.querySelectorAll('#tourGrid .tcard');
+  filterBar.addEventListener('click', function(e){
+    const btn = e.target.closest('.filter-tab');
+    if(!btn) return;
+    filterBar.querySelectorAll('.filter-tab').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    const filter = btn.getAttribute('data-filter');
+    cards.forEach(function(card){
+      const show = (filter === 'All' || card.getAttribute('data-category') === filter);
+      if(show){
+        card.classList.remove('fade-hidden');
+        requestAnimationFrame(function(){ card.classList.remove('fade-out'); });
+      }else{
+        card.classList.add('fade-out');
+        setTimeout(function(){ card.classList.add('fade-hidden'); }, 250);
+      }
+    });
+  });
+});
+
+// ============ Mobile hamburger menu toggle ============
 function toggleMenu(){
   document.getElementById('hamburger').classList.toggle('open');
   document.getElementById('mobileMenu').classList.toggle('open');
@@ -33,8 +62,8 @@ document.addEventListener('click', function(e){
 })();
 
 // Offer banner — reads from Supabase, set up per SETUP-GUIDE.md
-const SUPABASE_URL = "PASTE_YOUR_SUPABASE_URL_HERE";
-const SUPABASE_ANON_KEY = "PASTE_YOUR_SUPABASE_ANON_KEY_HERE";
+const SUPABASE_URL = "https://jyotzntfainfpgxbolum.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp5b3R6bnRmYWluZnBneGJvbHVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ2NTQ0ODgsImV4cCI6MjEwMDIzMDQ4OH0.zbN70O5KdI0WDc8m0Pru6LBCQnBMwBnTXmDfXlJal1o";
 
 async function loadOfferBanner(){
   if(SUPABASE_URL.indexOf("PASTE_") === 0) return;
@@ -142,6 +171,77 @@ function getSb(){
   if(!window._sbClient) window._sbClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   return window._sbClient;
 }
+
+// ============ Contact form: submit enquiry to Supabase ============
+async function submitInquiry(evt){
+  evt.preventDefault();
+  const btn = document.getElementById('inq-submit-btn');
+  const statusEl = document.getElementById('inq-status');
+  function showStatus(msg, isErr){
+    statusEl.style.display = 'block';
+    statusEl.textContent = msg;
+    statusEl.style.background = isErr ? 'rgba(224,75,74,0.12)' : 'rgba(28,138,75,0.12)';
+    statusEl.style.color = isErr ? 'var(--bad)' : 'var(--good)';
+  }
+
+  // honeypot — if this hidden field got filled, it's a bot, silently drop it
+  if(document.getElementById('inq-hp').value){
+    showStatus("Thanks! We'll be in touch shortly.", false);
+    document.getElementById('inquiryForm').reset();
+    return;
+  }
+
+  const name = document.getElementById('inq-name').value.trim();
+  const email = document.getElementById('inq-email').value.trim();
+  const tour = document.getElementById('inq-tour').value;
+  const message = document.getElementById('inq-message').value.trim();
+
+  if(!name || !email){
+    showStatus("Please fill in your name and email.", true);
+    return;
+  }
+
+  const sb = getSb();
+  if(!sb){
+    showStatus("Booking system isn't connected yet — please WhatsApp us directly instead.", true);
+    return;
+  }
+
+  btn.disabled = true;
+  const originalText = btn.textContent;
+  btn.textContent = "Sending…";
+
+  try{
+    const { error } = await sb.from('inquiries').insert({
+      name: name,
+      email: email,
+      tour: tour,
+      message: message,
+      status: 'new'
+    });
+    if(error) throw error;
+    showStatus("Thanks, " + name.split(' ')[0] + "! We've received your enquiry and will reply within a day.", false);
+    document.getElementById('inquiryForm').reset();
+  }catch(err){
+    showStatus("Something went wrong sending that — please try WhatsApp instead.", true);
+  }finally{
+    btn.disabled = false;
+    btn.textContent = originalText;
+  }
+}
+
+// ============ Auto-select tour in contact form from ?tour= URL param ============
+// Lets "Enquire now" buttons on itinerary pages land here with the right tour pre-selected.
+document.addEventListener('DOMContentLoaded', function(){
+  const params = new URLSearchParams(window.location.search);
+  const tourParam = params.get('tour');
+  const select = document.getElementById('inq-tour');
+  if(tourParam && select){
+    const options = Array.from(select.options);
+    const match = options.find(function(o){ return o.value === tourParam; });
+    if(match) select.value = tourParam;
+  }
+});
 
 function renderStars(n){
   n = Math.max(1, Math.min(5, parseInt(n, 10) || 5));

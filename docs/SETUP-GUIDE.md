@@ -1,13 +1,18 @@
 # Great Adventure — Admin Panel Setup Guide
 
-Ye guide follow karein taake sirf aapke paas offer-banner edit karne ka access ho.
+Ye guide follow karein taake sirf aapke paas offer-banner, reviews, aur customer enquiries manage karne ka access ho.
 
-## Step 1 — Free Supabase account banayein
-1. https://supabase.com par jayein → "Start your project" → apne email se signup karein
-2. Naya project banayein (naam: `great-adventure`), strong database password set karein aur save kar lein
+## ✅ Supabase already connected hai
+Project URL aur **anon public key** already `js/main.js` aur `admin.html` mein daal diye gaye hain — Step 4-5 skip kar sakte hain. Aapko sirf **Step 2, 2b, aur 2c** ke SQL commands apne Supabase project mein run karne hain (agar pehle nahi kiye), aur **Step 3** mein apna admin login banana hai.
 
-## Step 2 — Table banayein
-SQL Editor mein ye paste karke Run karein:
+## ⚠️ service_role key kabhi website files mein na daalein
+Supabase har project ke sath do keys deta hai: **anon public key** (safe, website mein use hoti hai) aur **service_role secret key** (poori database tak full access deti hai, bina kisi restriction ke). service_role key sirf Supabase dashboard tak mehdood rakhein — kabhi bhi kisi HTML/JS file mein na daalein, warna koi bhi jo aapki website ka source code dekhega, poori database access kar sakta hai. Great Adventure ki files mein sirf anon key use hoti hai — ye jaan-boojh kar kiya gaya hai.
+
+## Step 1 — Supabase account (already done)
+Project ban chuka hai, URL/key connected hain.
+
+## Step 2 — Announcements table (offer banner ke liye)
+Agar pehle se nahi bana hai, Supabase SQL Editor mein ye run karein:
 
 ```sql
 create table announcements (
@@ -23,8 +28,7 @@ create policy "Public can read" on announcements for select using (true);
 create policy "Only logged in admin can update" on announcements for all using (auth.role() = 'authenticated');
 ```
 
-## Step 2b — Reviews table banayein (visitors ke reviews ke liye)
-Wahi SQL Editor mein ye bhi paste karke Run karein:
+## Step 2b — Reviews table (visitors ke reviews ke liye)
 
 ```sql
 create table reviews (
@@ -38,37 +42,56 @@ create table reviews (
 );
 alter table reviews enable row level security;
 
--- Sab log sirf APPROVED reviews dekh sakein
 create policy "Public can read approved reviews" on reviews
   for select using (approved = true);
-
--- Koi bhi visitor naya review submit kar sake, lekin khud ko "approved" nahi kar sakta
 create policy "Public can submit reviews" on reviews
   for insert with check (approved = false);
-
--- Sirf aapka admin login review ko approve/delete kar sake
 create policy "Only admin can manage reviews" on reviews
   for all using (auth.role() = 'authenticated');
 ```
 
-Is se ye guarantee hoti hai: **koi bhi visitor review likh sakta hai, lekin sirf aap (admin login se) usko approve karne ke baad hi wo website pe dikhega.** Homepage sirf latest 9 approved reviews dikhati hai — is se site hamesha halki/fast rehti hai chahe kitne bhi reviews aa jayein. Purane reviews delete karne ke liye admin panel mein "Live reviews" list se Delete button use karein.
+Is se ye guarantee hoti hai: **koi bhi visitor review likh sakta hai, lekin sirf aap (admin login se) usko approve karne ke baad hi wo website pe dikhega.** Homepage sirf latest 9 approved reviews dikhati hai — is se site hamesha halki/fast rehti hai chahe kitne bhi reviews aa jayein.
+
+## Step 2c — Inquiries table (contact form ke messages ke liye)
+Website ke "Send enquiry" form ko is table ki zaroorat hai — bina is ke form submit fail ho jayega:
+
+```sql
+create table inquiries (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  email text not null,
+  tour text,
+  message text,
+  status text not null default 'new',
+  created_at timestamptz default now()
+);
+alter table inquiries enable row level security;
+
+-- Koi bhi visitor enquiry submit kar sake
+create policy "Public can submit inquiries" on inquiries
+  for insert with check (true);
+
+-- Sirf aap (admin login) enquiries dekh/manage kar sakein — koi aur visitor doosron ki enquiries nahi dekh sakta
+create policy "Only admin can view inquiries" on inquiries
+  for select using (auth.role() = 'authenticated');
+create policy "Only admin can manage inquiries" on inquiries
+  for update using (auth.role() = 'authenticated');
+create policy "Only admin can delete inquiries" on inquiries
+  for delete using (auth.role() = 'authenticated');
+```
+
+Ab jab koi tourist contact form bharega, uska message seedha **admin panel ke "Customer enquiries" section** mein aayega — email ya WhatsApp check karne ki zaroorat nahi, sab ek jagah milega.
 
 ## Step 3 — Apna admin login banayein
-Authentication → Users → Add user (email/password) — ye credentials sirf aapke paas rahenge.
-
-## Step 4 — API keys copy karein
-Project Settings → API se Project URL aur anon public key copy karein.
-
-## Step 5 — Paste karein
-`js/main.js` aur `admin.html` — dono mein ye lines dhoondh kar apni values daalein:
-```
-const SUPABASE_URL = "PASTE_YOUR_SUPABASE_URL_HERE";
-const SUPABASE_ANON_KEY = "PASTE_YOUR_SUPABASE_ANON_KEY_HERE";
-```
+Supabase dashboard → Authentication → Users → Add user (email/password) — ye credentials sirf aapke paas rahenge, admin.html isi se login hota hai.
 
 ## Step 6 — Test karein
-`admin.html` khol kar login karein, offer likhein, save karein, phir `index.html` khol kar banner check karein.
+1. `admin.html` khol kar login karein
+2. Offer banner likh ke save karein, `index.html` khol kar check karein
+3. Website ke contact form se ek test enquiry bhejein, phir admin panel ke "Customer enquiries" section mein refresh karke check karein ke wo aa gayi
 
 ## Security tips
-- `admin.html` ka link kahin public na karein
-- Supabase login kisi se share na karein
+- `admin.html` ka link kahin public na karein (site ke menu mein na daalein)
+- Supabase login credentials aur service_role key kisi ke sath share na karein
+- Domain aur hosting ka login bhi sirf aapke paas rahe
+

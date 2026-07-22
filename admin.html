@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow">
 <style>
   *{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,Segoe UI,Inter,sans-serif;}
-  body{background:#0A0860;color:#F3F4FA;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
+  body{background:#0A0860;color:#F3F4FA;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:40px 20px;gap:20px;}
   .box{background:#0F0C7A;border:1px solid rgba(255,255,255,0.14);border-radius:6px;padding:36px;width:100%;max-width:420px;}
   h1{font-size:20px;font-weight:600;margin-bottom:6px;}
   p.sub{font-size:13px;color:#C7CEE8;margin-bottom:26px;}
@@ -55,13 +55,19 @@
   <div class="status" id="save-status"></div>
 </div>
 
-<div class="box" id="reviews-box" style="display:none;max-width:560px;margin-top:20px;">
+<div class="box" id="reviews-box" style="display:none;max-width:560px;">
   <h1>Pending reviews</h1>
   <p class="sub">New reviews submitted by visitors wait here until you approve them.</p>
   <div id="pending-list"></div>
   <h1 style="margin-top:30px;">Live reviews on the site</h1>
   <p class="sub">Currently showing on the website. Delete any you want removed.</p>
   <div id="approved-list"></div>
+</div>
+
+<div class="box" id="inquiries-box" style="display:none;max-width:640px;">
+  <h1>Customer enquiries</h1>
+  <p class="sub">Messages submitted through the "Send enquiry" form on the website, newest first.</p>
+  <div id="inquiries-list"></div>
 </div>
 
 <style>
@@ -75,12 +81,26 @@
   .rv-card .btn-delete{background:transparent;border:1px solid rgba(224,75,74,0.5);color:#F09595;}
   .rv-card .btn-delete:hover{background:rgba(224,75,74,0.12);}
   .empty-note{font-size:13px;color:#8FA0A8;padding:10px 0;}
+  .iq-card{background:#0A0860;border:1px solid rgba(255,255,255,0.14);border-radius:4px;padding:14px 16px;margin-bottom:12px;}
+  .iq-card .top-row{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:6px;}
+  .iq-card .who{font-size:14px;font-weight:600;color:#F3F4FA;}
+  .iq-card .email{font-size:12px;color:#8FA0A8;}
+  .iq-card .badge{font-size:10.5px;text-transform:uppercase;letter-spacing:0.04em;padding:3px 9px;border-radius:20px;white-space:nowrap;}
+  .iq-card .badge.new{background:rgba(232,184,75,0.18);color:#E8B84B;}
+  .iq-card .badge.contacted{background:rgba(46,158,91,0.18);color:#5CD98A;}
+  .iq-card .tour{font-size:12px;color:#9EB2FF;margin-bottom:6px;font-family:monospace;}
+  .iq-card .msg{font-size:13.5px;color:#F3F4FA;margin-bottom:10px;line-height:1.5;}
+  .iq-card .date{font-size:11px;color:#8FA0A8;margin-bottom:10px;}
+  .iq-card .actions{display:flex;gap:8px;flex-wrap:wrap;}
+  .iq-card .actions button{margin-top:0;padding:8px 14px;font-size:12.5px;width:auto;}
+  .iq-card .btn-contacted{background:#2E9E5B;}
+  .iq-card .btn-contacted:hover{background:#38B86B;}
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
-  const SUPABASE_URL = "PASTE_YOUR_SUPABASE_URL_HERE";
-  const SUPABASE_ANON_KEY = "PASTE_YOUR_SUPABASE_ANON_KEY_HERE";
+  const SUPABASE_URL = "https://jyotzntfainfpgxbolum.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp5b3R6bnRmYWluZnBneGJvbHVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ2NTQ0ODgsImV4cCI6MjEwMDIzMDQ4OH0.zbN70O5KdI0WDc8m0Pru6LBCQnBMwBnTXmDfXlJal1o";
   let sb;
   function showStatus(id, msg, ok){
     const el = document.getElementById(id);
@@ -111,6 +131,7 @@
     document.getElementById("login-box").style.display = "none";
     document.getElementById("editor-box").style.display = "block";
     document.getElementById("reviews-box").style.display = "block";
+    document.getElementById("inquiries-box").style.display = "block";
     const { data } = await sb.from("announcements").select("*").eq("id", 1).single();
     if(data){
       document.getElementById("active-toggle").checked = !!data.active;
@@ -118,6 +139,7 @@
       document.getElementById("offer-message").value = data.message || "";
     }
     loadReviewLists();
+    loadInquiries();
   }
   async function saveOffer(){
     const payload = {
@@ -185,6 +207,52 @@
     if(!confirm("Delete this review permanently?")) return;
     await sb.from("reviews").delete().eq("id", id);
     loadReviewLists();
+  }
+
+  function formatDate(iso){
+    if(!iso) return "";
+    const d = new Date(iso);
+    return d.toLocaleDateString(undefined, { day:'numeric', month:'short', year:'numeric' }) + " · " +
+           d.toLocaleTimeString(undefined, { hour:'2-digit', minute:'2-digit' });
+  }
+
+  async function loadInquiries(){
+    const el = document.getElementById("inquiries-list");
+    el.innerHTML = "Loading…";
+    const { data, error } = await sb.from("inquiries").select("*").order("created_at", { ascending: false }).limit(100);
+    if(error){
+      el.innerHTML = '<p class="empty-note">Could not load enquiries — make sure the "inquiries" table exists (see SETUP-GUIDE.md).</p>';
+      return;
+    }
+    el.innerHTML = (!data || data.length === 0)
+      ? '<p class="empty-note">No enquiries yet — they\'ll show up here as soon as someone submits the contact form.</p>'
+      : data.map(iq => `
+        <div class="iq-card">
+          <div class="top-row">
+            <div>
+              <div class="who">${escapeHtml(iq.name)}</div>
+              <div class="email">${escapeHtml(iq.email)}</div>
+            </div>
+            <span class="badge ${iq.status === 'contacted' ? 'contacted' : 'new'}">${iq.status === 'contacted' ? 'Contacted' : 'New'}</span>
+          </div>
+          <div class="tour">${escapeHtml(iq.tour || 'Not specified')}</div>
+          <div class="date">${formatDate(iq.created_at)}</div>
+          ${iq.message ? `<div class="msg">${escapeHtml(iq.message)}</div>` : ''}
+          <div class="actions">
+            ${iq.status !== 'contacted' ? `<button class="btn-contacted" onclick="markContacted('${iq.id}')">Mark as contacted</button>` : ''}
+            <button class="btn-delete" onclick="deleteInquiry('${iq.id}')">Delete</button>
+          </div>
+        </div>`).join("");
+  }
+
+  async function markContacted(id){
+    await sb.from("inquiries").update({ status: "contacted" }).eq("id", id);
+    loadInquiries();
+  }
+  async function deleteInquiry(id){
+    if(!confirm("Delete this enquiry permanently?")) return;
+    await sb.from("inquiries").delete().eq("id", id);
+    loadInquiries();
   }
 </script>
 </body>

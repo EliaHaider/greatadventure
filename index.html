@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=3">
+<link rel="stylesheet" href="css/style.css?v=4">
 </head>
 <body>
 
@@ -287,8 +287,15 @@
       <h2>Routes we know better than most.</h2>
       <p>Every itinerary below is one we've personally run, not one assembled from a brochure.</p>
     </div>
-    <div class="card-grid">
-      <div class="tcard">
+    <div class="filter-tabs" id="tourFilters">
+      <button class="filter-tab active" data-filter="All">All</button>
+      <button class="filter-tab" data-filter="Trek">Treks</button>
+      <button class="filter-tab" data-filter="Expedition">Expeditions</button>
+      <button class="filter-tab" data-filter="Culture">Culture</button>
+      <button class="filter-tab" data-filter="Custom">Custom</button>
+    </div>
+    <div class="card-grid" id="tourGrid">
+      <div class="tcard" data-category="Trek">
         <div class="tcard-img img-frame"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/tours/tour-k2-base-camp.jpg" alt="K2 Base Camp & Concordia trek" loading="lazy"></div>
         <div class="tcard-body">
           <div class="tag">Trek</div>
@@ -299,7 +306,7 @@
           <a href="k2-base-camp.html" class="itin-btn">View Full Itinerary</a>
         </div>
       </div>
-      <div class="tcard">
+      <div class="tcard" data-category="Trek">
         <div class="tcard-img img-frame"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/tours/tour-deosai-plains.jpg" alt="Deosai Plains" loading="lazy"></div>
         <div class="tcard-body">
           <div class="tag">Trek</div>
@@ -310,7 +317,7 @@
           <a href="deosai-plains.html" class="itin-btn">View Full Itinerary</a>
         </div>
       </div>
-      <div class="tcard">
+      <div class="tcard" data-category="Expedition">
         <div class="tcard-img img-frame"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/tours/tour-gasherbrum-base-camp.jpg" alt="Gasherbrum Base Camp" loading="lazy"></div>
         <div class="tcard-body">
           <div class="tag">Expedition</div>
@@ -321,7 +328,7 @@
           <a href="gasherbrum-base-camp.html" class="itin-btn">View Full Itinerary</a>
         </div>
       </div>
-      <div class="tcard">
+      <div class="tcard" data-category="Trek">
         <div class="tcard-img img-frame"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/tours/tour-trango-towers.jpg" alt="Trango Towers Base Camp" loading="lazy"></div>
         <div class="tcard-body">
           <div class="tag">Trek</div>
@@ -332,7 +339,7 @@
           <a href="trango-towers.html" class="itin-btn">View Full Itinerary</a>
         </div>
       </div>
-      <div class="tcard">
+      <div class="tcard" data-category="Culture">
         <div class="tcard-img img-frame"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/tours/tour-shigar-valley.jpg" alt="Skardu & Shigar Valley" loading="lazy"></div>
         <div class="tcard-body">
           <div class="tag">Culture</div>
@@ -343,7 +350,7 @@
           <a href="shigar-valley.html" class="itin-btn">View Full Itinerary</a>
         </div>
       </div>
-      <div class="tcard">
+      <div class="tcard" data-category="Trek">
         <div class="tcard-img img-frame"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/tours/tour-gondogoro-la.jpg" alt="Gondogoro La Crossing" loading="lazy"></div>
         <div class="tcard-body">
           <div class="tag">Trek</div>
@@ -354,7 +361,7 @@
           <a href="gondogoro-la.html" class="itin-btn">View Full Itinerary</a>
         </div>
       </div>
-      <div class="tcard">
+      <div class="tcard" data-category="Custom">
         <div class="tcard-img img-frame"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/tours/tour-custom.jpg" alt="Custom itinerary" loading="lazy"></div>
         <div class="tcard-body">
           <div class="tag">Custom</div>
@@ -557,18 +564,18 @@
       <div class="eyebrow">Get in touch</div>
       <h2 class="serif" style="font-size:30px;font-weight:500;margin:14px 0 18px;">Tell us what you have in mind.</h2>
       <p>Whether it's a fixed departure or a fully custom itinerary, send us your dates and we'll reply with a plan &mdash; usually within a day.</p>
-      <div class="row"><div><b>WhatsApp</b><span><a href="https://wa.me/923109373572" target="_blank" rel="noopener">0310 9373572</a></span></div></div>
+      <div class="row"><div><b>WhatsApp</b><span><a href="https://wa.me/923109373572?text=Hi%20Great%20Adventure%21%20I%27d%20like%20to%20know%20more%20about%20your%20treks%20in%20Baltistan." target="_blank" rel="noopener">0310 9373572</a></span></div></div>
       <div class="row"><div><b>Email</b><span><a href="mailto:haiderhashmi112201@gmail.com">haiderhashmi112201@gmail.com</a></span></div></div>
       <div class="row"><div><b>Based in</b><span>Skardu, Gilgit-Baltistan, Pakistan</span></div></div>
       <div class="map-embed placeholder"><span class="placeholder-tag" style="margin:auto;">Office location / map pin needed</span></div>
     </div>
-    <form class="cform" onsubmit="return false;">
+    <form class="cform" id="inquiryForm" onsubmit="submitInquiry(event)">
       <label>Full name</label>
-      <input type="text" placeholder="Your name">
+      <input type="text" id="inq-name" placeholder="Your name" required>
       <label>Email</label>
-      <input type="email" placeholder="you@email.com">
+      <input type="email" id="inq-email" placeholder="you@email.com" required>
       <label>Interested in</label>
-      <select>
+      <select id="inq-tour">
         <option>K2 Base Camp & Concordia</option>
         <option>Deosai Plains</option>
         <option>Gasherbrum Base Camp</option>
@@ -578,14 +585,16 @@
         <option>Custom itinerary</option>
       </select>
       <label>Message</label>
-      <textarea placeholder="Preferred dates, group size, anything else we should know"></textarea>
-      <button type="submit" class="btn btn-primary">Send enquiry &rarr;</button>
+      <textarea id="inq-message" placeholder="Preferred dates, group size, anything else we should know"></textarea>
+      <input type="text" id="inq-hp" name="company" autocomplete="off" tabindex="-1" style="position:absolute;left:-9999px;" aria-hidden="true">
+      <button type="submit" class="btn btn-primary" id="inq-submit-btn">Send enquiry &rarr;</button>
+      <div class="status" id="inq-status" style="display:none;margin-top:14px;padding:12px 14px;border-radius:6px;font-size:13.5px;"></div>
     </form>
   </div>
 </section>
 
 <div class="float-stack">
-  <a href="https://wa.me/923109373572" target="_blank" rel="noopener" class="float-btn wa-float" aria-label="Chat on WhatsApp" title="Chat on WhatsApp">&#9990;</a>
+  <a href="https://wa.me/923109373572?text=Hi%20Great%20Adventure%21%20I%27d%20like%20to%20know%20more%20about%20your%20treks%20in%20Baltistan." target="_blank" rel="noopener" class="float-btn wa-float" aria-label="Chat on WhatsApp" title="Chat on WhatsApp">&#9990;</a>
   <a href="#" class="float-btn fb-float" aria-label="Message on Facebook" title="Message on Facebook">f</a>
 </div>
 
@@ -606,8 +615,8 @@
         <div>
           <h4>Contact</h4>
           <a href="#contact">Enquire</a>
-          <a href="https://wa.me/923109373572" target="_blank" rel="noopener">WhatsApp</a>
-          <a href="#">Instagram</a>
+          <a href="https://wa.me/923109373572?text=Hi%20Great%20Adventure%21%20I%27d%20like%20to%20know%20more%20about%20your%20treks%20in%20Baltistan." target="_blank" rel="noopener">WhatsApp</a>
+          <a href="terms.html">Booking Terms</a><a href="#">Instagram</a>
         </div>
       </div>
     </div>
@@ -620,6 +629,6 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<script src="js/main.js"></script>
+<script src="js/main.js?v=4"></script>
 </body>
 </html>

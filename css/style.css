@@ -314,10 +314,20 @@ section{padding:90px 0;}
 
 /* ============ SERVICES ============ */
 .services{background:var(--paper);}
+.filter-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:34px;}
+.filter-tab{
+  padding:9px 20px;border-radius:30px;border:1px solid var(--line);background:var(--cream);
+  font-size:13.5px;font-weight:500;color:var(--ink-soft);cursor:pointer;transition:all .2s ease;
+  font-family:'Inter',sans-serif;
+}
+.filter-tab:hover{border-color:var(--blue-dim);color:var(--ink);}
+.filter-tab.active{background:var(--navy);border-color:var(--navy);color:#fff;}
+.tcard.fade-out{opacity:0;transform:scale(0.96);pointer-events:none;}
+.tcard.fade-hidden{display:none;}
 .card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
 .tcard{
   background:var(--cream);border:1px solid var(--line);padding:0;border-radius:2px;
-  display:flex;flex-direction:column;transition:border-color .2s;overflow:hidden;min-width:0;
+  display:flex;flex-direction:column;transition:border-color .2s, opacity .25s ease, transform .25s ease;overflow:hidden;min-width:0;
 }
 .tcard:hover{border-color:var(--blue-dim);}
 .tcard-img{height:145px;overflow:hidden;}
@@ -512,3 +522,23 @@ footer{background:var(--deep);color:var(--mist);padding:44px 0 26px;}
 .rv-status{margin-top:12px;font-size:13px;text-align:center;display:none;}
 .rv-status.show{display:block;}
 .rv-status.err{color:var(--bad);}
+
+/* ============ PRINT ============ */
+@media print{
+  header,.mobile-menu,.float-stack,#offer-banner,.btn-print,footer,.hero-float-cards,
+  .filter-tabs,.faq,.hero-badges-row,.trust-strip,.hero-pill,.newsletter,#reviewModal{
+    display:none !important;
+  }
+  body{background:#fff;color:#000;}
+  .itin-hero{background:#fff !important;color:#000 !important;padding:20px 0 !important;}
+  .itin-hero .eyebrow,.itin-hero p{color:#333 !important;}
+  .itin-quickfacts div{border-color:#ccc !important;}
+  .itin-quickfacts .n,.itin-quickfacts .l{color:#000 !important;}
+  .price-box{background:#f0f0f0 !important;color:#000 !important;}
+  .day-item{border-left-color:#999;page-break-inside:avoid;}
+  .day-item::before{background:#000;}
+  .sb-card{border:1px solid #ccc;background:#fff !important;}
+  a{color:#000 !important;text-decoration:none;}
+  .itin-layout{grid-template-columns:1fr !important;}
+  section{padding:10px 0 !important;}
+}
