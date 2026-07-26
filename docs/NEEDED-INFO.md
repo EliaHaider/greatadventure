@@ -1,73 +1,61 @@
 # Great Adventure — Missing Information Checklist (Updated)
 
-Ye file un sab cheezon ki list hai jo abhi website mein **placeholder** ke roop mein hain. Jab dost se ye info mil jaye, mujhe bata dein — main seedha website mein daal dunga.
+Ye file un sab cheezon ki list hai jo abhi bhi website mein **placeholder** ke roop mein hain.
 
 ---
 
-## 1. Legal / Trust Info
-- [ ] GB Tourism Department **registration number**
-- [ ] PATO membership — hai ya nahi, number
-- [ ] BAATO membership — hai ya nahi, number
-- [ ] Company ka poora legal/registered naam (agar "Great Adventure" se alag ho)
-- [ ] Office address (Skardu mein exact location)
+## ✅ Ab Confirm/Add Ho Chuki Cheezein
+- [x] WhatsApp number — **0355 5585368**
+- [x] Email — **haiderhashmi112201@gmail.com**
+- [x] Team: naam + titles (Reehan Shah / Ali Raza / Rehman Ali / Hira Khan)
+- [x] 5 tours ki prices (K2 Base Camp $2,150, K2 & Broad Peak $2,550, Trango $1,880, Shigar Valley $450, Gondogoro La $2,450)
+- [x] Deposit policy — 30% non-refundable, balance on arrival
+- [x] Cancellation tiers — 30+/15-29/<14 days
+- [x] License/registration badges — **hidden for now** (1 month tak wait karna hai)
+- [x] Office/Google Maps section — **hata diya gaya**, koi office nahi hai
+
+## 1. Baaki Legal / Trust Info
+- [ ] GB Tourism Department registration number (1 month baad wapas add karna hai)
+- [ ] PATO / BAATO membership number (agar apply karein)
+- [ ] Payment method — bank transfer / Wise / Payoneer / cash on arrival (terms.html mein abhi placeholder hai)
 
 ## 2. Contact Details
-- [x] WhatsApp number — 0310 9171572 ✅ added
-- [x] Email address — haiderhashmi112201@gmail.com ✅ added
 - [ ] Facebook Page link
 - [ ] Instagram handle
-- [ ] Office ka Google Maps pin / exact coordinates
 
 ## 3. Team
-- [ ] Founder ka naam, designation, **photo**
-- [ ] Lead guide, logistics coordinator, safety officer ke naam + **photos**
-- [ ] Sab ka ek chhota intro (1-2 line)
+- [x] Sab 4 members ke naam + titles set ho chuke hain
+- [ ] **Photos** — round/profile-style photos chahiye har member ki (`images/team/team-founder.jpg` waghera — naming guide docs/IMAGE-GUIDE.md mein hai)
+- [ ] Har member ka 1-2 line intro (optional, achi baat hogi)
 
-## 4. Tours — Ab 6 Packages Hain (Nanga Parbat hata diya gaya hai)
-1. K2 Base Camp & Concordia — 16 days
-2. Deosai Plains — 4 days
-3. Gasherbrum Base Camp — 18 days *(naya add kiya)*
-4. Trango Towers Base Camp — 12 days *(naya add kiya)*
-5. Skardu & Shigar Valley — 3 days
-6. Gondogoro La Crossing — 18 days
+## 4. Tours — Ab 7 Cards Hain
+1. K2 Base Camp & Concordia — 18-20 days — **$2,150** ✅
+2. Deosai Plains — 4 days — price abhi bhi missing
+3. **K2 & Broad Peak Base Camp** (pehle "Gasherbrum Base Camp" tha, rename kiya) — 18-20 days — **$2,550** ✅
+4. Trango Towers Base Camp — 12 days — **$1,880** ✅
+5. Skardu & Shigar Valley — 3-5 days — **$450** ✅
+6. Gondogoro La Crossing — 20-22 days — **$2,450** ✅
+7. Custom itineraries — price on request (theek hai, fixed price nahi honi chahiye)
 
-Har tour ke liye (main page card + uske alag itinerary page dono jagah) chahiye:
-- [ ] **Price per person** (PKR ya USD)
-- [ ] Group size min/max (abhi maine andaza se likha hai, confirm karein)
-- [ ] Exact inclusions/exclusions (agar general list se alag ho)
-- [ ] Kam az kam 1 achi photo har tour ke liye
+- [ ] **Deosai Plains ki price** — sirf yahi ek reh gayi hai
 
-**Zaroori:** Maine har itinerary page mein din-ba-din plan **andaze se** likha hai (real Baltoro route structure ke mutabiq) — dost se confirm karwayein ke camp sites, timings, aur reserve days sahi hain. Jahan bhi wo kuch badalna chahein, bata dein.
+## 5. Photos & Videos (Sab Se Zaroori — Abhi Bhi Baaki)
+- [ ] Team member photos (4)
+- [ ] Gallery photos (agar tour photos se alag chahiye)
+- [ ] News/blog photos (agar wo section use karna hai)
 
-## 5. Photos &amp; Videos (Sab Se Zaroori)
-- [ ] Har 6 tours ke liye kam az kam 1 achi photo
-- [ ] Gallery ke liye 5-10 landscape/action photos
-- [ ] Founder/team photos
-- [ ] Trip videos (agar hain)
+## 6. Reviews
+- [x] System live hai — visitors khud review likh sakte hain, admin panel se approve hota hai
 
-## 6. Testimonials
-- [ ] 3+ asal reviews, naam + country ke sath
-
-## 7. Visa &amp; Insurance Info
-- [ ] Visa assistance ka exact process
-- [ ] Travel insurance ke liye koi recommended provider/partner
-
-## 8. News/Blog Content (Optional, Baad Mein)
-- [ ] 2-3 chhoti updates (trail conditions, season updates) with dates and photos
-
-## 9. Business Decisions
-- [ ] Domain confirm: greatadventure.com available hai ya variation chahiye
-- [ ] Payment method — online advance ya sirf on-arrival
-- [ ] Cancellation/refund policy
+## 7. Business Decisions
+- [ ] Domain confirm — greatadventure.com available hai ya variation chahiye
+- [ ] Payment method (terms.html mein daalni hai)
 
 ---
 
-**Priority order:**
-1. WhatsApp number + Email
-2. Tour prices (sab se zyada poocha jane wala sawal)
-3. Tour photos
-4. Team photos + names
-5. Itinerary confirmation (din-ba-din plan sahi hai ya nahi)
-6. Registration numbers
-7. Testimonials
-8. Baaki sab
+**Priority ab bas ye 3 cheezein hain:**
+1. Team member photos
+2. Deosai Plains ki price
+3. Payment method (terms.html ke liye)
+
+Baaki sab kuch is session mein complete ho gaya hai.
