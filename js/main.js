@@ -15,7 +15,11 @@ document.addEventListener('DOMContentLoaded', function(){
     btn.classList.add('active');
     const filter = btn.getAttribute('data-filter');
     cards.forEach(function(card){
-      const show = (filter === 'All' || card.getAttribute('data-category') === filter);
+      // The "Custom itinerary" card is always relevant, no matter which filter
+      // tab is active — travellers should always see the option to ask for a
+      // destination that isn't on the website yet.
+      const alwaysShow = card.getAttribute('data-always-show') === 'true';
+      const show = alwaysShow || (filter === 'All' || card.getAttribute('data-category') === filter);
       if(show){
         card.classList.remove('fade-hidden');
         requestAnimationFrame(function(){ card.classList.remove('fade-out'); });
@@ -59,6 +63,23 @@ document.addEventListener('click', function(e){
     }
   }, { passive: true });
   updateHeader();
+})();
+
+// ============ Hero photo slideshow ============
+// Slowly crossfades between a few hero images instead of showing one static photo.
+// Respects prefers-reduced-motion — stays on the first image if the visitor has that set.
+(function(){
+  const slides = document.querySelectorAll('.hero-photo .hero-slide');
+  if(slides.length < 2) return;
+  const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(prefersReducedMotion) return;
+  let idx = 0;
+  setInterval(function(){
+    const next = (idx + 1) % slides.length;
+    slides[idx].classList.remove('active');
+    slides[next].classList.add('active');
+    idx = next;
+  }, 7000); // change roughly every 7s, fading gradually via the CSS transition
 })();
 
 // Offer banner — reads from Supabase, set up per SETUP-GUIDE.md
@@ -243,6 +264,18 @@ document.addEventListener('DOMContentLoaded', function(){
     if(match) select.value = tourParam;
   }
 });
+
+// ============ Auto-select tour when "Enquire Now" is clicked on this same page ============
+// Used by tour cards on the homepage itself (e.g. the Custom itinerary card), where the
+// link only jumps to #contact rather than reloading the page with a ?tour= param.
+function goToEnquiry(tourName){
+  const select = document.getElementById('inq-tour');
+  if(select){
+    const options = Array.from(select.options);
+    const match = options.find(function(o){ return o.value === tourName; });
+    if(match) select.value = tourName;
+  }
+}
 
 function renderStars(n){
   n = Math.max(1, Math.min(5, parseInt(n, 10) || 5));

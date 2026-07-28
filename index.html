@@ -60,7 +60,10 @@
 
 <section class="hero">
   <div class="hero-photo" aria-hidden="true">
-    <img src="images/tours/tour-k2-base-camp.jpg" alt="" draggable="false" oncontextmenu="return false;" onerror="this.parentElement.classList.add('no-photo');this.style.display='none';">
+    <img class="hero-slide active" src="images/tours/tour-k2-base-camp.jpg" alt="" draggable="false" oncontextmenu="return false;" onerror="this.parentElement.classList.add('no-photo');this.style.display='none';">
+    <img class="hero-slide" src="images/tours/tour-gasherbrum-g1.jpg" alt="" draggable="false" oncontextmenu="return false;" onerror="this.style.display='none';">
+    <img class="hero-slide" src="images/tours/tour-trango-towers.jpg" alt="" draggable="false" oncontextmenu="return false;" onerror="this.style.display='none';">
+    <img class="hero-slide" src="images/tours/tour-gondogoro-la.jpg" alt="" draggable="false" oncontextmenu="return false;" onerror="this.style.display='none';">
   </div>
   <div class="hero-scrim"></div>
 
@@ -350,6 +353,17 @@
           <a href="k2-broadpeak-base-camp.html" class="itin-btn">View Full Itinerary</a>
         </div>
       </div>
+      <div class="tcard" data-category="Expedition">
+        <div class="tcard-img img-frame"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/tours/tour-gasherbrum-g1.jpg" alt="Gasherbrum Base Camp" loading="lazy"></div>
+        <div class="tcard-body">
+          <div class="tag">Expedition</div>
+          <h3>Gasherbrum Base Camp</h3>
+          <p>Trek to the foot of Gasherbrum I and II, two neighbouring 8,000m giants, via the Baltoro and Abruzzi glaciers.</p>
+          <div class="badge-row"><span class="badge diff">Difficulty: Challenging</span><span class="badge season">Jun–Aug</span></div>
+          <div class="meta"><span>Duration <b>18 days</b></span><span class="price">$2,650<span style="font-size:10px;color:var(--ink-soft);">/person</span></span></div>
+          <a href="gasherbrum-base-camp.html" class="itin-btn">View Full Itinerary</a>
+        </div>
+      </div>
       <div class="tcard" data-category="Trek">
         <div class="tcard-img img-frame"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/tours/tour-trango-towers.jpg" alt="Trango Towers Base Camp" loading="lazy"></div>
         <div class="tcard-body">
@@ -383,15 +397,15 @@
           <a href="gondogoro-la.html" class="itin-btn">View Full Itinerary</a>
         </div>
       </div>
-      <div class="tcard" data-category="Custom">
+      <div class="tcard tcard-custom" data-category="Custom" data-always-show="true">
         <div class="tcard-img img-frame"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/tours/tour-custom.jpg" alt="Custom itinerary" loading="lazy"></div>
         <div class="tcard-body">
           <div class="tag">Custom</div>
-          <h3>Tailored itineraries</h3>
-          <p>Photography trips, private expeditions or family-paced journeys &mdash; built around your dates, fitness level and interests.</p>
+          <h3>Don't see your destination? Build a custom trip.</h3>
+          <p>Can't find the place you have in mind on this site? Select this option and simply tell us where you'd like to go &mdash; we'll design a private itinerary around your destination, dates, fitness level and interests. Also ideal for photography trips, private expeditions or family-paced journeys.</p>
           <div class="badge-row"><span class="badge diff">Difficulty: Flexible</span><span class="badge season">Year-round</span></div>
           <div class="meta"><span>Duration <b>Flexible</b></span><span class="price" style="font-family:'IBM Plex Mono',monospace;color:var(--navy);">On request</span></div>
-          <a href="#contact" class="itin-btn">Enquire Now</a>
+          <a href="#contact" class="itin-btn" onclick="goToEnquiry('Custom itinerary')">Enquire Now</a>
         </div>
       </div>
     </div>
@@ -580,6 +594,7 @@
         <option>K2 Base Camp & Concordia</option>
         <option>Deosai Plains</option>
         <option>K2 & Broad Peak</option>
+        <option>Gasherbrum Base Camp</option>
         <option>Trango Towers Base Camp</option>
         <option>Skardu & Shigar Valley</option>
         <option>Gondogoro La Crossing</option>
