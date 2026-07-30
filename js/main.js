@@ -3,6 +3,20 @@ function printItinerary(){
   window.print();
 }
 
+// ============ Itinerary quickfacts: click Duration or Difficulty for more info ============
+function scrollToDayByDay(){
+  const el = document.getElementById('day-by-day');
+  if(el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+function toggleDifficultyInfo(el){
+  const panel = document.getElementById('difficultyInfo');
+  if(!panel) return;
+  const isOpen = panel.style.display === 'block';
+  panel.style.display = isOpen ? 'none' : 'block';
+  if(el) el.setAttribute('aria-expanded', String(!isOpen));
+  if(!isOpen) panel.scrollIntoView({ behavior:'smooth', block:'nearest' });
+}
+
 // ============ Tour filter tabs ============
 document.addEventListener('DOMContentLoaded', function(){
   const filterBar = document.getElementById('tourFilters');

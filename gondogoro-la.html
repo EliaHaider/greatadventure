@@ -47,16 +47,11 @@
     <div class="eyebrow">Trek · Challenging</div>
     <h1>Gondogoro La Crossing — 18 Days</h1>
     <p>A demanding high pass connecting the Baltoro to the Hushe valley — for experienced trekkers seeking the complete Karakoram traverse.</p>
-    <div class="itin-quickfacts">
-      <div><div class="n">18 Days</div><div class="l">Duration</div></div>
-      <div><div class="n">Challenging</div><div class="l">Difficulty</div></div>
-      <div><div class="n">Jul – Aug</div><div class="l">Best Season</div></div>
-      <div><div class="n">2 – 10</div><div class="l">Group Size</div></div>
-      <div><div class="n">5,585 m</div><div class="l">Max Altitude</div></div>
-    </div>
-    <div class="price-box"><span class="amt placeholder-tag" style="background:transparent;border:none;color:var(--deep);font-size:20px;">Price needed</span><span class="unit">per person</span></div>
+    <div class="itin-quickfacts"><div class="qf-clickable" tabindex="0" role="button" aria-label="Jump to day-by-day itinerary" onclick="scrollToDayByDay()" onkeypress="if(event.key==='Enter')scrollToDayByDay()"><div class="n">18 Days</div><div class="l">Duration &darr;</div></div><div class="qf-clickable" tabindex="0" role="button" aria-label="What does Challenging difficulty mean" onclick="toggleDifficultyInfo(this)" onkeypress="if(event.key==='Enter')toggleDifficultyInfo(this)"><div class="n">Challenging</div><div class="l">Difficulty &darr;</div></div><div><div class="n">Jul – Aug</div><div class="l">Best Season</div></div><div><div class="n">2 – 10</div><div class="l">Group Size</div></div><div><div class="n">5,585 m</div><div class="l">Max Altitude</div></div></div>
+    <div class="difficulty-info" id="difficultyInfo" style="display:none;">This route is rated <strong>Challenging</strong>. It's recommended for participants aged 18 and above (16+ possible with a guardian and prior trekking experience, assessed case by case) who are in very good physical condition. Expect back-to-back trekking days of 6&ndash;8+ hours over rocky glacier moraine, camping above 4,000&nbsp;m for well over a week, and cold, remote conditions throughout. Prior high-altitude trekking experience and 2&ndash;3 months of dedicated cardio and endurance-hiking preparation beforehand are strongly recommended. No technical climbing gear is required, but acclimatisation discipline matters as much as leg fitness.</div>
+    <div class="price-box"><span class="amt" style="font-size:20px;">$2,250</span><span class="unit">per person</span></div>
     
-    <a href="https://wa.me/923555585368?text=Hi%21%20I%27d%20like%20to%20book%20the%20Gondogoro%20La%20Crossing%20trek%20%2820-22%20days%2C%20%242%2C450/person%29.%20Please%20confirm%20availability%20and%20next%20steps." target="_blank" rel="noopener" class="btn btn-book-wa" style="margin-top:14px;width:100%;justify-content:center;">&#9990; Book This Trek via WhatsApp</a>
+    <a href="https://wa.me/923555585368?text=Hi%21%20I%27d%20like%20to%20book%20the%20Gondogoro%20La%20Crossing%20trek%20%2820-22%20days%2C%20%242%2C250/person%29.%20Please%20confirm%20availability%20and%20next%20steps." target="_blank" rel="noopener" class="btn btn-book-wa" style="margin-top:14px;width:100%;justify-content:center;">&#9990; Book This Trek via WhatsApp</a>
     <button class="btn btn-ghost btn-print" onclick="printItinerary()" style="margin-top:16px;border-color:rgba(255,255,255,0.35);">&#128424;&#65039; Print / Save as PDF</button>
     <p style="font-size:12.5px;color:var(--mist);margin-top:14px;">A booking deposit applies. See our <a href="terms.html" style="color:#9EB2FF;text-decoration:underline;">booking terms &amp; cancellation policy</a>.</p>
   </div>
@@ -65,7 +60,7 @@
 <section class="itin-body">
   <div class="wrap itin-layout">
     <div>
-      <h2 class="serif" style="font-size:26px;font-weight:500;margin-bottom:26px;">Day by day</h2>
+      <h2 id="day-by-day" class="serif" style="font-size:26px;font-weight:500;margin-bottom:26px;">Day by day</h2>
       <div class="day-item"><div class="day-label">Day 1</div><h4>Islamabad to Skardu</h4><p>Fly or drive to Skardu.</p><span class="alt-tag">2,228 m</span></div>
       <div class="day-item"><div class="day-label">Day 2</div><h4>Skardu — preparation day</h4><p>Permits, crew introductions and supply shopping.</p><span class="alt-tag">2,228 m</span></div>
       <div class="day-item"><div class="day-label">Day 3</div><h4>Skardu to Askole</h4><p>4x4 jeep drive to the last village before the wilderness.</p><span class="alt-tag">3,000 m</span></div>
@@ -122,7 +117,7 @@
 
 <div class="float-stack">
   <a href="https://wa.me/923555585368?text=Hi%21%20I%27m%20interested%20in%20the%20Gondogoro%20La%20Crossing%20trek.%20Could%20you%20share%20more%20details%3F" target="_blank" rel="noopener" class="float-btn wa-float" aria-label="Chat on WhatsApp" title="Chat on WhatsApp">&#9990;</a>
-  <a href="#" class="float-btn fb-float" aria-label="Message on Facebook" title="Message on Facebook">f</a>
+  <a href="https://facebook.com/greatadvtours" target="_blank" rel="noopener" class="float-btn fb-float" aria-label="Message on Facebook" title="Message on Facebook">f</a>
 </div>
 
 <footer>
@@ -134,7 +129,7 @@
       </div>
       <div class="foot-links">
         <div><h4>Explore</h4><a href="index.html#about">About</a><a href="index.html#tours">Tours</a><a href="index.html#gallery">Gallery</a></div>
-        <div><h4>Contact</h4><a href="index.html#contact">Enquire</a><a href="https://wa.me/923555585368?text=Hi%21%20I%27m%20interested%20in%20the%20Gondogoro%20La%20Crossing%20trek.%20Could%20you%20share%20more%20details%3F" target="_blank" rel="noopener">WhatsApp</a><a href="terms.html">Booking Terms</a><a href="#">Instagram</a></div>
+        <div><h4>Contact</h4><a href="index.html#contact">Enquire</a><a href="https://wa.me/923555585368?text=Hi%21%20I%27m%20interested%20in%20the%20Gondogoro%20La%20Crossing%20trek.%20Could%20you%20share%20more%20details%3F" target="_blank" rel="noopener">WhatsApp</a><a href="terms.html">Booking Terms</a><a href="https://instagram.com/greatadvtours" target="_blank" rel="noopener">Instagram</a><a href="https://tiktok.com/@greatadvtours" target="_blank" rel="noopener">TikTok</a></div>
       </div>
     </div>
     <div class="fine"><span>&copy; 2026 Great Adventure. All rights reserved.</span><span>Skardu, Gilgit-Baltistan, Pakistan</span></div>
