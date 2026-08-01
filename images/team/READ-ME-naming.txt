@@ -1,8 +1,0 @@
-Is folder mein ye 4 photos save karein, isi naam se:
-
-team-founder.jpg          -> Uncle/Founder ki photo
-team-lead-guide.jpg       -> Lead Trekking Guide
-team-coordinator.jpg      -> Logistics Coordinator
-team-safety-officer.jpg   -> Safety Officer
-
-Shape: Square (1:1), close-up portrait, achi lighting zaroori hai.

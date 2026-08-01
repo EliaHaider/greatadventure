@@ -1,7 +1,0 @@
-Is folder mein ye 3 photos save karein, isi naam se (optional, baad mein bhi chalega):
-
-news-baltoro-update.jpg     -> Trail condition update post
-news-k2-booking-tips.jpg    -> Booking tips post
-news-trango-new-route.jpg   -> New route announcement
-
-Shape: Landscape.
