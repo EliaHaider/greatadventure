@@ -1,0 +1,7 @@
+Is folder mein ye 3 photos save karein, isi naam se (optional — sirf agar tourist ki permission ho):
+
+testimonial-1.jpg   -> Pehla review wale tourist ki photo
+testimonial-2.jpg   -> Dusra review
+testimonial-3.jpg   -> Teesra review
+
+Shape: Square/round crop, chota size chalega.
