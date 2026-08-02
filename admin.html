@@ -65,6 +65,10 @@
   <p class="setup-note" id="setup-note"></p>
 </div>
 
+<div class="box" id="summary-box" style="display:none;max-width:520px;padding:20px 24px;">
+  <div id="summary-row" style="display:flex;gap:22px;flex-wrap:wrap;"></div>
+</div>
+
 <div class="box" id="editor-box" style="display:none;max-width:520px;">
   <h1>Manage current offer</h1>
   <p class="sub">Changes go live on the website immediately.</p>
@@ -150,11 +154,15 @@
   }
   async function doLogout(){
     await sb.auth.signOut();
+    document.getElementById("summary-box").style.display = "none";
     document.getElementById("editor-box").style.display = "none";
     document.getElementById("login-box").style.display = "block";
+    if(window._adminPollTimer){ clearInterval(window._adminPollTimer); window._adminPollTimer = null; }
+    document.title = "Great Adventure — Admin";
   }
   async function showEditor(){
     document.getElementById("login-box").style.display = "none";
+    document.getElementById("summary-box").style.display = "block";
     document.getElementById("editor-box").style.display = "block";
     document.getElementById("reviews-box").style.display = "block";
     document.getElementById("inquiries-box").style.display = "block";
@@ -166,6 +174,13 @@
     }
     loadReviewLists();
     loadInquiries();
+    // Keep counts fresh while this tab stays open, without needing a refresh click.
+    if(!window._adminPollTimer){
+      window._adminPollTimer = setInterval(function(){
+        loadReviewLists();
+        loadInquiries();
+      }, 60000);
+    }
   }
   async function saveOffer(){
     const payload = {
@@ -190,6 +205,21 @@
     const d = document.createElement('div');
     d.textContent = str || "";
     return d.innerHTML;
+  }
+
+  // ============ Summary badge + tab title (acts as a lightweight in-app notification) ============
+  let _pendingReviewCount = 0;
+  let _newInquiryCount = 0;
+  function updateSummary(){
+    const total = _pendingReviewCount + _newInquiryCount;
+    const row = document.getElementById("summary-row");
+    if(row){
+      row.innerHTML = `
+        <div><div style="font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:500;color:${_pendingReviewCount ? 'var(--gold)' : 'var(--paper)'};">${_pendingReviewCount}</div><div style="font-size:11.5px;color:var(--mist);text-transform:uppercase;letter-spacing:0.04em;margin-top:2px;">Pending review${_pendingReviewCount === 1 ? '' : 's'}</div></div>
+        <div><div style="font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:500;color:${_newInquiryCount ? 'var(--gold)' : 'var(--paper)'};">${_newInquiryCount}</div><div style="font-size:11.5px;color:var(--mist);text-transform:uppercase;letter-spacing:0.04em;margin-top:2px;">New enquir${_newInquiryCount === 1 ? 'y' : 'ies'}</div></div>
+      `;
+    }
+    document.title = total > 0 ? `(${total}) Great Adventure — Admin` : "Great Adventure — Admin";
   }
 
   async function loadReviewLists(){
@@ -223,6 +253,9 @@
             <button class="btn-delete" onclick="deleteReview('${r.id}')">Delete</button>
           </div>
         </div>`).join("");
+
+    _pendingReviewCount = pending ? pending.length : 0;
+    updateSummary();
   }
 
   async function approveReview(id){
@@ -248,6 +281,8 @@
     const { data, error } = await sb.from("inquiries").select("*").order("created_at", { ascending: false }).limit(100);
     if(error){
       el.innerHTML = '<p class="empty-note">Could not load enquiries — make sure the "inquiries" table exists (see SETUP-GUIDE.md).</p>';
+      _newInquiryCount = 0;
+      updateSummary();
       return;
     }
     el.innerHTML = (!data || data.length === 0)
@@ -269,6 +304,9 @@
             <button class="btn-delete" onclick="deleteInquiry('${iq.id}')">Delete</button>
           </div>
         </div>`).join("");
+
+    _newInquiryCount = data ? data.filter(iq => iq.status !== 'contacted').length : 0;
+    updateSummary();
   }
 
   async function markContacted(id){

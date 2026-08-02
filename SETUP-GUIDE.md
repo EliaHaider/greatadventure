@@ -152,7 +152,84 @@ create policy "Admins can delete inquiries"
 
 ---
 
-## 6. Quick troubleshooting
+## 7. Email notifications for new reviews & enquiries
+
+By default, Supabase does nothing on its own when a new row is
+inserted — you have to explicitly tell it to notify someone. Here are
+two ways to make a new review or enquiry email you at
+**elia@greatadv.com** automatically. Pick whichever you're comfortable
+with; you only need one.
+
+### Option A — Edge Function + Resend (free, instant, no third-party subscription)
+
+This repo includes a ready-made function at
+`supabase/functions/notify-new-submission/index.ts`. It emails
+elia@greatadv.com whenever a row is inserted into `reviews` or
+`inquiries`.
+
+**One-time setup:**
+1. Create a free account at [resend.com](https://resend.com) (100
+   emails/day free, no credit card needed).
+2. In Resend, get an **API key** (Dashboard → API Keys → Create).
+3. *(Optional but recommended)* Verify your own domain in Resend
+   (Dashboard → Domains → Add greatadv.com, then add the DNS records
+   they give you). Until you do this, you can still send using
+   Resend's shared `onboarding@resend.dev` sender address for testing
+   — just change `FROM_EMAIL` in the function to that instead.
+4. Install the Supabase CLI if you don't have it:
+   `npm install -g supabase`
+5. From this project's folder, log in and link your project:
+   ```
+   supabase login
+   supabase link --project-ref your-project-ref
+   ```
+   (Your project ref is the random string in your Supabase URL, e.g.
+   `jyotzntfainfpgxbolum`.)
+6. Set the Resend key as a secret (never put API keys directly in the
+   function code):
+   ```
+   supabase secrets set RESEND_API_KEY=your_resend_api_key_here
+   ```
+7. Deploy the function:
+   ```
+   supabase functions deploy notify-new-submission
+   ```
+8. In the Supabase Dashboard: **Database → Webhooks → Create a new
+   webhook**
+   - Name: `notify-new-review`
+   - Table: `reviews`
+   - Events: `Insert`
+   - Type: `Supabase Edge Functions`
+   - Function: `notify-new-submission`
+9. Repeat step 8 for the `inquiries` table (name it
+   `notify-new-inquiry`, same function).
+
+That's it — new reviews and enquiries will now land in
+elia@greatadv.com within a few seconds of being submitted.
+
+### Option B — Zapier (no code at all)
+
+If you'd rather not touch the CLI or Edge Functions:
+1. Create a free [Zapier](https://zapier.com) account.
+2. New Zap → Trigger: **Webhooks by Zapier → Catch Hook**. Copy the
+   webhook URL Zapier gives you.
+3. In Supabase: **Database → Webhooks → Create a new webhook**
+   - Table: `reviews`, Events: `Insert`
+   - Type: `HTTP Request`
+   - URL: paste the Zapier webhook URL from step 2
+4. Back in Zapier, set the Zap's action to **Email by Zapier** (or
+   Gmail, if you connect elia@greatadv.com's inbox) → send to
+   elia@greatadv.com with the row's fields (name, message, etc.)
+   inserted into the email body.
+5. Repeat for the `inquiries` table with a second Zap.
+
+Zapier's free plan checks for new events every ~15 minutes on some
+trigger types, but Catch Hook (used above) fires instantly since
+Supabase pushes to it directly.
+
+---
+
+## 8. Quick troubleshooting
 
 - **"Setup needed" message on admin.html** → `SUPABASE_URL` still says
   `PASTE_...` — you haven't added your real project URL/key yet.
