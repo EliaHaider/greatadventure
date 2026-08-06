@@ -1,0 +1,114 @@
+GREAT ADVENTURE — IMAGE CHECKLIST
+====================================
+Every image the website code currently expects, exactly where to save
+it, and what it should show. Save each file inside an "images" folder
+at the very top level of your site (same level as index.html).
+
+FOLDER STRUCTURE
+-----------------
+images/
+├── logo/
+│   └── logo.png
+├── tours/
+│   ├── tour-k2-base-camp.jpg
+│   ├── tour-k2-broadpeak-base-camp.jpg
+│   ├── tour-deosai-plains.jpg
+│   ├── tour-gasherbrum-base-camp.jpg
+│   ├── tour-gasherbrum-g1.jpg
+│   ├── tour-trango-towers.jpg
+│   ├── tour-shigar-valley.jpg
+│   ├── tour-gondogoro-la.jpg
+│   ├── tour-masherbrum.jpg
+│   ├── tour-ogre-latok.jpg
+│   └── tour-custom.jpg
+└── gallery/
+    ├── 1.jpg   ← always the big "featured" photo — pick your best one
+    ├── 2.jpg
+    ├── 3.jpg
+    ├── 4.jpg
+    ├── 5.jpg
+    ├── 6.jpg   (optional — appears behind "View more photos")
+    ├── 7.jpg   (optional)
+    └── ... up to 20.jpg (optional)
+
+Filenames must match EXACTLY (same spelling, same hyphens, same
+lowercase, same .jpg extension) or the image will not load.
+
+---
+
+1. images/logo/logo.png
+-------------------------
+Your Great Adventure logo. Used in: the header on every page, the
+footer on every page, the browser tab icon (favicon), and the admin
+panel. PNG with a transparent background works best (it sits on both
+light and dark backgrounds across the site).
+
+---
+
+2. images/tours/  — one photo per trek, used as its card image on the homepage
+
+  tour-k2-base-camp.jpg              → K2 Base Camp & Concordia. Also
+                                        reused in the rotating hero
+                                        slideshow and a homepage floating card.
+  tour-k2-broadpeak-base-camp.jpg    → K2 & Broad Peak. (This used to
+                                        wrongly borrow the Gasherbrum photo
+                                        — now fixed to use its own file.)
+  tour-deosai-plains.jpg             → Deosai Plains. Also reused in the
+                                        hero slideshow and a floating card.
+  tour-gasherbrum-base-camp.jpg      → Gasherbrum Base Camp itinerary page
+                                        (kept for the page itself).
+  tour-gasherbrum-g1.jpg             → the Gasherbrum Base Camp homepage card
+                                        specifically.
+  tour-trango-towers.jpg             → Trango Towers Base Camp. Also reused
+                                        in the hero slideshow.
+  tour-shigar-valley.jpg             → Skardu & Shigar Valley.
+  tour-gondogoro-la.jpg              → Gondogoro La Crossing. Also reused
+                                        in the hero slideshow.
+  tour-masherbrum.jpg                → Masherbrum (K1) Base Camp.
+  tour-ogre-latok.jpg                → Ogre & Latok Base Camp.
+  tour-custom.jpg                    → the "Build a custom trip" card.
+
+Tip: landscape orientation, roughly 800×600px or larger, works best —
+these get cropped into a fixed card shape automatically by the site's
+CSS, so you don't need to pre-crop them.
+
+---
+
+3. images/gallery/  — the "Gallery" section on the homepage — NOW FLEXIBLE
+
+This changed from fixed names to simple numbers, so you can add as
+many (or as few) photos as you like without needing any code changes:
+
+  - Save your photos as 1.jpg, 2.jpg, 3.jpg, 4.jpg, 5.jpg, 6.jpg... in
+    order — any number, in any amount, up to 20.jpg.
+  - You do NOT need all 20 — the site automatically hides any number
+    that doesn't exist. Even just 1.jpg alone works fine.
+  - 1.jpg is always shown bigger than the rest — pick your single best
+    photo for that slot.
+  - The first 5 that exist (1–5) show right away. Anything from 6
+    onward sits behind a "View more photos" button, which only
+    appears if you've actually added a 6th photo or beyond.
+  - Square-ish or landscape photos work better than tall portrait
+    shots, since they display in a fixed-height grid.
+
+Good things to photograph for this section: the Baltoro glacier, K2 at
+sunrise, a campsite (e.g. Urdukas), the Deosai plateau, Shigar valley,
+Concordia's four-8000m-peak view, Trango Towers, the Gondogoro La
+crossing, Askole village life, and the night sky over Deosai.
+
+---
+
+WHAT'S NOT IN THIS LIST (already covered elsewhere / not needed)
+--------------------------------------------------------------------
+- Team member photos — no longer used anywhere on the site (the
+  "Meet the Team" section was removed).
+- Favicon — reuses images/logo/logo.png, no separate file needed.
+- Any image for the itinerary detail pages themselves (K2 Base Camp
+  page, Masherbrum page, etc.) — these pages use a plain dark-blue
+  hero with no photo, by design.
+
+QUICK CHECK
+------------
+1 logo + 11 tour cards + at least 1 gallery photo (1.jpg) = the
+minimum needed for nothing to show a "Loading…" placeholder. Add more
+gallery numbers over time whenever you like.
