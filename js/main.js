@@ -1,3 +1,25 @@
+// ============ Email link: copy on click instead of relying on mailto: ============
+// mailto: only opens something if the visitor's device/browser has a default
+// mail app configured — many desktop browsers, and in-app browsers like
+// Instagram/Facebook, don't, which made clicking (or right-click > open in
+// new tab) look like it "did nothing" or bounced back to the site. A left
+// click now always copies the address instead, which works everywhere.
+function copyEmail(link, email, evt){
+  if(evt) evt.preventDefault();
+  const original = link.textContent;
+  const done = function(){
+    link.textContent = 'Copied — ' + email;
+    setTimeout(function(){ link.textContent = original; }, 1800);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(email).then(done).catch(function(){
+      window.prompt('Copy this email address:', email);
+    });
+  } else {
+    window.prompt('Copy this email address:', email);
+  }
+  return false;
+}
 // ============ Print / Save itinerary as PDF ============
 function printItinerary(){
   window.print();
@@ -271,6 +293,18 @@ function toggleGalleryPhotos(){
   const expanded = grid.classList.toggle('expanded');
   btn.innerHTML = expanded ? 'View fewer photos &uarr;' : 'View more photos &darr;';
 }
+// The gallery tries images/gallery/1.jpg through 20.jpg — any that don't
+// exist are removed automatically (see the inline onerror on each tile).
+// Once the page has finished trying to load them all, hide "View more"
+// if nothing beyond the first 5 actually exists.
+function checkGalleryMoreButton(){
+  const grid = document.getElementById('galGrid');
+  const btn = document.getElementById('galMoreBtn');
+  if(!grid || !btn) return;
+  const hasExtra = !!grid.querySelector('.gal-extra');
+  btn.style.display = hasExtra ? '' : 'none';
+}
+window.addEventListener('load', checkGalleryMoreButton);
 
 // ============ "Giants of Baltistan" peak cards: View More accordion ============
 function togglePeakInfo(btn){

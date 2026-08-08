@@ -33,7 +33,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=12">
+<link rel="stylesheet" href="css/style.css?v=14">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Great Adventure",
+  "alternateName": ["Great Adventure Treks", "Great Adventure Baltistan"],
+  "url": "https://greatadv.com/"
+}
+</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -714,7 +723,7 @@
       <h2 class="serif" style="font-size:30px;font-weight:500;margin:14px 0 18px;">Tell us what you have in mind.</h2>
       <p>Whether it's a fixed departure or a fully custom itinerary, send us your dates and we'll reply with a plan &mdash; usually within a day.</p>
       <div class="row"><div><b>WhatsApp</b><span><a href="https://wa.me/923555585368?text=Hi%20Great%20Adventure%21%20I%27d%20like%20to%20know%20more%20about%20your%20treks%20in%20Baltistan." target="_blank" rel="noopener">0355 5585368</a></span></div></div>
-      <div class="row"><div><b>Email</b><span><a href="mailto:info@greatadv.com">info@greatadv.com</a></span></div></div>
+      <div class="row"><div><b>Email</b><span><a href="mailto:info@greatadv.com" id="email-link-main" title="Click to copy email address" onclick="return copyEmail(this,'info@greatadv.com', event)">info@greatadv.com</a></span></div></div>
       <div class="row"><div><b>Based in</b><span>Skardu, Gilgit-Baltistan, Pakistan</span></div></div>
     </div>
     <form class="cform" id="inquiryForm" onsubmit="submitInquiry(event)">
@@ -779,6 +788,6 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<script src="js/main.js?v=12"></script>
+<script src="js/main.js?v=14"></script>
 </body>
 </html>
