@@ -1,9 +1,0 @@
-Is folder mein ye 5 photos save karein, isi naam se:
-
-gallery-baltoro-glacier.jpg   -> Baltoro glacier wide view (sab se badi/featured photo)
-gallery-k2-sunrise.jpg        -> K2 sunrise/sunset shot
-gallery-urdukas-camp.jpg      -> Urdukas camp site
-gallery-deosai-plateau.jpg    -> Deosai plains
-gallery-shigar-valley.jpg     -> Shigar valley/orchards
-
-Shape: Mix chalega, pehli photo (baltoro-glacier) sab se bada block hai grid mein.
