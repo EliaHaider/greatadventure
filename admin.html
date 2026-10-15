@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Great Adventure — Admin</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="images/logo/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0A0860;--navy-2:#0F0C7A;--blue:#2552FF;--blue-dim:#1B3FD6;
+    --mist:#C7CEE8;--paper:#FBFAFD;--good:#1C8A4B;--good-bg:rgba(46,158,91,0.16);--good-fg:#5CD98A;
+    --bad:#C0392B;--bad-bg:rgba(224,75,74,0.15);--bad-fg:#F09595;--gold:#E8B84B;--gold-bg:rgba(232,184,75,0.18);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',-apple-system,Segoe UI,sans-serif;}
+  body{background:var(--navy);background:radial-gradient(120% 100% at 10% 0%, var(--navy-2) 0%, var(--navy) 55%);color:var(--paper);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:44px 20px 60px;gap:22px;}
+  .admin-brand{display:flex;align-items:center;gap:10px;margin-bottom:2px;}
+  .admin-brand img{height:32px;width:32px;}
+  .admin-brand .name{font-family:'Fraunces',serif;font-weight:600;font-size:17px;letter-spacing:0.01em;}
+  .admin-brand .name span{color:#7C93FF;}
+  .admin-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mist);text-transform:uppercase;letter-spacing:0.06em;margin-top:-14px;margin-bottom:6px;}
+  .box{background:rgba(255,255,255,0.045);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.14);border-radius:10px;padding:36px;width:100%;max-width:420px;}
+  h1{font-family:'Fraunces',serif;font-size:21px;font-weight:500;margin-bottom:6px;}
+  p.sub{font-size:13px;color:var(--mist);margin-bottom:26px;}
+  label{display:block;font-size:11.5px;text-transform:uppercase;letter-spacing:0.05em;color:var(--mist);margin-bottom:6px;margin-top:16px;font-family:'IBM Plex Mono',monospace;}
+  input,textarea{width:100%;padding:11px 13px;border-radius:6px;border:1px solid rgba(255,255,255,0.18);background:rgba(10,8,96,0.55);color:var(--paper);font-size:14px;font-family:'Inter',sans-serif;}
+  input:focus,textarea:focus{outline:none;border-color:var(--blue);}
+  textarea{min-height:80px;resize:vertical;}
+  button{margin-top:22px;width:100%;padding:13px;border:none;border-radius:6px;background:var(--blue);color:#fff;font-weight:600;font-size:14px;cursor:pointer;transition:background .15s,transform .15s;}
+  button:hover{background:#3E64FF;transform:translateY(-1px);}
+  button.secondary{background:transparent;border:1px solid rgba(255,255,255,0.25);color:var(--paper);margin-top:10px;}
+  button.secondary:hover{background:rgba(255,255,255,0.08);transform:none;}
+  .toggle-row{display:flex;align-items:center;gap:10px;margin-top:18px;}
+  .toggle-row input{width:auto;}
+  .status{margin-top:16px;font-size:13px;padding:10px 12px;border-radius:6px;display:none;}
+  .status.ok{display:block;background:var(--good-bg);color:var(--good-fg);}
+  .status.err{display:block;background:var(--bad-bg);color:var(--bad-fg);}
+  .setup-note{font-size:12px;color:var(--mist);margin-top:20px;line-height:1.5;}
+  .back-link{font-size:12.5px;color:var(--mist);text-decoration:none;align-self:flex-start;margin-left:calc(50% - 210px);}
+  .back-link:hover{color:var(--paper);}
+  @media(max-width:480px){.back-link{margin-left:0;}}
+</style>
+</head>
+<body>
+
+<a href="./" class="back-link">&larr; Back to site</a>
+<div class="admin-brand">
+  <img src="images/logo/logo.png" alt="Great Adventure logo">
+  <div class="name">Great <span>Adventure</span></div>
+</div>
+<div class="admin-tag">Admin panel</div>
+
+<div class="box" id="login-box">
+  <h1>Admin login</h1>
+  <p class="sub">Great Adventure — offer banner manager</p>
+  <label>Email</label>
+  <input type="email" id="login-email" placeholder="you@email.com">
+  <label>Password</label>
+  <input type="password" id="login-password" placeholder="Your password">
+  <button onclick="doLogin()">Log in</button>
+  <div class="status" id="login-status"></div>
+  <p class="setup-note" id="setup-note"></p>
+</div>
+
+<div class="box" id="summary-box" style="display:none;max-width:520px;padding:20px 24px;">
+  <div id="summary-row" style="display:flex;gap:22px;flex-wrap:wrap;"></div>
+</div>
+
+<div class="box" id="editor-box" style="display:none;max-width:520px;">
+  <h1>Manage current offer</h1>
+  <p class="sub">Changes go live on the website immediately.</p>
+  <div class="toggle-row">
+    <input type="checkbox" id="active-toggle">
+    <label style="margin:0;">Show this offer on the website</label>
+  </div>
+  <label>Offer title</label>
+  <input type="text" id="offer-title" placeholder="e.g. New Year Special — 20% off K2 Base Camp trek">
+  <label>Offer details (optional)</label>
+  <textarea id="offer-message" placeholder="e.g. Valid for bookings made before Jan 31"></textarea>
+  <button onclick="saveOffer()">Save and publish</button>
+  <button class="secondary" onclick="doLogout()">Log out</button>
+  <div class="status" id="save-status"></div>
+</div>
+
+<div class="box" id="reviews-box" style="display:none;max-width:560px;">
+  <h1>Pending reviews</h1>
+  <p class="sub">New reviews submitted by visitors wait here until you approve them.</p>
+  <div id="pending-list"></div>
+  <h1 style="margin-top:30px;">Live reviews on the site</h1>
+  <p class="sub">Currently showing on the website. Delete any you want removed.</p>
+  <div id="approved-list"></div>
+</div>
+
+<div class="box" id="inquiries-box" style="display:none;max-width:640px;">
+  <h1>Customer enquiries</h1>
+  <p class="sub">Messages submitted through the "Send enquiry" form on the website, newest first.</p>
+  <div id="inquiries-list"></div>
+</div>
+
+<style>
+  .rv-card{background:rgba(255,255,255,0.045);border:1px solid rgba(255,255,255,0.14);border-radius:8px;padding:14px 16px;margin-bottom:12px;}
+  .rv-card .meta{font-size:12px;color:var(--mist);margin-bottom:6px;font-family:'IBM Plex Mono',monospace;}
+  .rv-card .msg{font-size:14px;color:var(--paper);margin-bottom:10px;line-height:1.5;}
+  .rv-card .actions{display:flex;gap:8px;}
+  .rv-card .actions button{margin-top:0;padding:8px 14px;font-size:12.5px;width:auto;}
+  .rv-card .btn-approve{background:var(--good);}
+  .rv-card .btn-approve:hover{background:#38B86B;}
+  .rv-card .btn-delete{background:transparent;border:1px solid rgba(224,75,74,0.5);color:var(--bad-fg);}
+  .rv-card .btn-delete:hover{background:rgba(224,75,74,0.12);}
+  .empty-note{font-size:13px;color:var(--mist);padding:10px 0;}
+  .iq-card{background:rgba(255,255,255,0.045);border:1px solid rgba(255,255,255,0.14);border-radius:8px;padding:14px 16px;margin-bottom:12px;}
+  .iq-card .top-row{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:6px;}
+  .iq-card .who{font-size:14px;font-weight:600;color:var(--paper);}
+  .iq-card .email{font-size:12px;color:var(--mist);}
+  .iq-card .badge{font-size:10.5px;text-transform:uppercase;letter-spacing:0.04em;padding:3px 9px;border-radius:20px;white-space:nowrap;font-family:'IBM Plex Mono',monospace;}
+  .iq-card .badge.new{background:var(--gold-bg);color:var(--gold);}
+  .iq-card .badge.contacted{background:var(--good-bg);color:var(--good-fg);}
+  .iq-card .tour{font-size:12px;color:#9EB2FF;margin-bottom:6px;font-family:'IBM Plex Mono',monospace;}
+  .iq-card .msg{font-size:13.5px;color:var(--paper);margin-bottom:10px;line-height:1.5;}
+  .iq-card .date{font-size:11px;color:var(--mist);margin-bottom:10px;font-family:'IBM Plex Mono',monospace;}
+  .iq-card .actions{display:flex;gap:8px;flex-wrap:wrap;}
+  .iq-card .actions button{margin-top:0;padding:8px 14px;font-size:12.5px;width:auto;}
+  .iq-card .btn-contacted{background:var(--good);}
+  .iq-card .btn-contacted:hover{background:#38B86B;}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+  const SUPABASE_URL = "https://jyotzntfainfpgxbolum.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp5b3R6bnRmYWluZnBneGJvbHVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ2NTQ0ODgsImV4cCI6MjEwMDIzMDQ4OH0.zbN70O5KdI0WDc8m0Pru6LBCQnBMwBnTXmDfXlJal1o";
+  let sb;
+  function showStatus(id, msg, ok){
+    const el = document.getElementById(id);
+    el.textContent = msg;
+    el.className = "status " + (ok ? "ok" : "err");
+  }
+  window.onload = function(){
+    if(SUPABASE_URL.indexOf("PASTE_") === 0){
+      document.getElementById("setup-note").innerHTML = "Setup needed: paste your Supabase URL and anon key into this file, then refresh. See SETUP-GUIDE.md.";
+      return;
+    }
+    sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    sb.auth.getSession().then(({data}) => { if(data.session) showEditor(); });
+  };
+  async function doLogin(){
+    const email = document.getElementById("login-email").value.trim();
+    const password = document.getElementById("login-password").value;
+    const { error } = await sb.auth.signInWithPassword({ email, password });
+    if(error){ showStatus("login-status", error.message, false); return; }
+    showEditor();
+  }
+  async function doLogout(){
+    await sb.auth.signOut();
+    document.getElementById("summary-box").style.display = "none";
+    document.getElementById("editor-box").style.display = "none";
+    document.getElementById("login-box").style.display = "block";
+    if(window._adminPollTimer){ clearInterval(window._adminPollTimer); window._adminPollTimer = null; }
+    document.title = "Great Adventure — Admin";
+  }
+  async function showEditor(){
+    document.getElementById("login-box").style.display = "none";
+    document.getElementById("summary-box").style.display = "block";
+    document.getElementById("editor-box").style.display = "block";
+    document.getElementById("reviews-box").style.display = "block";
+    document.getElementById("inquiries-box").style.display = "block";
+    const { data } = await sb.from("announcements").select("*").eq("id", 1).single();
+    if(data){
+      document.getElementById("active-toggle").checked = !!data.active;
+      document.getElementById("offer-title").value = data.title || "";
+      document.getElementById("offer-message").value = data.message || "";
+    }
+    loadReviewLists();
+    loadInquiries();
+    // Keep counts fresh while this tab stays open, without needing a refresh click.
+    if(!window._adminPollTimer){
+      window._adminPollTimer = setInterval(function(){
+        loadReviewLists();
+        loadInquiries();
+      }, 60000);
+    }
+  }
+  async function saveOffer(){
+    const payload = {
+      id: 1,
+      active: document.getElementById("active-toggle").checked,
+      title: document.getElementById("offer-title").value.trim(),
+      message: document.getElementById("offer-message").value.trim(),
+      updated_at: new Date().toISOString()
+    };
+    const { error } = await sb.from("announcements").upsert(payload);
+    if(error){ showStatus("save-status", error.message, false); return; }
+    showStatus("save-status", "Saved. Live on the website now.", true);
+  }
+
+  function stars(n){
+    n = Math.max(1, Math.min(5, parseInt(n,10) || 5));
+    let s = "";
+    for(let i=1;i<=5;i++) s += (i<=n) ? "★" : "☆";
+    return s;
+  }
+  function escapeHtml(str){
+    const d = document.createElement('div');
+    d.textContent = str || "";
+    return d.innerHTML;
+  }
+
+  // ============ Summary badge + tab title (acts as a lightweight in-app notification) ============
+  let _pendingReviewCount = 0;
+  let _newInquiryCount = 0;
+  function updateSummary(){
+    const total = _pendingReviewCount + _newInquiryCount;
+    const row = document.getElementById("summary-row");
+    if(row){
+      row.innerHTML = `
+        <div><div style="font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:500;color:${_pendingReviewCount ? 'var(--gold)' : 'var(--paper)'};">${_pendingReviewCount}</div><div style="font-size:11.5px;color:var(--mist);text-transform:uppercase;letter-spacing:0.04em;margin-top:2px;">Pending review${_pendingReviewCount === 1 ? '' : 's'}</div></div>
+        <div><div style="font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:500;color:${_newInquiryCount ? 'var(--gold)' : 'var(--paper)'};">${_newInquiryCount}</div><div style="font-size:11.5px;color:var(--mist);text-transform:uppercase;letter-spacing:0.04em;margin-top:2px;">New enquir${_newInquiryCount === 1 ? 'y' : 'ies'}</div></div>
+      `;
+    }
+    document.title = total > 0 ? `(${total}) Great Adventure — Admin` : "Great Adventure — Admin";
+  }
+
+  async function loadReviewLists(){
+    const pendingEl = document.getElementById("pending-list");
+    const approvedEl = document.getElementById("approved-list");
+    pendingEl.innerHTML = "Loading…";
+    approvedEl.innerHTML = "Loading…";
+
+    const { data: pending } = await sb.from("reviews").select("*").eq("approved", false).order("created_at", { ascending: false });
+    const { data: approved } = await sb.from("reviews").select("*").eq("approved", true).order("created_at", { ascending: false });
+
+    pendingEl.innerHTML = (!pending || pending.length === 0)
+      ? '<p class="empty-note">No pending reviews right now.</p>'
+      : pending.map(r => `
+        <div class="rv-card">
+          <div class="meta">${escapeHtml(r.name)}${r.country ? " — " + escapeHtml(r.country) : ""} · ${stars(r.rating)}</div>
+          <div class="msg">${escapeHtml(r.message)}</div>
+          <div class="actions">
+            <button class="btn-approve" onclick="approveReview('${r.id}')">Approve</button>
+            <button class="btn-delete" onclick="deleteReview('${r.id}')">Delete</button>
+          </div>
+        </div>`).join("");
+
+    approvedEl.innerHTML = (!approved || approved.length === 0)
+      ? '<p class="empty-note">No live reviews yet.</p>'
+      : approved.map(r => `
+        <div class="rv-card">
+          <div class="meta">${escapeHtml(r.name)}${r.country ? " — " + escapeHtml(r.country) : ""} · ${stars(r.rating)}</div>
+          <div class="msg">${escapeHtml(r.message)}</div>
+          <div class="actions">
+            <button class="btn-delete" onclick="deleteReview('${r.id}')">Delete</button>
+          </div>
+        </div>`).join("");
+
+    _pendingReviewCount = pending ? pending.length : 0;
+    updateSummary();
+  }
+
+  async function approveReview(id){
+    await sb.from("reviews").update({ approved: true }).eq("id", id);
+    loadReviewLists();
+  }
+  async function deleteReview(id){
+    if(!confirm("Delete this review permanently?")) return;
+    await sb.from("reviews").delete().eq("id", id);
+    loadReviewLists();
+  }
+
+  function formatDate(iso){
+    if(!iso) return "";
+    const d = new Date(iso);
+    return d.toLocaleDateString(undefined, { day:'numeric', month:'short', year:'numeric' }) + " · " +
+           d.toLocaleTimeString(undefined, { hour:'2-digit', minute:'2-digit' });
+  }
+
+  async function loadInquiries(){
+    const el = document.getElementById("inquiries-list");
+    el.innerHTML = "Loading…";
+    const { data, error } = await sb.from("inquiries").select("*").order("created_at", { ascending: false }).limit(100);
+    if(error){
+      el.innerHTML = '<p class="empty-note">Could not load enquiries — make sure the "inquiries" table exists (see SETUP-GUIDE.md).</p>';
+      _newInquiryCount = 0;
+      updateSummary();
+      return;
+    }
+    el.innerHTML = (!data || data.length === 0)
+      ? '<p class="empty-note">No enquiries yet — they\'ll show up here as soon as someone submits the contact form.</p>'
+      : data.map(iq => `
+        <div class="iq-card">
+          <div class="top-row">
+            <div>
+              <div class="who">${escapeHtml(iq.name)}</div>
+              <div class="email">${escapeHtml(iq.email)}</div>
+            </div>
+            <span class="badge ${iq.status === 'contacted' ? 'contacted' : 'new'}">${iq.status === 'contacted' ? 'Contacted' : 'New'}</span>
+          </div>
+          <div class="tour">${escapeHtml(iq.tour || 'Not specified')}</div>
+          <div class="date">${formatDate(iq.created_at)}</div>
+          ${iq.message ? `<div class="msg">${escapeHtml(iq.message)}</div>` : ''}
+          <div class="actions">
+            ${iq.status !== 'contacted' ? `<button class="btn-contacted" onclick="markContacted('${iq.id}')">Mark as contacted</button>` : ''}
+            <button class="btn-delete" onclick="deleteInquiry('${iq.id}')">Delete</button>
+          </div>
+        </div>`).join("");
+
+    _newInquiryCount = data ? data.filter(iq => iq.status !== 'contacted').length : 0;
+    updateSummary();
+  }
+
+  async function markContacted(id){
+    await sb.from("inquiries").update({ status: "contacted" }).eq("id", id);
+    loadInquiries();
+  }
+  async function deleteInquiry(id){
+    if(!confirm("Delete this enquiry permanently?")) return;
+    await sb.from("inquiries").delete().eq("id", id);
+    loadInquiries();
+  }
+</script>
+</body>
+</html>
