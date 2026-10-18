@@ -1,0 +1,57 @@
+GOOGLE reCAPTCHA ("I'm not a robot") - POORA PROCESS
+=====================================================
+IMPORTANT: Google ne ab reCAPTCHA ke keys Google Cloud ke andar kar diye hain.
+Is liye ek Google Cloud project aur BILLING (card) zaroori hai. Pehle 10,000 checks har mahine
+muft hain, aap ke form ke liye ye hamesha kafi hoga, to asal mein paisa nahi lagta.
+(Agar card nahi dena to Cloudflare Turnstile use karein: supabase/STEPS-CAPTCHA.txt)
+Google ke buttons/naam kabhi kabhi badal jate hain; agar kuch alag likha ho to us se milta julta chunein.
+
+PART A - Google Cloud project
+ 1. console.cloud.google.com kholen, info@greatadv.com wale Google account se login.
+ 2. Upar project selector > New project > Name: great-adventure-site > Create.
+ 3. Project ka "Project ID" note karein (naam se alag hota hai, jaise great-adventure-site-123456).
+    Ye Project ID aap ko Supabase mein daalni hai.
+
+PART B - Billing (card)
+ 4. Menu > Billing > Link a billing account (card ki details).
+ 5. Billing > Budgets & alerts > Create budget: 1 USD ka alert lagayein (hifazati tor par).
+
+PART C - API on karein
+ 6. Menu > APIs & Services > Library > "reCAPTCHA Enterprise API" > Enable.
+
+PART D - Site key banayein (website ke liye)
+ 7. Menu > Security > reCAPTCHA (ya search box mein "reCAPTCHA") > Create key.
+ 8. Display name: Great Adventure website
+    Platform type: Website
+    Domains: greatadv.com  (aur www.greatadv.com agar use hota hai)
+    Challenge/Integration: "Use checkbox challenge" (yani "I'm not a robot" wala tick)
+    Create key dabayein.
+ 9. Key ka "ID" copy karein. Ye aap ki SITE KEY hai (ye public hai, mujhe bhej sakte hain).
+
+PART E - Server ki key (PRIVATE, kisi ko mat bhejein)
+ 10. Menu > APIs & Services > Credentials > Create credentials > API key.
+ 11. Bani hui key par Edit/Restrict key > "API restrictions" > Restrict key >
+     sirf "reCAPTCHA Enterprise API" chunein > Save.
+ 12. Is key ko copy karein (ye API KEY hai).
+
+PART F - Supabase mein dalein
+ 13. Edge Functions > Secrets (Manage secrets) mein 3 secrets add karein:
+       RECAPTCHA_PROJECT_ID = (Part A ka Project ID)
+       RECAPTCHA_API_KEY    = (Part E ki API key)
+       RECAPTCHA_SITE_KEY   = (Part D ki Site key)
+ 14. Edge Functions > Deploy a new function > naam: submit-enquiry
+     supabase/functions/submit-enquiry/index.ts ka poora code paste > Deploy.
+     Function settings mein "Verify JWT" ko OFF karein.
+
+PART G - Website mein
+ 15. js/main.js ki ek line:   const RECAPTCHA_SITE_KEY = '';
+     ke quotes ke andar Site key paste karein (ya mujhe bhej dein, main laga dunga). Upload karein.
+ 16. Form kholen: neeche "I'm not a robot" ka box aana chahiye. Bina tick ke bhejne par error aana chahiye,
+     tick ke baad enquiry chali jani chahiye aur admin mein nazar aani chahiye.
+
+PART H - Aakhri safai
+ 17. Privacy Policy mein ek jumla zaroori hai ("This site uses Google reCAPTCHA..."). Mujhe batayein, main laga dunga.
+ 18. (Optional, test ke baad) SQL Editor mein chalayein, taake captcha ke bina koi seedha enquiry na bhej sake:
+       drop policy if exists "Visitors can send an enquiry" on public.inquiries;
+
+Masla aaye to: browser mein F12 > Console ka screenshot, aur Supabase > Edge Functions > submit-enquiry > Logs ka screenshot bhejein.

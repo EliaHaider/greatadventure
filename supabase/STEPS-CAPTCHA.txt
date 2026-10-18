@@ -1,0 +1,29 @@
+CAPTCHA (Cloudflare Turnstile, free): STEP BY STEP
+===================================================
+Ye Google reCAPTCHA jaisa hi hai: visitor ko aksar bas ek tick/"Verifying..." dikhta hai.
+Pehle STEPS-SUPABASE.txt ke qadam 1 se 4 poore karein.
+
+1. cloudflare.com par free account banayein (info@greatadv.com se).
+2. Dashboard > Turnstile > Add widget.
+     Widget name: Great Adventure website
+     Hostname: greatadv.com   (aur www.greatadv.com agar use hota hai)
+     Widget Mode: Managed
+   Create dabayein. Aap ko 2 keys milengi:
+     SITE KEY    (public, website ke liye)
+     SECRET KEY  (private, kisi ko mat dikhayein)
+3. Supabase > Edge Functions > Deploy a new function > naam: submit-enquiry
+   supabase/functions/submit-enquiry/index.ts ka code paste karein.
+   Function ki settings mein "Verify JWT" ko OFF karein (function khud captcha check karta hai).
+   Deploy.
+4. Supabase > Edge Functions > Secrets mein add karein:
+     TURNSTILE_SECRET_KEY = (Cloudflare wali Secret key)
+5. SITE KEY mujhe bhej dein (ye public hoti hai, bhejna theek hai).
+   Main js/main.js mein laga dunga. (Ya khud: js/main.js mein
+   const TURNSTILE_SITE_KEY = '';  ke quotes ke andar paste karein.)
+6. Upload ke baad form mein "Verify you are human" wala box aayega. Test karein.
+7. Aakhri qadam (optional lekin behtar): SQL Editor mein ye chalayein, taake
+   captcha ke bina koi seedha enquiry na bhej sake:
+     drop policy if exists "Visitors can send an enquiry" on public.inquiries;
+   (Pehle test kar lein ke form kaam kar raha hai.)
+
+Agar aap Google reCAPTCHA hi chahte hain to bata dein, wo bhi laga sakta hoon (us ki bhi 2 keys hoti hain).

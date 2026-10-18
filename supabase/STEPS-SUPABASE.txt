@@ -1,0 +1,55 @@
+NAYA SUPABASE PROJECT: POORE STEPS
+===================================
+Aap ka account: info@greatadv.com
+
+QADAM 1 - Project banayein (agar abhi nahi banaya)
+  supabase.com > New project > naam "great-adventure" > ek mazboot Database Password
+  (isay kahin save karein) > Region: aap ke visitors ke qareeb (jaise Frankfurt ya Mumbai) > Create.
+  2-3 minute lagte hain.
+
+QADAM 2 - Tables banayein
+  Left menu > SQL Editor > New query.
+  supabase/setup-new-project.sql ka poora text paste karein > Run.
+  "Success" aana chahiye. Table Editor mein 4 tables dikhengi:
+  inquiries, reviews, announcements, departures.
+
+QADAM 3 - Admin login banayein
+  Authentication > Users > Add user > Create new user.
+  Email: info@greatadv.com, ek mazboot password, "Auto confirm user" tick.
+  PHIR: Authentication > Sign In / Providers (ya Settings) mein
+  "Allow new users to sign up" ko OFF karein.
+  (Ye bohot zaroori hai, warna koi bhi admin ban sakta hai.)
+
+QADAM 4 - Mujhe do cheezein bhejein (sirf 2)
+  Project Settings (gear icon) > API (ya "API Keys"):
+   a) Project URL            (https://xxxx.supabase.co)
+   b) anon / publishable key (lambi key jo "anon public" ya "publishable" likhi ho)
+  SIRF ye do. "service_role" ya "secret" key kabhi kisi ko mat bhejein.
+  Main main.js aur admin.html mein inko laga kar naya zip de dunga.
+
+QADAM 5 - Email notification (naya enquiry/review aate hi email)
+  a) resend.com par free account banayein. API Keys > Create API Key > copy.
+  b) Resend > Domains > Add Domain: greatadv.com. Wo kuch DNS records dega,
+     unhein apne domain ke DNS mein daalna hoga (jahan domain khareeda hai wahan).
+     Verify hone tak email sirf test mode mein chalegi.
+  c) Supabase > Edge Functions > Deploy a new function > naam: notify-new-submission
+     > supabase/functions/notify-new-submission/index.ts ka code paste > Deploy.
+  d) Edge Functions > Secrets (ya Manage secrets) > add:
+       RESEND_API_KEY = (Resend ki key)
+       NOTIFY_EMAIL   = info@greatadv.com
+  e) Database > Webhooks > Create a new hook:
+       Name: notify-inquiries, Table: inquiries, Events: Insert,
+       Type: Supabase Edge Functions > notify-new-submission > Create.
+     Phir ek aur hook: notify-reviews, Table: reviews, Events: Insert, wohi function.
+
+QADAM 6 - Purana data (agar chahiye)
+  Purane Supabase > Table Editor > har table (reviews, inquiries) > Export to CSV.
+  Naye project mein wohi table > Insert > Import data from CSV.
+  (id column ko import mein skip kar dein.)
+
+QADAM 7 - Test
+  Website ka form bhar kar bhejein. Admin panel (greatadv.com/admin.html) mein login
+  karke enquiry dikhni chahiye. Ek review bhej kar approve kar ke dekhein.
+  Admin se ek departure date add karke home page ka "Join a group" section dekhein.
+
+Dikkat aaye to error ka screenshot bhej dein.

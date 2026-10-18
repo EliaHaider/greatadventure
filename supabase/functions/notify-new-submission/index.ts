@@ -9,7 +9,7 @@
 import { serve } from "https://deno.land/std@0.192.0/http/server.ts";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
-const NOTIFY_EMAIL = "elia@greatadv.com";
+const NOTIFY_EMAIL = Deno.env.get("NOTIFY_EMAIL") ?? "info@greatadv.com";
 // Update this once your real domain is set up on Resend (see SETUP-GUIDE.md).
 // Until then, Resend's shared "onboarding@resend.dev" address works for testing.
 const FROM_EMAIL = "Great Adventure Website <notifications@greatadv.com>";
@@ -47,6 +47,11 @@ serve(async (req) => {
         <p><b>Name:</b> ${escapeHtml(record.name)}</p>
         <p><b>Email:</b> ${escapeHtml(record.email)}</p>
         <p><b>Tour:</b> ${escapeHtml(record.tour || "-")}</p>
+        <p><b>WhatsApp / phone:</b> ${escapeHtml(record.phone || "-")}</p>
+        <p><b>Country:</b> ${escapeHtml(record.country || "-")}</p>
+        <p><b>Dates:</b> ${escapeHtml(record.start_date || "?")} to ${escapeHtml(record.end_date || "?")}</p>
+        <p><b>Date notes:</b> ${escapeHtml(record.date_notes || "-")}</p>
+        <p><b>Group size:</b> ${escapeHtml(record.group_size || "-")}</p>
         <p><b>Message:</b> ${escapeHtml(record.message || "-")}</p>
         <p style="margin-top:20px;"><a href="${ADMIN_URL}">Open admin panel to reply or mark as contacted &rarr;</a></p>
       `;
@@ -91,3 +96,5 @@ function escapeHtml(str) {
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
 }
+
+

@@ -1,0 +1,36 @@
+NAYE SUPABASE PROJECT KA POORA SETUP (info@greatadv.com wala account)
+=====================================================================
+Naya project khali hota hai, is liye ye sab ek baar karna hai. Pehle 1 se 4 karein,
+phir mujhe URL aur anon key bhej dein, main main.js aur admin.html mein laga dunga.
+
+1) DATABASE
+   Supabase > SQL Editor > New query > supabase/setup-new-project.sql ka poora text paste > Run.
+   (Is se 4 tables bante hain: announcements, reviews, inquiries, departures, aur security rules.)
+
+2) ADMIN LOGIN
+   Authentication > Users > Add user > "Create new user": email aur password daalein
+   (jo aap admin.html par use karenge) > "Auto Confirm User" ON.
+   Phir Authentication > Sign In / Providers > Email > "Allow new users to sign up" ko OFF karein.
+   (Ye bohot zaroori hai warna koi bhi login bana kar aap ki enquiries dekh sakta hai.)
+
+3) URL AUR KEY
+   Project Settings > API:
+     - "Project URL"            -> https://xxxxxxxx.supabase.co
+     - "anon public" key        -> (lambi eyJ... key)
+   Ye DONO mujhe chat mein bhej dein. Ye public keys hain, inhein share karna theek hai.
+   !! "service_role" key kabhi kisi ko mat bhejein, na website mein lagayein. !!
+
+4) EMAIL NOTIFICATIONS (jab nayi enquiry/review aaye to email)
+   a) resend.com par free account, apna domain greatadv.com verify karein, API key banayein.
+   b) Supabase > Edge Functions > Create function: naam  notify-new-submission
+      code = supabase/functions/notify-new-submission/index.ts ka text > Deploy.
+   c) Edge Functions > Secrets: RESEND_API_KEY = (Resend ki key)
+      (optional) NOTIFY_EMAIL = jis email par notification chahiye (default info@greatadv.com)
+   d) Database > Webhooks > Create: (1) table "inquiries", event Insert  -> Edge Function notify-new-submission
+                                    (2) table "reviews",   event Insert  -> Edge Function notify-new-submission
+
+5) ASLI CAPTCHA (optional, ads se pehle behtar): supabase/SETUP-NEW-FEATURES.txt ka hissa C.
+
+6) PURANE PROJECT SE DATA (agar purane project mein koi asli enquiry/review hai)
+   Purane project ke Table Editor > har table > Export CSV, phir naye project mein Import CSV.
+   Agar kuch nahi hai to ye step chhod dein.

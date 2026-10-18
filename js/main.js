@@ -116,8 +116,8 @@ document.addEventListener('click', function(e){
 })();
 
 // Offer banner — reads from Supabase, set up per SETUP-GUIDE.md
-const SUPABASE_URL = "https://jyotzntfainfpgxbolum.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp5b3R6bnRmYWluZnBneGJvbHVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ2NTQ0ODgsImV4cCI6MjEwMDIzMDQ4OH0.zbN70O5KdI0WDc8m0Pru6LBCQnBMwBnTXmDfXlJal1o";
+const SUPABASE_URL = "https://liubwwceifhbgmogvagu.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_8uDHbP9KikCbCwvIMiDa0A_NjFKKuZF";
 
 async function loadOfferBanner(){
   if(SUPABASE_URL.indexOf("PASTE_") === 0) return;
@@ -226,7 +226,62 @@ function getSb(){
   return window._sbClient;
 }
 
-// ============ Contact form: submit enquiry to Supabase ============
+// ============ Contact form: submit enquiry ============
+// CAPTCHA ("I'm not a robot"): paste ONE site key below.
+//   Google reCAPTCHA  -> RECAPTCHA_SITE_KEY   (steps: supabase/STEPS-CAPTCHA-GOOGLE.txt)
+//   Cloudflare        -> TURNSTILE_SITE_KEY   (steps: supabase/STEPS-CAPTCHA.txt)
+// While both are empty, no captcha is shown and only the hidden anti-spam field protects the form.
+const RECAPTCHA_SITE_KEY = '';
+const TURNSTILE_SITE_KEY = '';
+const CAPTCHA_PROVIDER = RECAPTCHA_SITE_KEY ? 'recaptcha' : (TURNSTILE_SITE_KEY ? 'turnstile' : '');
+
+var _capWidgetId = null, _capToken = null;
+
+function initCaptcha(){
+  const host = document.getElementById('inq-captcha');
+  if(!host || !CAPTCHA_PROVIDER) return;
+  function onToken(t){ _capToken = t; }
+  function onClear(){ _capToken = null; }
+  const s = document.createElement('script');
+  s.async = true; s.defer = true;
+  if(CAPTCHA_PROVIDER === 'recaptcha'){
+    s.src = 'https://www.google.com/recaptcha/enterprise.js?render=explicit';
+    s.onload = function(){
+      window.grecaptcha.enterprise.ready(function(){
+        _capWidgetId = window.grecaptcha.enterprise.render(host, {
+          sitekey: RECAPTCHA_SITE_KEY, callback: onToken, 'expired-callback': onClear, 'error-callback': onClear
+        });
+      });
+    };
+  } else {
+    s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+    s.onload = function(){
+      _capWidgetId = window.turnstile.render(host, {
+        sitekey: TURNSTILE_SITE_KEY, callback: onToken, 'expired-callback': onClear, 'error-callback': onClear
+      });
+    };
+  }
+  document.head.appendChild(s);
+}
+function resetCaptcha(){
+  if(!CAPTCHA_PROVIDER || _capWidgetId === null) return;
+  _capToken = null;
+  try{
+    if(CAPTCHA_PROVIDER === 'recaptcha') window.grecaptcha.enterprise.reset(_capWidgetId);
+    else window.turnstile.reset(_capWidgetId);
+  }catch(e){}
+}
+document.addEventListener('DOMContentLoaded', function(){
+  initCaptcha();
+  // keep the date pickers sensible
+  const start = document.getElementById('inq-start'), end = document.getElementById('inq-end');
+  if(start && end){
+    const today = new Date().toISOString().slice(0, 10);
+    start.min = today; end.min = today;
+    start.addEventListener('change', function(){ if(start.value){ end.min = start.value; if(end.value && end.value < start.value) end.value = start.value; } });
+  }
+});
+
 async function submitInquiry(evt){
   evt.preventDefault();
   const btn = document.getElementById('inq-submit-btn');
@@ -237,27 +292,35 @@ async function submitInquiry(evt){
     statusEl.style.background = isErr ? 'rgba(224,75,74,0.12)' : 'rgba(28,138,75,0.12)';
     statusEl.style.color = isErr ? 'var(--bad)' : 'var(--good)';
   }
+  function val(id){ const el = document.getElementById(id); return el ? el.value.trim() : ''; }
 
-  // honeypot — if this hidden field got filled, it's a bot, silently drop it
-  if(document.getElementById('inq-hp').value){
+  // honeypot: a hidden field only bots fill in
+  if(val('inq-hp')){
     showStatus("Thanks! We'll be in touch shortly.", false);
     document.getElementById('inquiryForm').reset();
     return;
   }
 
-  const name = document.getElementById('inq-name').value.trim();
-  const email = document.getElementById('inq-email').value.trim();
-  const tour = document.getElementById('inq-tour').value;
-  const message = document.getElementById('inq-message').value.trim();
+  const payload = {
+    name: val('inq-name'), email: val('inq-email'), phone: val('inq-phone'), country: val('inq-country'),
+    tour: val('inq-tour'), start_date: val('inq-start'), end_date: val('inq-end'),
+    date_notes: val('inq-datenotes'), group_size: val('inq-group'), message: val('inq-message')
+  };
 
-  if(!name || !email){
-    showStatus("Please fill in your name and email.", true);
+  if(!payload.name || !payload.email || !payload.message){
+    showStatus("Please fill in your name, email and message.", true);
     return;
   }
+  if(payload.start_date && payload.end_date && payload.end_date < payload.start_date){
+    showStatus("The end date is before the start date. Please check your dates.", true);
+    return;
+  }
+  // captcha (only when a Turnstile key has been added)
+  if(CAPTCHA_PROVIDER && !_capToken){ showStatus("Please tick \"I'm not a robot\" first.", true); return; }
 
   const sb = getSb();
   if(!sb){
-    showStatus("Booking system isn't connected yet — please WhatsApp us directly instead.", true);
+    showStatus("The enquiry system isn't connected yet. Please WhatsApp us directly instead.", true);
     return;
   }
 
@@ -266,24 +329,50 @@ async function submitInquiry(evt){
   btn.textContent = "Sending…";
 
   try{
-    const { error } = await sb.from('inquiries').insert({
-      name: name,
-      email: email,
-      tour: tour,
-      message: message,
-      status: 'new'
-    });
-    if(error) throw error;
-    showStatus("Thanks, " + name.split(' ')[0] + "! We've received your enquiry and will reply within a day.", false);
+    if(CAPTCHA_PROVIDER){
+      // verified on the server (Supabase Edge Function), then saved
+      const res = await sb.functions.invoke('submit-enquiry', { body: Object.assign({}, payload, { token: _capToken, provider: CAPTCHA_PROVIDER }) });
+      if(res.error) throw res.error;
+      if(res.data && res.data.error) throw new Error(res.data.error);
+    } else {
+      const row = {
+        name: payload.name, email: payload.email, tour: payload.tour || null, message: payload.message, status: 'new',
+        phone: payload.phone || null, country: payload.country || null, start_date: payload.start_date || null,
+        end_date: payload.end_date || null, date_notes: payload.date_notes || null, group_size: payload.group_size || null
+      };
+      let { error } = await sb.from('inquiries').insert(row);
+      if(error){
+        // Database not upgraded yet? Save the same details inside the message so nothing is lost.
+        const extra = [
+          payload.phone && ('Phone/WhatsApp: ' + payload.phone), payload.country && ('Country: ' + payload.country),
+          payload.start_date && ('Start: ' + payload.start_date), payload.end_date && ('End: ' + payload.end_date),
+          payload.date_notes && ('Date notes: ' + payload.date_notes), payload.group_size && ('Group size: ' + payload.group_size)
+        ].filter(Boolean).join('\n');
+        const legacy = await sb.from('inquiries').insert({
+          name: payload.name, email: payload.email, tour: payload.tour || null,
+          message: payload.message + (extra ? '\n\n---\n' + extra : ''), status: 'new'
+        });
+        if(legacy.error) throw legacy.error;
+      }
+    }
+    if(window.gtag) gtag('event', 'generate_lead', { method: 'enquiry_form', tour: payload.tour || 'none' });
+    showStatus("Thanks, " + payload.name.split(' ')[0] + "! We've received your enquiry and will reply within a day.", false);
     document.getElementById('inquiryForm').reset();
   }catch(err){
     const detail = (err && err.message) ? err.message : 'unknown error';
-    showStatus("Something went wrong: " + detail + " — please try WhatsApp instead.", true);
+    showStatus("Something went wrong: " + detail + " Please try again, or WhatsApp us instead.", true);
   }finally{
     btn.disabled = false;
     btn.textContent = originalText;
+    resetCaptcha();
   }
 }
+
+// Count WhatsApp taps as a conversion in Google Analytics (used for ad measurement)
+document.addEventListener('click', function(e){
+  const a = e.target.closest ? e.target.closest('a[href*="wa.me"]') : null;
+  if(a && window.gtag) gtag('event', 'whatsapp_click', { page_path: location.pathname });
+});
 
 // ============ Gallery: show 5 photos, reveal the rest on click ============
 function toggleGalleryPhotos(){
