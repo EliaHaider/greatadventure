@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page not found | Great Adventure</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/images/icons/favicon.ico" sizes="48x48">
+<style>
+  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#0A0860;color:#fff;font-family:Inter,system-ui,sans-serif;text-align:center;padding:24px}
+  h1{font-family:Georgia,serif;font-weight:500;font-size:34px;margin:0 0 10px}
+  p{color:#C7CEEC;margin:0 0 22px}
+  a.b{display:inline-block;background:#2552FF;color:#fff;text-decoration:none;padding:12px 24px;border-radius:999px;font-weight:600;margin:4px}
+  a.g{background:transparent;border:1px solid rgba(255,255,255,.4)}
+</style>
+<script>
+  // Old addresses that moved into the expeditions/ and trekking/ folders
+  var MOVED = {"k2-base-camp": "trekking/k2-base-camp", "gondogoro-la": "trekking/gondogoro-la", "ogre-latok-base-camp": "trekking/ogre-latok-base-camp", "deosai-plains": "trekking/deosai-plains", "shigar-valley": "trekking/shigar-valley", "trango-towers": "expeditions/trango-tower-expedition", "k2-broadpeak-base-camp": "expeditions/broad-peak-expedition", "gasherbrum-base-camp": "expeditions/gasherbrum-i-expedition", "masherbrum-base-camp": "expeditions/masherbrum-expedition", "k2-expedition": "expeditions/k2-expedition", "broad-peak-expedition": "expeditions/broad-peak-expedition", "gasherbrum-i-expedition": "expeditions/gasherbrum-i-expedition", "gasherbrum-ii-expedition": "expeditions/gasherbrum-ii-expedition", "masherbrum-expedition": "expeditions/masherbrum-expedition"};
+  var p = location.pathname.replace(/^\/+|\/+$/g,'').replace(/\/index\.html$/,'');
+  if(MOVED[p]) location.replace('/' + MOVED[p] + '/' + location.search + location.hash);
+</script>
+</head>
+<body>
+  <div>
+    <h1>This page could not be found.</h1>
+    <p>It may have moved. Try the home page or browse our tours.</p>
+    <a class="b" href="/">Back to home</a><a class="b g" href="/#tours">View tours</a>
+  </div>
+</body>
+</html>

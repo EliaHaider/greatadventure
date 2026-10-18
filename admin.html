@@ -46,7 +46,7 @@
 </head>
 <body>
 
-<a href="./" class="back-link">&larr; Back to site</a>
+<a href="index.html" class="back-link">&larr; Back to site</a>
 <div class="admin-brand">
   <img src="images/logo/logo.png" alt="Great Adventure logo">
   <div class="name">Great <span>Adventure</span></div>
@@ -94,6 +94,30 @@
   <div id="approved-list"></div>
 </div>
 
+<div class="box" id="departures-box" style="display:none;max-width:640px;">
+  <h1>Group departures</h1>
+  <p class="sub">Dates added here appear in the website&rsquo;s &ldquo;Join a group&rdquo; section straight away. Only add dates you really plan to run.</p>
+  <label>Trip</label>
+  <select id="dp-tour"><option>K2 Base Camp & Concordia</option><option>Gondogoro La Crossing</option><option>K2 Expedition</option><option>Broad Peak Expedition</option><option>Gasherbrum I Expedition</option><option>Gasherbrum II Expedition</option><option>Masherbrum Expedition</option><option>Trango Tower Expedition</option><option>Ogre & Latok Base Camp Trek</option><option>Deosai Plains</option><option>Skardu & Shigar Valley</option></select>
+  <label>Start date</label>
+  <input type="date" id="dp-start">
+  <label>End date (optional)</label>
+  <input type="date" id="dp-end">
+  <label>Price per person, USD (optional)</label>
+  <input type="number" id="dp-price" min="0" step="1" placeholder="e.g. 5990">
+  <label>Spots left (optional)</label>
+  <input type="number" id="dp-spots" min="0" step="1" placeholder="Leave empty to hide the number">
+  <label>Status</label>
+  <select id="dp-statussel"><option value="open">Open</option><option value="few">Few spots left</option><option value="full">Full (waiting list)</option></select>
+  <label>Note (optional)</label>
+  <input type="text" id="dp-note" placeholder="e.g. Confirms once 4 travellers have joined">
+  <button onclick="addDeparture()">Add this date</button>
+  <div class="status" id="dp-msg"></div>
+  <h1 style="margin-top:30px;">Dates on the website</h1>
+  <p class="sub">Hide a date to take it off the website without deleting it.</p>
+  <div id="departures-list"></div>
+</div>
+
 <div class="box" id="inquiries-box" style="display:none;max-width:640px;">
   <h1>Customer enquiries</h1>
   <p class="sub">Messages submitted through the "Send enquiry" form on the website, newest first.</p>
@@ -129,8 +153,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
-  const SUPABASE_URL = "https://jyotzntfainfpgxbolum.supabase.co";
-  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp5b3R6bnRmYWluZnBneGJvbHVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ2NTQ0ODgsImV4cCI6MjEwMDIzMDQ4OH0.zbN70O5KdI0WDc8m0Pru6LBCQnBMwBnTXmDfXlJal1o";
+  const SUPABASE_URL = "https://liubwwceifhbgmogvagu.supabase.co";
+  const SUPABASE_ANON_KEY = "sb_publishable_8uDHbP9KikCbCwvIMiDa0A_NjFKKuZF";
   let sb;
   function showStatus(id, msg, ok){
     const el = document.getElementById(id);
@@ -166,6 +190,7 @@
     document.getElementById("editor-box").style.display = "block";
     document.getElementById("reviews-box").style.display = "block";
     document.getElementById("inquiries-box").style.display = "block";
+    document.getElementById("departures-box").style.display = "block";
     const { data } = await sb.from("announcements").select("*").eq("id", 1).single();
     if(data){
       document.getElementById("active-toggle").checked = !!data.active;
@@ -174,6 +199,7 @@
     }
     loadReviewLists();
     loadInquiries();
+    loadDepartures();
     // Keep counts fresh while this tab stays open, without needing a refresh click.
     if(!window._adminPollTimer){
       window._adminPollTimer = setInterval(function(){
@@ -297,6 +323,11 @@
             <span class="badge ${iq.status === 'contacted' ? 'contacted' : 'new'}">${iq.status === 'contacted' ? 'Contacted' : 'New'}</span>
           </div>
           <div class="tour">${escapeHtml(iq.tour || 'Not specified')}</div>
+          ${iq.phone ? `<div class="email">WhatsApp / phone: <a style="color:#9EB2FF" target="_blank" rel="noopener" href="https://wa.me/${escapeHtml(String(iq.phone).replace(/[^0-9]/g,''))}">${escapeHtml(iq.phone)}</a></div>` : ''}
+          ${iq.country ? `<div class="email">Country: ${escapeHtml(iq.country)}</div>` : ''}
+          ${(iq.start_date || iq.end_date) ? `<div class="email">Dates: ${escapeHtml(iq.start_date || '?')} to ${escapeHtml(iq.end_date || '?')}</div>` : ''}
+          ${iq.date_notes ? `<div class="email">Date notes: ${escapeHtml(iq.date_notes)}</div>` : ''}
+          ${iq.group_size ? `<div class="email">Group size: ${escapeHtml(iq.group_size)}</div>` : ''}
           <div class="date">${formatDate(iq.created_at)}</div>
           ${iq.message ? `<div class="msg">${escapeHtml(iq.message)}</div>` : ''}
           <div class="actions">
@@ -307,6 +338,66 @@
 
     _newInquiryCount = data ? data.filter(iq => iq.status !== 'contacted').length : 0;
     updateSummary();
+  }
+
+
+  // ---------- Group departures ----------
+  async function loadDepartures(){
+    const el = document.getElementById("departures-list");
+    const { data, error } = await sb.from("departures").select("*").order("start_date", { ascending: true }).limit(100);
+    if(error){
+      el.innerHTML = '<p class="empty-note">Could not load departures. Run supabase/departures.sql in the Supabase SQL Editor first.</p>';
+      return;
+    }
+    el.innerHTML = (!data || data.length === 0)
+      ? '<p class="empty-note">No dates added yet. The website shows the &ldquo;Join a group, or go private&rdquo; steps until you add one.</p>'
+      : data.map(d => `
+        <div class="iq-card">
+          <div class="top-row">
+            <div>
+              <div class="who">${escapeHtml(d.tour)}</div>
+              <div class="email">${escapeHtml(d.start_date)}${d.end_date ? ' to ' + escapeHtml(d.end_date) : ''}${d.price_usd ? ' · $' + escapeHtml(String(d.price_usd)) + ' pp' : ''}${(d.spots_left !== null && d.spots_left !== undefined) ? ' · ' + escapeHtml(String(d.spots_left)) + ' spots left' : ''}</div>
+            </div>
+            <span class="badge ${d.active ? 'contacted' : 'new'}">${d.active ? 'Showing' : 'Hidden'} · ${escapeHtml(d.status || 'open')}</span>
+          </div>
+          ${d.note ? `<div class="msg">${escapeHtml(d.note)}</div>` : ''}
+          <div class="actions">
+            <button class="btn-contacted" onclick="toggleDeparture('${d.id}', ${d.active ? 'false' : 'true'})">${d.active ? 'Hide from website' : 'Show on website'}</button>
+            <button class="btn-delete" onclick="deleteDeparture('${d.id}')">Delete</button>
+          </div>
+        </div>`).join("");
+  }
+  async function addDeparture(){
+    const start = document.getElementById("dp-start").value;
+    if(!start){ showStatus("dp-msg", "Please choose a start date.", false); return; }
+    const end = document.getElementById("dp-end").value;
+    if(end && end < start){ showStatus("dp-msg", "The end date is before the start date.", false); return; }
+    const price = document.getElementById("dp-price").value;
+    const spots = document.getElementById("dp-spots").value;
+    const row = {
+      tour: document.getElementById("dp-tour").value,
+      start_date: start,
+      end_date: end || null,
+      price_usd: price === "" ? null : parseInt(price, 10),
+      spots_left: spots === "" ? null : parseInt(spots, 10),
+      status: document.getElementById("dp-statussel").value,
+      note: document.getElementById("dp-note").value.trim() || null,
+      active: true
+    };
+    const { error } = await sb.from("departures").insert(row);
+    if(error){ showStatus("dp-msg", "Could not save: " + error.message, false); return; }
+    showStatus("dp-msg", "Date added. It is now live on the website.", true);
+    ["dp-start","dp-end","dp-price","dp-spots","dp-note"].forEach(function(id){ document.getElementById(id).value = ""; });
+    loadDepartures();
+  }
+  async function toggleDeparture(id, active){
+    await sb.from("departures").update({ active: active }).eq("id", id);
+    loadDepartures();
+  }
+  async function deleteDeparture(id){
+    if(!confirm("Delete this date permanently?")) return;
+    await sb.from("departures").delete().eq("id", id);
+    loadDepartures();
   }
 
   async function markContacted(id){
@@ -321,3 +412,5 @@
 </script>
 </body>
 </html>
+
+
