@@ -57,34 +57,34 @@
 
 <header>
   <nav>
-    <div class="brand">
+    <a class="brand" href="../" aria-label="Great Adventure home">
       <img src="../images/logo/logo.png" alt="Great Adventure logo">
       <div class="brand-name">Great <span>Adventure</span></div>
-    </div>
+    </a>
     <div class="navlinks">
-      <a href="../index.html#about">About</a>
-      <a href="../index.html#tours">Tours</a>
-      <a href="../index.html#gallery">Gallery</a>
-      <a href="../index.html#reviews">Reviews</a>
-      <a href="../index.html#contact">Contact</a>
+      <a href="../#about">About</a>
+      <a href="../#tours">Tours</a>
+      <a href="../#gallery">Gallery</a>
+      <a href="../#reviews">Reviews</a>
+      <a href="../#contact">Contact</a>
     </div>
     <div class="nav-right">
-      <a href="../index.html#contact" class="nav-cta">Plan your trip</a>
+      <a href="../#contact" class="nav-cta">Plan your trip</a>
       <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </nav>
 </header>
 <div class="mobile-menu" id="mobileMenu">
-  <a href="../index.html#about" onclick="toggleMenu()">About</a>
-  <a href="../index.html#tours" onclick="toggleMenu()">Tours</a>
-  <a href="../index.html#gallery" onclick="toggleMenu()">Gallery</a>
-  <a href="../index.html#reviews" onclick="toggleMenu()">Reviews</a>
-  <a href="../index.html#contact" onclick="toggleMenu()">Contact</a>
-  <a href="../index.html#contact" class="nav-cta" onclick="toggleMenu()">Plan your trip</a>
+  <a href="../#about" onclick="toggleMenu()">About</a>
+  <a href="../#tours" onclick="toggleMenu()">Tours</a>
+  <a href="../#gallery" onclick="toggleMenu()">Gallery</a>
+  <a href="../#reviews" onclick="toggleMenu()">Reviews</a>
+  <a href="../#contact" onclick="toggleMenu()">Contact</a>
+  <a href="../#contact" class="nav-cta" onclick="toggleMenu()">Plan your trip</a>
 </div>
 
 <div class="wrap legal-body">
-  <a href="../index.html" class="back-link">&larr; Back to home</a>
+  <a href="../" class="back-link">&larr; Back to home</a>
   <div class="eyebrow">Before you travel</div>
   <h1 class="serif" style="font-size:36px;font-weight:500;margin:14px 0 6px;">Safety &amp; Rescue</h1>
   <div class="legal-updated">Last updated &mdash; October 2026. Read this alongside our Booking Terms before you book.</div>
@@ -93,7 +93,7 @@
   <p>The Karakoram is high, remote and changeable. Our itineraries build in acclimatisation days on the Baltoro approach and weather buffer days at the start and end of the trip, because rushing is the most common cause of trouble at altitude. Your guide watches the weather, the trail and how each person in the group is feeling, and adjusts the plan when conditions or health call for it.</p>
 
   <h2><span class="h2-num">2. Insurance</span>Mandatory for every traveller</h2>
-  <p>Every traveller must hold travel insurance that explicitly covers high-altitude trekking and emergency helicopter evacuation, valid to the maximum altitude of the trek (we recommend cover up to at least 6,000 m). Trekkers without it may be declined boarding on the trek. Details are in our <a href="../terms/index.html" style="color:var(--blue-dim);text-decoration:underline;">Booking Terms</a>.</p>
+  <p>Every traveller must hold travel insurance that explicitly covers high-altitude trekking and emergency helicopter evacuation, valid to the maximum altitude of the trek (we recommend cover up to at least 6,000 m). Trekkers without it may be declined boarding on the trek. Details are in our <a href="../legal/booking-terms-and-conditions/" style="color:var(--blue-dim);text-decoration:underline;">Booking Terms</a>.</p>
 
   <h2><span class="h2-num">3. Evacuation</span>What rescue really looks like</h2>
   <p>In the Karakoram, a helicopter is never an instant guarantee. Flights depend on weather, visibility and clearances, and often cannot reach high camps for hours or days. Evacuation is coordinated between you and your insurance provider and is at your own expense, as set out in our Booking Terms. Prevention matters more than rescue, which is why pacing and early honesty about symptoms matter so much.</p>
@@ -119,19 +119,34 @@
   <a href="https://www.facebook.com/greatadvtours" target="_blank" rel="noopener" class="float-btn fb-float" aria-label="Message on Facebook" title="Message on Facebook">f</a>
 </div>
 
-<footer>
+<footer class="ft2">
   <div class="wrap">
-    <div class="foot-grid">
-      <div>
-        <div class="foot-brand"><img src="../images/logo/logo.png" alt="Great Adventure logo"><div class="brand-name" style="color:#fff;">Great <span style="color:#7C93FF;">Adventure</span></div></div>
-        <p style="font-size:13px;color:var(--stone);max-width:260px;">A new company, led by a founder with twenty-six years of Karakoram field experience.</p>
+    <div class="ft2-grid">
+      <div class="ft2-brand">
+        <a class="ft2-logo" href="../" aria-label="Great Adventure home"><img src="../images/logo/logo.png" alt="Great Adventure logo"><span>Great <em>Adventure</em></span></a>
+        <p>A Skardu-based operator for small-group K2 treks, high-altitude expeditions and complete Karakoram field logistics.</p>
+        <div class="ft2-home"><div class="ft2-lab">Home ground</div><b>Skardu &middot; Askole &middot; Karakoram</b></div>
+        <div class="ft2-social">
+          <a href="https://www.instagram.com/greatadvtours" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4.5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17" cy="7" r=".8"/></svg></a>
+          <a href="https://www.tiktok.com/@greatadvtours" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4v10.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 4c.4 2.4 2 4 4.5 4.2"/></svg></a>
+          <a href="https://facebook.com/greatadvtours" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8.5c0-.3.2-.5.5-.5z"/></svg></a>
+        </div>
       </div>
-      <div class="foot-links">
-        <div><h4>Explore</h4><a href="../index.html#about">About</a><a href="../index.html#tours">Tours</a><a href="../peaks/index.html">Peaks</a><a href="../index.html#gallery">Gallery</a><a href="index.html">Safety &amp; Rescue</a><a href="../privacy/index.html">Privacy Policy</a></div>
-        <div><h4>Contact</h4><a href="../index.html#contact">Enquire</a><a href="https://wa.me/923555585368" target="_blank" rel="noopener">WhatsApp</a><a href="../packing-list/index.html">Packing List</a><a href="https://www.instagram.com/greatadvtours" target="_blank" rel="noopener">Instagram</a><a href="https://www.tiktok.com/@greatadvtours" target="_blank" rel="noopener">TikTok</a></div>
+      <div role="navigation" class="ft2-col" aria-label="Company">
+        <div class="ft2-lab">Directory / 01</div><h3>Company</h3>
+        <ul><li><a href="../journeys/">All journeys</a></li><li><a href="../journeys/expeditions/">Expeditions</a></li><li><a href="../journeys/trekking/">Trekking</a></li><li><a href="../peaks/">Peaks of Baltistan</a></li><li><a href="../#about">About</a></li><li><a href="../#contact">Contact</a></li><li><a href="../#contact">Custom journey</a></li></ul>
+      </div>
+      <div role="navigation" class="ft2-col" aria-label="Support">
+        <div class="ft2-lab">Directory / 02</div><h3>Support</h3>
+        <ul><li><a href="./">Safety &amp; Rescue</a></li><li><a href="../packing-list/">Packing list</a></li><li><a href="../legal/cancellation-and-refund-policy/">Booking cancellation</a></li><li><a href="../legal/visa-and-permit-policy/">Visas &amp; permits</a></li><li><a href="../privacy/">Privacy Policy</a></li><li><a href="../legal/">Legal Centre</a></li></ul>
+      </div>
+      <div class="ft2-col ft2-desk">
+        <div class="ft2-lab">Direct line</div><h3>Expedition desk</h3>
+        <ul><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.2-6-10a6 6 0 1 1 12 0c0 4.8-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg><span>Skardu, Gilgit-Baltistan, Pakistan</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><a href="mailto:info@greatadv.com">info@greatadv.com</a></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg><a href="tel:+923555585368">+92 355 5585368</a></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7L4 20z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 .8a4 4 0 0 1-1.8-1.8l.8-1-1-2L9 9.5z"/></svg><a href="https://wa.me/923555585368" target="_blank" rel="noopener">+92 355 5585368</a></li></ul>
       </div>
     </div>
-    <div class="fine"><span>&copy; 2026 Great Adventure. All rights reserved.</span><span>Skardu, Gilgit-Baltistan, Pakistan</span></div>
+    <div class="ft2-legal"><span class="ft2-lab">Legal</span><a href="../legal/">Legal Centre</a><a href="../legal/booking-terms-and-conditions/">Booking Terms</a><a href="../legal/cancellation-and-refund-policy/">Cancellation &amp; Refunds</a><a href="../privacy/">Privacy Policy</a></div>
+    <div class="ft2-bar"><span>&copy; 2026 Great Adventure. All rights reserved.</span><span>Gilgit-Baltistan</span><a href="../#contact">Plan a journey &rarr;</a></div>
   </div>
 </footer>
 

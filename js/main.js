@@ -721,3 +721,22 @@ document.addEventListener('DOMContentLoaded', loadDepartures);
   document.addEventListener('contextmenu', function(e){ if(isPhoto(e.target)) e.preventDefault(); });
   document.addEventListener('dragstart', function(e){ if(e.target && e.target.tagName === 'IMG') e.preventDefault(); });
 })();
+
+// ============ Local preview helper ============
+// Opened straight from disk (file://), a folder link has no index page, so point it at index.html.
+// Online, links stay clean: /trekking/gondogoro-la/ (no index.html in the address).
+(function(){
+  if(location.protocol !== 'file:') return;
+  function fix(){
+    document.querySelectorAll('a[href]').forEach(function(a){
+      var h = a.getAttribute('href');
+      if(!h || /^(https?:|mailto:|tel:|javascript:|data:|#|\/\/)/i.test(h)) return;
+      var m = h.match(/^([^?#]*)([?#][\s\S]*)?$/), p = m[1], rest = m[2] || '';
+      if(!p) return;
+      if(/\.[a-z0-9]+$/i.test(p.split('/').pop())) return;
+      if(p.charAt(p.length - 1) !== '/') p += '/';
+      a.setAttribute('href', p + 'index.html' + rest);
+    });
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fix); else fix();
+})();
