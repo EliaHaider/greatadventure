@@ -67,6 +67,95 @@
 }
 @media print{.hero-focus{display:none !important}}
 
+/* ===== Tours: desktop/laptop hierarchy layout (mobile/tablet keep original style.css look) ===== */
+@media (min-width:901px){
+#tourGrid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-auto-rows:minmax(300px,auto);grid-auto-flow:row dense;gap:20px;align-items:stretch}
+#tourGrid .tcard{position:relative;display:flex;flex-direction:column;grid-column:span 5;margin:0;padding:0;border-radius:6px;overflow:hidden;min-width:0;transform:none}
+#tourGrid .tcard[hidden],#tourGrid .tcard.hidden,#tourGrid .tcard.hide,#tourGrid .tcard.is-hidden{display:none}
+#tourGrid .tcard--hero{grid-column:span 7;grid-row:span 2;min-height:620px}
+#tourGrid .tcard--wide{grid-column:span 7;min-height:380px}
+#tourGrid .tcard--compact{grid-column:span 5;flex-direction:row;background:#fff;border:1px solid var(--line,#dcdce6)}
+
+/* images always fill their frame, whatever aspect-ratio style.css sets */
+#tourGrid .tcard-img{position:relative;margin:0;padding:0;border-radius:0;overflow:hidden;aspect-ratio:auto;max-height:none;height:auto;background:var(--navy-2,#15134f)}
+#tourGrid .tcard-img img{position:absolute;inset:0;width:100%;height:100%;max-height:none;aspect-ratio:auto;object-fit:cover;object-position:center 30%;display:block}
+#tourGrid .tcard--hero .tcard-img,#tourGrid .tcard--wide .tcard-img{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+#tourGrid .tcard--hero .tcard-img::after,#tourGrid .tcard--wide .tcard-img::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(to top,rgba(4,3,40,.95) 0%,rgba(4,3,40,.72) 36%,rgba(4,3,40,.1) 72%,rgba(4,3,40,0) 100%)}
+#tourGrid .tcard--compact .tcard-img{flex:0 0 40%;align-self:stretch;width:auto;min-height:100%}
+
+/* shared body */
+#tourGrid .tcard-body{position:relative;z-index:3;display:flex;flex-direction:column;min-width:0;background:none;border:0}
+#tourGrid .tag{order:1;align-self:flex-start;font:500 12.5px/1 'Inter',sans-serif;padding:7px 12px;border-radius:999px;margin:0;text-transform:none;letter-spacing:0}
+#tourGrid h3{order:2;font-family:'Fraunces',serif;font-weight:500;letter-spacing:-0.01em;margin:0}
+#tourGrid .tcard-body p{order:3;margin:0}
+#tourGrid .badge-row{order:4;margin:0;padding:0}
+#tourGrid .meta{order:5;display:flex;flex-wrap:wrap;margin:0}
+#tourGrid .meta span{display:flex;flex-direction:column-reverse;gap:4px;font:400 12px/1.2 'Inter',sans-serif}
+#tourGrid .meta b{font-family:'IBM Plex Mono',monospace;font-weight:500;line-height:1.1;white-space:nowrap}
+#tourGrid .itin-btn{order:6;align-self:flex-start;width:auto;display:inline-flex;align-items:center;gap:10px;font:600 14.5px/1 'Inter',sans-serif;text-decoration:none;cursor:pointer}
+#tourGrid .badge.diff{display:inline-flex;align-items:center;gap:10px;background:none;border:0;padding:0;margin:0;font:500 13px/1 'Inter',sans-serif;text-transform:none;letter-spacing:0;color:inherit}
+#tourGrid .badge.diff::before{content:"";width:52px;height:6px;flex:none;--f:38px;background:linear-gradient(90deg,currentColor var(--f),rgba(128,128,128,.35) var(--f));-webkit-mask:repeating-linear-gradient(90deg,#000 0 10px,transparent 10px 14px);mask:repeating-linear-gradient(90deg,#000 0 10px,transparent 10px 14px)}
+#tourGrid .badge.lv-2::before{--f:24px}
+#tourGrid .badge.lv-3::before{--f:38px}
+#tourGrid .badge.lv-4::before{--f:52px}
+
+/* overlay cards */
+#tourGrid .tcard--hero,#tourGrid .tcard--wide{background:var(--navy,#0b0a45);color:#fff;justify-content:flex-end}
+#tourGrid .tcard--hero .tcard-body,#tourGrid .tcard--wide .tcard-body{gap:14px;width:100%}
+#tourGrid .tcard--hero .tag,#tourGrid .tcard--wide .tag{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.34);color:#fff;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+#tourGrid .tcard--hero h3,#tourGrid .tcard--wide h3{color:#fff}
+#tourGrid .tcard--hero p,#tourGrid .tcard--wide p{color:rgba(255,255,255,.88)}
+#tourGrid .tcard--hero .badge.diff,#tourGrid .tcard--wide .badge.diff{color:#fff}
+#tourGrid .tcard--hero .meta,#tourGrid .tcard--wide .meta{border-top:1px solid rgba(255,255,255,.24)}
+#tourGrid .tcard--hero .meta span,#tourGrid .tcard--wide .meta span{color:rgba(255,255,255,.72)}
+#tourGrid .tcard--hero .meta b,#tourGrid .tcard--wide .meta b{color:#fff}
+#tourGrid .tcard--hero .meta span+span,#tourGrid .tcard--wide .meta span+span{border-left:1px solid rgba(255,255,255,.24)}
+
+/* tier 1 hero */
+#tourGrid .tcard--hero .tcard-body{padding:40px}
+#tourGrid .tcard--hero h3{font-size:clamp(32px,3.6vw,46px);line-height:1.05}
+#tourGrid .tcard--hero p{font-size:16px;line-height:1.55;max-width:52ch}
+#tourGrid .tcard--hero .meta{padding-top:20px}
+#tourGrid .tcard--hero .meta span{padding-right:30px}
+#tourGrid .tcard--hero .meta span+span{padding-left:30px}
+#tourGrid .tcard--hero .meta b{font-size:clamp(24px,2.6vw,32px)}
+#tourGrid .tcard--hero .itin-btn{margin-top:8px;padding:15px 26px;border-radius:4px;background:#fff;color:var(--navy,#0b0a45);font-size:15px;border:0}
+#tourGrid .tcard--hero .itin-btn:hover{background:#e9edff}
+
+/* tier 2 wide */
+#tourGrid .tcard--wide .tcard-body{padding:32px 36px;gap:12px}
+#tourGrid .tcard--wide h3{font-size:clamp(26px,2.6vw,34px);line-height:1.1}
+#tourGrid .tcard--wide p{font-size:15px;line-height:1.5;max-width:50ch}
+#tourGrid .tcard--wide .meta{padding-top:16px}
+#tourGrid .tcard--wide .meta span{padding-right:24px}
+#tourGrid .tcard--wide .meta span+span{padding-left:24px}
+#tourGrid .tcard--wide .meta b{font-size:22px}
+#tourGrid .tcard--wide .itin-btn{margin-top:4px;padding:12px 20px;border-radius:4px;background:transparent;border:1px solid rgba(255,255,255,.75);color:#fff}
+#tourGrid .tcard--wide .itin-btn:hover{background:#fff;color:var(--navy,#0b0a45)}
+
+/* tier 3 compact */
+#tourGrid .tcard--compact .tcard-body{flex:1 1 auto;padding:22px 24px;gap:10px;color:var(--navy,#0b0a45)}
+#tourGrid .tcard--compact .tag{background:var(--cream,#f3f1ea);color:var(--blue-dim,#3d4bb0);border:0;padding:6px 11px;font-size:12px}
+#tourGrid .tcard--compact h3{font-size:22px;line-height:1.15;color:var(--navy,#0b0a45)}
+#tourGrid .tcard--compact p{font-size:14px;line-height:1.5;color:var(--ink-soft,#55556b);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+#tourGrid .tcard--compact .badge.diff{color:var(--navy,#0b0a45);font-size:12.5px}
+#tourGrid .tcard--compact .meta{padding-top:10px;margin-top:auto;border-top:1px solid var(--line,#dcdce6)}
+#tourGrid .tcard--compact .meta span{color:var(--ink-soft,#55556b);padding-right:16px}
+#tourGrid .tcard--compact .meta span+span{padding-left:16px;border-left:1px solid var(--line,#dcdce6)}
+#tourGrid .tcard--compact .meta b{font-size:14.5px;color:var(--navy,#0b0a45)}
+#tourGrid .tcard--compact .itin-btn{margin-top:6px;padding:11px 16px;border-radius:4px;border:1.5px solid var(--navy,#0b0a45);background:transparent;color:var(--navy,#0b0a45);font-size:13.5px;transition:background .2s,color .2s}
+#tourGrid .tcard--compact .itin-btn::after{content:"\2192";transition:transform .2s}
+#tourGrid .tcard--compact .itin-btn:hover{background:var(--navy,#0b0a45);color:#fff}
+#tourGrid .tcard--compact .itin-btn:hover::after{transform:translateX(4px)}
+#tourGrid .itin-btn:focus-visible{outline:3px solid var(--blue-dim,#4a5bd8);outline-offset:3px}
+
+@media (prefers-reduced-motion:no-preference){
+  #tourGrid .tcard-img img{transition:transform .7s cubic-bezier(.2,.6,.2,1)}
+  #tourGrid .tcard:hover .tcard-img img{transform:scale(1.04)}
+}
+}
+
+
 .soc-links{display:flex;flex-wrap:wrap;gap:6px 18px}
 .soc-links a{color:var(--blue-dim);text-decoration:underline;text-underline-offset:3px}
 .cf-step{display:flex;align-items:center;gap:10px;margin:22px 0 4px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--blue-dim)}
@@ -147,13 +236,10 @@
       <div class="brand-name">Great <span>Adventure</span></div>
     </a>
     <div class="navlinks">
-      <a href="#about">About</a>
-      <a href="#route">The route</a>
-      <a href="peaks/">Peaks</a>
       <a href="#tours">Tours</a>
-      <a href="#process">How it works</a>
+      <a href="#about">About</a>
       <a href="#gallery">Gallery</a>
-      <a href="#reviews">Reviews</a>
+      <a href="#visa">Visa</a>
       <a href="#faq">FAQ</a>
       <a href="#contact">Contact</a>
     </div>
@@ -167,13 +253,10 @@
 </header>
 
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#about" onclick="toggleMenu()">About</a>
-  <a href="#route" onclick="toggleMenu()">The route</a>
-  <a href="peaks/" onclick="toggleMenu()">Peaks</a>
   <a href="#tours" onclick="toggleMenu()">Tours</a>
-  <a href="#process" onclick="toggleMenu()">How it works</a>
+  <a href="#about" onclick="toggleMenu()">About</a>
   <a href="#gallery" onclick="toggleMenu()">Gallery</a>
-  <a href="#reviews" onclick="toggleMenu()">Reviews</a>
+  <a href="#visa" onclick="toggleMenu()">Visa</a>
   <a href="#faq" onclick="toggleMenu()">FAQ</a>
   <a href="#contact" onclick="toggleMenu()">Contact</a>
   <a href="#contact" class="nav-cta" onclick="toggleMenu()">Plan your trip</a>
@@ -230,7 +313,6 @@
   </aside>
 </section>
 
-
 <div class="trust-strip">
   <div class="wrap trust-grid">
     <div class="trust-item"><span class="dot"></span><span><b>26 years</b> of founder field experience</span></div>
@@ -240,30 +322,108 @@
   </div>
 </div>
 
-<section class="about" id="about">
-  <div class="wrap about-grid">
-    <div class="about-copy">
-      <div class="eyebrow">About us</div>
-      <h2 class="serif" style="font-size:34px;font-weight:500;margin:14px 0 22px;">Guided by someone who has actually walked the route.</h2>
-      <p>Great Adventure is a new company, founded in 2026. Our founder has spent about twenty-six years in Baltistan planning and leading trips through some of the world's highest terrain, working with other operators before starting this company. The company is new; the field experience behind it is not.</p>
-      <p>That experience shows up in the details tourists notice first: routes planned around real weather windows, porters and guides who know each valley personally, and a response time that doesn't leave you waiting when you're trying to plan a trip from another country.</p>
-      <p>We now bring that same standard of service directly to travellers, under our own name.</p>
-      <div class="reg-badges">
-        <div class="reg-badge"><span class="tick">✓</span> Local Skardu-Based Team</div>
-        <div class="reg-badge"><span class="tick">✓</span> Visa Assistance Available</div>
-        <div class="reg-badge"><span class="tick">✓</span> Founder: 26 Years on These Trails</div>
-      </div>
+<section class="services" id="tours">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Tours &amp; expeditions</div>
+      <h2>Routes we know better than most.</h2>
+      <p>Every itinerary below is built on routes our founder has personally led, not assembled from a brochure.</p>
     </div>
-    <div>
-      <div class="years-badge">
-        <div class="num">26</div>
-        <div class="cap">Years of Karakoram experience, our founder</div>
-        <div class="stat-row">
-          <div><div class="n">1,200+</div><div class="l">Travellers guided (founder)</div></div>
-          <div><div class="n">18</div><div class="l">Routes covered</div></div>
-          <div><div class="n">24h</div><div class="l">Avg. reply time</div></div>
+    <div class="filter-tabs" id="tourFilters">
+      <button class="filter-tab active" data-filter="All">All</button>
+      <button class="filter-tab" data-filter="Trek">Treks</button>
+      <button class="filter-tab" data-filter="Expedition">Expeditions</button>
+    </div>
+    <div class="card-grid" id="tourGrid">
+      <div class="tcard tcard--hero" data-category="Trek" data-diff="Hard" data-days="20" data-alt="5150" data-name="k2 base camp & concordia">
+        <div class="tcard-img img-frame"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/tours/tour-k2-base-camp.jpg" alt="K2 Base Camp & Concordia trek" loading="lazy"></div>
+        <div class="tcard-body">
+          <div class="tag">Trek</div>
+          <h3>K2 Base Camp &amp; Concordia</h3>
+          <p>The classic Karakoram trek to the base of the world's second-highest peak, through Baltoro glacier and Concordia's amphitheatre of 8,000ers.</p>
+          <div class="badge-row"><span class="badge diff lv-3">Difficulty: Hard</span></div>
+          <div class="meta"><span>Duration <b>20 days</b></span><span>Max altitude <b>5,150 m</b></span></div>
+          <a href="trekking/k2-base-camp/" class="itin-btn">View Full Itinerary</a>
         </div>
       </div>
+<div class="tcard tcard--compact" data-category="Trek" data-diff="Hard" data-days="21" data-alt="5585" data-name="gondogoro la crossing">
+        <div class="tcard-img img-frame"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/tours/tour-gondogoro-la.jpg" alt="Gondogoro La Crossing" loading="lazy"></div>
+        <div class="tcard-body">
+          <div class="tag">Trek</div>
+          <h3>Gondogoro La Crossing</h3>
+          <p>The full Karakoram journey: the Baltoro Glacier, Concordia and K2 Base Camp, then across the 5,585 m Gondogoro La pass at sunrise into the Hushe valley.</p>
+          <div class="badge-row"><span class="badge diff lv-3">Difficulty: Hard</span></div>
+          <div class="meta"><span>Duration <b>21 days</b></span><span>Max altitude <b>5,585 m</b></span></div>
+          <a href="trekking/gondogoro-la/" class="itin-btn">View Full Itinerary</a>
+        </div>
+      </div>
+<div class="tcard tcard--compact" data-category="Trek" data-diff="Moderate" data-days="5" data-alt="4200" data-name="deosai plains">
+        <div class="tcard-img img-frame"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/tours/tour-deosai-plains.jpg" alt="Deosai Plains" loading="lazy"></div>
+        <div class="tcard-body">
+          <div class="tag">Trek</div>
+          <h3>Deosai Plains</h3>
+          <p>Five days across the Land of Giants: Bara Pani, Sheosar Lake and the high grasslands of Deosai National Park, camping with Nanga Parbat on the horizon.</p>
+          <div class="badge-row"><span class="badge diff lv-2">Difficulty: Moderate</span></div>
+          <div class="meta"><span>Duration <b>5 days</b></span><span>Max altitude <b>4,200 m</b></span></div>
+          <a href="trekking/deosai-plains/" class="itin-btn">View Full Itinerary</a>
+        </div>
+      </div>
+<div class="tcard tcard--wide" data-category="Expedition" data-diff="Hard" data-days="60" data-alt="8611" data-name="k2 expedition">
+        <div class="tcard-img img-frame"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/tours/tour-k2-base-camp.jpg" alt="K2 Expedition" loading="lazy"></div>
+        <div class="tcard-body">
+          <div class="tag">Expedition</div>
+          <h3>K2 Expedition</h3>
+          <p>K2 (8,611m) by the Abruzzi Spur, with the Baltoro approach, base camp, permits and full local logistics for experienced climbers.</p>
+          <div class="badge-row"><span class="badge diff lv-3">Difficulty: Hard</span></div>
+          <div class="meta"><span>Duration <b>60 days</b></span><span>Max altitude <b>8,611 m</b></span></div>
+          <a href="expeditions/k2-expedition/" class="itin-btn">View Full Itinerary</a>
+        </div>
+      </div>
+<div class="tcard tcard--compact" data-category="Expedition" data-diff="High-Altitude Expedition" data-days="52" data-alt="8051" data-name="broad peak expedition">
+        <div class="tcard-img img-frame"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/tours/tour-k2-broadpeak-base-camp.jpg" alt="Broad Peak Expedition" loading="lazy"></div>
+        <div class="tcard-body">
+          <div class="tag">Expedition</div>
+          <h3>Broad Peak Expedition</h3>
+          <p>Broad Peak (8,051m) by the West Ridge from a base camp beside K2, with permits, porters and full local logistics.</p>
+          <div class="badge-row"><span class="badge diff lv-4">Difficulty: High-Altitude Expedition</span></div>
+          <div class="meta"><span>Duration <b>52 days</b></span><span>Max altitude <b>8,051 m</b></span></div>
+          <a href="expeditions/broad-peak-expedition/" class="itin-btn">View Full Itinerary</a>
+        </div>
+      </div>
+    </div>
+    <div class="tours-more">
+      <a href="journeys/" class="btn btn-primary">View all journeys &rarr;</a>
+      <a href="#contact" class="tours-custom" onclick="goToEnquiry('Custom itinerary')">Or build a custom journey</a>
+    </div>
+  </div>
+</section>
+
+<section class="departures" id="departures">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Group joining</div>
+      <h2>Join a group, or go private.</h2>
+      <p>Travelling solo or as a pair? You do not have to pay for a whole trek alone. Tell us when you can travel and we will build the group around real dates.</p>
+    </div>
+    <div id="departures-table-wrap">
+      <div class="dep-flex">
+        <div class="process-step">
+          <div class="step-n">1</div>
+          <h4>Pick your window</h4>
+          <p>The trekking season runs from June to September. Tell us the dates that work for you and the route you want.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-n">2</div>
+          <h4>We match you</h4>
+          <p>We pair you with other travellers on the same route so the cost is shared. Prefer your own team? We run private departures too.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-n">3</div>
+          <h4>Confirm and book</h4>
+          <p>Once your dates are settled we confirm everything with you directly, then you secure your spot with the deposit.</p>
+        </div>
+      </div>
+      <div class="dep-cta"><a href="#contact" class="btn btn-primary">Tell us your dates &rarr;</a></div>
     </div>
   </div>
 </section>
@@ -298,22 +458,149 @@
   </div>
 </section>
 
-<section class="peaks-section" id="peaks">
+<section class="about" id="about">
+  <div class="wrap about-grid">
+    <div class="about-copy">
+      <div class="eyebrow">About us</div>
+      <h2 class="serif" style="font-size:34px;font-weight:500;margin:14px 0 22px;">Guided by someone who has actually walked the route.</h2>
+      <p>Great Adventure is a new company, founded in 2026. Our founder has spent about twenty-six years in Baltistan planning and leading trips through some of the world's highest terrain, working with other operators before starting this company. The company is new; the field experience behind it is not.</p>
+      <p>That experience shows up in the details tourists notice first: routes planned around real weather windows, porters and guides who know each valley personally, and a response time that doesn't leave you waiting when you're trying to plan a trip from another country.</p>
+      <p>We now bring that same standard of service directly to travellers, under our own name.</p>
+      <div class="reg-badges">
+        <div class="reg-badge"><span class="tick">✓</span> Local Skardu-Based Team</div>
+        <div class="reg-badge"><span class="tick">✓</span> Visa Assistance Available</div>
+        <div class="reg-badge"><span class="tick">✓</span> Founder: 26 Years on These Trails</div>
+      </div>
+    </div>
+    <div>
+      <div class="years-badge">
+        <div class="num">26</div>
+        <div class="cap">Years of Karakoram experience, our founder</div>
+        <div class="stat-row">
+          <div><div class="n">1,200+</div><div class="l">Travellers guided (founder)</div></div>
+          <div><div class="n">18</div><div class="l">Routes covered</div></div>
+          <div><div class="n">24h</div><div class="l">Avg. reply time</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery" id="gallery">
   <div class="wrap">
     <div class="section-head">
-      <div class="eyebrow">Beyond K2</div>
-      <h2>The giants of Baltistan.</h2>
-      <p>K2 gets most of the attention, but the Baltoro and Hushe valleys hold one of the densest clusters of great peaks on earth. Heights, first ascents and the story behind each mountain are on their own page.</p>
+      <div class="eyebrow">From the trail</div>
+      <h2>What the route actually looks like.</h2>
+      <p>Moments from the Karakoram trails. Tap any photo to enlarge it.</p>
     </div>
-    <div class="reg-badges" style="margin-top:0;margin-bottom:30px;">
-      <div class="reg-badge"><span class="tick">&#9650;</span> K2 &middot; 8,611 m</div>
-      <div class="reg-badge"><span class="tick">&#9650;</span> Gasherbrum I &middot; 8,080 m</div>
-      <div class="reg-badge"><span class="tick">&#9650;</span> Broad Peak &middot; 8,051 m</div>
-      <div class="reg-badge"><span class="tick">&#9650;</span> Gasherbrum II &middot; 8,035 m</div>
-      <div class="reg-badge"><span class="tick">&#9650;</span> Masherbrum &middot; 7,821 m</div>
-      <div class="reg-badge"><span class="tick">&#9650;</span> Great Trango Tower &middot; 6,286 m</div>
+    <div class="gal-grid" id="galGrid">
+      <div class="img-frame gal-num"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/1.jpg" alt="Great Adventure Karakoram trek photo 1" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
+      <div class="img-frame gal-num"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/2.jpg" alt="Great Adventure Karakoram trek photo 2" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
+      <div class="img-frame gal-num"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/3.jpg" alt="Great Adventure Karakoram trek photo 3" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
+      <div class="img-frame gal-num"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/4.jpg" alt="Great Adventure Karakoram trek photo 4" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
+      <div class="img-frame gal-num"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/5.jpg" alt="Great Adventure Karakoram trek photo 5" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
+      <div class="img-frame gal-num gal-extra"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/6.jpg" alt="Great Adventure Karakoram trek photo 6" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
+      <div class="img-frame gal-num gal-extra"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/7.jpg" alt="Great Adventure Karakoram trek photo 7" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
+      <div class="img-frame gal-num gal-extra"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/8.jpg" alt="Great Adventure Karakoram trek photo 8" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
+      <div class="img-frame gal-num gal-extra"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/9.jpg" alt="Great Adventure Karakoram trek photo 9" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
+      <div class="img-frame gal-num gal-extra"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/10.jpg" alt="Great Adventure Karakoram trek photo 10" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
+      <div class="img-frame gal-num gal-extra"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/11.jpg" alt="Great Adventure Karakoram trek photo 11" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
+      <div class="img-frame gal-num gal-extra"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/12.jpg" alt="Great Adventure Karakoram trek photo 12" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
+      <div class="img-frame gal-num gal-extra"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/13.jpg" alt="Great Adventure Karakoram trek photo 13" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
+      <div class="img-frame gal-num gal-extra"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/14.jpg" alt="Great Adventure Karakoram trek photo 14" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
+      <div class="img-frame gal-num gal-extra"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/15.jpg" alt="Great Adventure Karakoram trek photo 15" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
+      <div class="img-frame gal-num gal-extra"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/16.jpg" alt="Great Adventure Karakoram trek photo 16" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
+      <div class="img-frame gal-num gal-extra"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/17.jpg" alt="Great Adventure Karakoram trek photo 17" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
+      <div class="img-frame gal-num gal-extra"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/18.jpg" alt="Great Adventure Karakoram trek photo 18" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
+      <div class="img-frame gal-num gal-extra"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/19.jpg" alt="Great Adventure Karakoram trek photo 19" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
+      <div class="img-frame gal-num gal-extra"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/20.jpg" alt="Great Adventure Karakoram trek photo 20" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
     </div>
-    <a href="peaks/" class="btn btn-primary">Explore all the peaks &rarr;</a>
+    <div class="gal-more-wrap">
+      <button class="btn btn-outline-dark" style="width:auto;padding:12px 26px;" id="galMoreBtn" onclick="toggleGalleryPhotos()">View more photos &darr;</button>
+    </div>
+  </div>
+</section>
+
+<div class="lightbox-overlay" id="lightboxOverlay" role="dialog" aria-modal="true" aria-label="Photo viewer" onclick="if(event.target===this) closeLightbox()">
+  <button class="lb-close" onclick="closeLightbox()" aria-label="Close">&times;</button>
+  <button class="lb-nav lb-prev" onclick="lightboxStep(-1)" aria-label="Previous photo">&#10094;</button>
+  <div class="lb-stage">
+    <img id="lightboxImg" src="" alt="">
+    <div class="lb-counter" id="lightboxCounter"></div>
+  </div>
+  <button class="lb-nav lb-next" onclick="lightboxStep(1)" aria-label="Next photo">&#10095;</button>
+</div>
+
+<section class="included">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Transparent pricing</div>
+      <h2>What's in the price, and what isn't.</h2>
+      <p>General inclusions across most treks — each package's full itinerary page has the exact breakdown.</p>
+    </div>
+    <div class="inc-grid">
+      <div class="inc-col yes">
+        <h3>What's Included</h3>
+        <ul>
+          <li>Domestic flight (Islamabad &ndash; Skardu, return)</li>
+          <li>4x4 Jeep transport (Skardu to trailhead, return)</li>
+          <li>Professional trekking guide</li>
+          <li>Porters for group/camping equipment</li>
+          <li>3-time meals during trek + trail snacks (dry fruits, tea/coffee)</li>
+          <li>Camping equipment (tents, kitchen, dining tent)</li>
+          <li>Hotel stay in Skardu (pre/post trek)</li>
+          <li>Gilgit-Baltistan entry permit &amp; Central Karakoram National Park (CKNP) fees</li>
+        </ul>
+      </div>
+      <div class="inc-col no">
+        <h3>What's Not Included</h3>
+        <ul>
+                    <li>Personal porter (for personal duffel bag)</li>
+          <li>Climbing/technical gear rental</li>
+          <li>Travel &amp; medical/evacuation insurance</li>
+          <li>Visa fees</li>
+          <li>Bottled water &amp; beverages during the trek</li>
+          <li>Single tent / private room supplement (available on request)</li>
+          <li>Personal expenses &amp; tips</li>
+          <li>Meals in Skardu outside the trek dates</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process" id="process">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">From enquiry to base camp</div>
+      <h2>How booking works.</h2>
+      <p>No hidden steps &mdash; here's exactly what happens once you reach out to us.</p>
+    </div>
+    <div class="process-grid">
+      <div class="process-step">
+        <div class="step-n">01</div>
+        <h4>Send an enquiry</h4>
+        <p>Tell us your dates, group size and the trek you have in mind &mdash; or ask us to build something custom.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-n">02</div>
+        <h4>We confirm &amp; plan</h4>
+        <p>We reply within a day with availability, a day-by-day plan and a final price. No surprises later.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-n">03</div>
+        <h4>Pay the deposit</h4>
+        <p>A non-refundable deposit secures your spot &mdash; 30% for trips of 12 days or fewer, 50% for longer expeditions. The remaining balance is due on arrival in Skardu.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-n">04</div>
+        <h4>Trek with us</h4>
+        <p>Meet your guide and crew in Skardu, do a final gear check, and head out onto the trail.</p>
+      </div>
+    </div>
+    <div class="process-cta">
+      <a href="#contact" class="btn btn-primary btn-sm">Start planning your trip &rarr;</a>
+    </div>
   </div>
 </section>
 
@@ -363,229 +650,24 @@
   </div>
 </section>
 
-<section class="included">
+<section class="peaks-section" id="peaks">
   <div class="wrap">
     <div class="section-head">
-      <div class="eyebrow">Transparent pricing</div>
-      <h2>What's in the price, and what isn't.</h2>
-      <p>General inclusions across most treks — each package's full itinerary page has the exact breakdown.</p>
+      <div class="eyebrow">Beyond K2</div>
+      <h2>The giants of Baltistan.</h2>
+      <p>K2 gets most of the attention, but the Baltoro and Hushe valleys hold one of the densest clusters of great peaks on earth. Heights, first ascents and the story behind each mountain are on their own page.</p>
     </div>
-    <div class="inc-grid">
-      <div class="inc-col yes">
-        <h3>What's Included</h3>
-        <ul>
-          <li>Domestic flight (Islamabad &ndash; Skardu, return)</li>
-          <li>4x4 Jeep transport (Skardu to trailhead, return)</li>
-          <li>Professional trekking guide</li>
-          <li>Porters for group/camping equipment</li>
-          <li>3-time meals during trek + trail snacks (dry fruits, tea/coffee)</li>
-          <li>Camping equipment (tents, kitchen, dining tent)</li>
-          <li>Hotel stay in Skardu (pre/post trek)</li>
-          <li>Gilgit-Baltistan entry permit &amp; Central Karakoram National Park (CKNP) fees</li>
-        </ul>
-      </div>
-      <div class="inc-col no">
-        <h3>What's Not Included</h3>
-        <ul>
-                    <li>Personal porter (for personal duffel bag)</li>
-          <li>Climbing/technical gear rental</li>
-          <li>Travel &amp; medical/evacuation insurance</li>
-          <li>Visa fees</li>
-          <li>Bottled water &amp; beverages during the trek</li>
-          <li>Single tent / private room supplement (available on request)</li>
-          <li>Personal expenses &amp; tips</li>
-          <li>Meals in Skardu outside the trek dates</li>
-        </ul>
-      </div>
+    <div class="reg-badges" style="margin-top:0;margin-bottom:30px;">
+      <div class="reg-badge"><span class="tick">&#9650;</span> K2 &middot; 8,611 m</div>
+      <div class="reg-badge"><span class="tick">&#9650;</span> Gasherbrum I &middot; 8,080 m</div>
+      <div class="reg-badge"><span class="tick">&#9650;</span> Broad Peak &middot; 8,051 m</div>
+      <div class="reg-badge"><span class="tick">&#9650;</span> Gasherbrum II &middot; 8,035 m</div>
+      <div class="reg-badge"><span class="tick">&#9650;</span> Masherbrum &middot; 7,821 m</div>
+      <div class="reg-badge"><span class="tick">&#9650;</span> Great Trango Tower &middot; 6,286 m</div>
     </div>
+    <a href="peaks/" class="btn btn-primary">Explore all the peaks &rarr;</a>
   </div>
 </section>
-
-<section class="services" id="tours">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Tours &amp; expeditions</div>
-      <h2>Routes we know better than most.</h2>
-      <p>Every itinerary below is built on routes our founder has personally led, not assembled from a brochure.</p>
-    </div>
-    <div class="filter-tabs" id="tourFilters">
-      <button class="filter-tab active" data-filter="All">All</button>
-      <button class="filter-tab" data-filter="Trek">Treks</button>
-      <button class="filter-tab" data-filter="Expedition">Expeditions</button>
-    </div>
-    <div class="card-grid" id="tourGrid">
-      <div class="tcard" data-category="Trek" data-diff="Hard" data-days="20" data-alt="5150" data-name="k2 base camp & concordia">
-        <div class="tcard-img img-frame"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/tours/tour-k2-base-camp.jpg" alt="K2 Base Camp & Concordia trek" loading="lazy"></div>
-        <div class="tcard-body">
-          <div class="tag">Trek</div>
-          <h3>K2 Base Camp &amp; Concordia</h3>
-          <p>The classic Karakoram trek to the base of the world's second-highest peak, through Baltoro glacier and Concordia's amphitheatre of 8,000ers.</p>
-          <div class="badge-row"><span class="badge diff">Difficulty: Hard</span></div>
-          <div class="meta"><span>Duration <b>20 days</b></span><span>Max altitude <b>5,150 m</b></span></div>
-          <a href="trekking/k2-base-camp/" class="itin-btn">View Full Itinerary</a>
-        </div>
-      </div>
-<div class="tcard" data-category="Trek" data-diff="Hard" data-days="21" data-alt="5585" data-name="gondogoro la crossing">
-        <div class="tcard-img img-frame"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/tours/tour-gondogoro-la.jpg" alt="Gondogoro La Crossing" loading="lazy"></div>
-        <div class="tcard-body">
-          <div class="tag">Trek</div>
-          <h3>Gondogoro La Crossing</h3>
-          <p>The full Karakoram journey: the Baltoro Glacier, Concordia and K2 Base Camp, then across the 5,585 m Gondogoro La pass at sunrise into the Hushe valley.</p>
-          <div class="badge-row"><span class="badge diff">Difficulty: Hard</span></div>
-          <div class="meta"><span>Duration <b>21 days</b></span><span>Max altitude <b>5,585 m</b></span></div>
-          <a href="trekking/gondogoro-la/" class="itin-btn">View Full Itinerary</a>
-        </div>
-      </div>
-<div class="tcard" data-category="Trek" data-diff="Moderate" data-days="5" data-alt="4200" data-name="deosai plains">
-        <div class="tcard-img img-frame"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/tours/tour-deosai-plains.jpg" alt="Deosai Plains" loading="lazy"></div>
-        <div class="tcard-body">
-          <div class="tag">Trek</div>
-          <h3>Deosai Plains</h3>
-          <p>Five days across the Land of Giants: Bara Pani, Sheosar Lake and the high grasslands of Deosai National Park, camping with Nanga Parbat on the horizon.</p>
-          <div class="badge-row"><span class="badge diff">Difficulty: Moderate</span></div>
-          <div class="meta"><span>Duration <b>5 days</b></span><span>Max altitude <b>4,200 m</b></span></div>
-          <a href="trekking/deosai-plains/" class="itin-btn">View Full Itinerary</a>
-        </div>
-      </div>
-<div class="tcard" data-category="Expedition" data-diff="Hard" data-days="60" data-alt="8611" data-name="k2 expedition">
-        <div class="tcard-img img-frame"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/tours/tour-k2-base-camp.jpg" alt="K2 Expedition" loading="lazy"></div>
-        <div class="tcard-body">
-          <div class="tag">Expedition</div>
-          <h3>K2 Expedition</h3>
-          <p>K2 (8,611m) by the Abruzzi Spur, with the Baltoro approach, base camp, permits and full local logistics for experienced climbers.</p>
-          <div class="badge-row"><span class="badge diff">Difficulty: Hard</span></div>
-          <div class="meta"><span>Duration <b>60 days</b></span><span>Max altitude <b>8,611 m</b></span></div>
-          <a href="expeditions/k2-expedition/" class="itin-btn">View Full Itinerary</a>
-        </div>
-      </div>
-<div class="tcard" data-category="Expedition" data-diff="High-Altitude Expedition" data-days="52" data-alt="8051" data-name="broad peak expedition">
-        <div class="tcard-img img-frame"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/tours/tour-k2-broadpeak-base-camp.jpg" alt="Broad Peak Expedition" loading="lazy"></div>
-        <div class="tcard-body">
-          <div class="tag">Expedition</div>
-          <h3>Broad Peak Expedition</h3>
-          <p>Broad Peak (8,051m) by the West Ridge from a base camp beside K2, with permits, porters and full local logistics.</p>
-          <div class="badge-row"><span class="badge diff">Difficulty: High-Altitude Expedition</span></div>
-          <div class="meta"><span>Duration <b>52 days</b></span><span>Max altitude <b>8,051 m</b></span></div>
-          <a href="expeditions/broad-peak-expedition/" class="itin-btn">View Full Itinerary</a>
-        </div>
-      </div>
-    </div>
-    <div class="tours-more">
-      <a href="journeys/" class="btn btn-primary">View all journeys &rarr;</a>
-      <a href="#contact" class="tours-custom" onclick="goToEnquiry('Custom itinerary')">Or build a custom journey</a>
-    </div>
-  </div>
-</section>
-
-<section class="departures" id="departures">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div class="eyebrow">Group joining</div>
-      <h2>Join a group, or go private.</h2>
-      <p>Travelling solo or as a pair? You do not have to pay for a whole trek alone. Tell us when you can travel and we will build the group around real dates.</p>
-    </div>
-    <div id="departures-table-wrap">
-      <div class="dep-flex">
-        <div class="process-step">
-          <div class="step-n">1</div>
-          <h4>Pick your window</h4>
-          <p>The trekking season runs from June to September. Tell us the dates that work for you and the route you want.</p>
-        </div>
-        <div class="process-step">
-          <div class="step-n">2</div>
-          <h4>We match you</h4>
-          <p>We pair you with other travellers on the same route so the cost is shared. Prefer your own team? We run private departures too.</p>
-        </div>
-        <div class="process-step">
-          <div class="step-n">3</div>
-          <h4>Confirm and book</h4>
-          <p>Once your dates are settled we confirm everything with you directly, then you secure your spot with the deposit.</p>
-        </div>
-      </div>
-      <div class="dep-cta"><a href="#contact" class="btn btn-primary">Tell us your dates &rarr;</a></div>
-    </div>
-  </div>
-</section>
-
-<section class="process" id="process">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">From enquiry to base camp</div>
-      <h2>How booking works.</h2>
-      <p>No hidden steps &mdash; here's exactly what happens once you reach out to us.</p>
-    </div>
-    <div class="process-grid">
-      <div class="process-step">
-        <div class="step-n">01</div>
-        <h4>Send an enquiry</h4>
-        <p>Tell us your dates, group size and the trek you have in mind &mdash; or ask us to build something custom.</p>
-      </div>
-      <div class="process-step">
-        <div class="step-n">02</div>
-        <h4>We confirm &amp; plan</h4>
-        <p>We reply within a day with availability, a day-by-day plan and a final price. No surprises later.</p>
-      </div>
-      <div class="process-step">
-        <div class="step-n">03</div>
-        <h4>Pay the deposit</h4>
-        <p>A non-refundable deposit secures your spot &mdash; 30% for trips of 12 days or fewer, 50% for longer expeditions. The remaining balance is due on arrival in Skardu.</p>
-      </div>
-      <div class="process-step">
-        <div class="step-n">04</div>
-        <h4>Trek with us</h4>
-        <p>Meet your guide and crew in Skardu, do a final gear check, and head out onto the trail.</p>
-      </div>
-    </div>
-    <div class="process-cta">
-      <a href="#contact" class="btn btn-primary btn-sm">Start planning your trip &rarr;</a>
-    </div>
-  </div>
-</section>
-
-<section class="gallery" id="gallery">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">From the trail</div>
-      <h2>What the route actually looks like.</h2>
-      <p>Moments from the Karakoram trails. Tap any photo to enlarge it.</p>
-    </div>
-    <div class="gal-grid" id="galGrid">
-      <div class="img-frame gal-num"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/1.jpg" alt="Great Adventure Karakoram trek photo 1" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
-      <div class="img-frame gal-num"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/2.jpg" alt="Great Adventure Karakoram trek photo 2" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
-      <div class="img-frame gal-num"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/3.jpg" alt="Great Adventure Karakoram trek photo 3" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
-      <div class="img-frame gal-num"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/4.jpg" alt="Great Adventure Karakoram trek photo 4" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
-      <div class="img-frame gal-num"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/5.jpg" alt="Great Adventure Karakoram trek photo 5" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
-      <div class="img-frame gal-num gal-extra"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/6.jpg" alt="Great Adventure Karakoram trek photo 6" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
-      <div class="img-frame gal-num gal-extra"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/7.jpg" alt="Great Adventure Karakoram trek photo 7" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
-      <div class="img-frame gal-num gal-extra"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/8.jpg" alt="Great Adventure Karakoram trek photo 8" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
-      <div class="img-frame gal-num gal-extra"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/9.jpg" alt="Great Adventure Karakoram trek photo 9" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
-      <div class="img-frame gal-num gal-extra"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/10.jpg" alt="Great Adventure Karakoram trek photo 10" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
-      <div class="img-frame gal-num gal-extra"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/11.jpg" alt="Great Adventure Karakoram trek photo 11" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
-      <div class="img-frame gal-num gal-extra"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/12.jpg" alt="Great Adventure Karakoram trek photo 12" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
-      <div class="img-frame gal-num gal-extra"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/13.jpg" alt="Great Adventure Karakoram trek photo 13" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
-      <div class="img-frame gal-num gal-extra"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/14.jpg" alt="Great Adventure Karakoram trek photo 14" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
-      <div class="img-frame gal-num gal-extra"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/15.jpg" alt="Great Adventure Karakoram trek photo 15" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
-      <div class="img-frame gal-num gal-extra"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/16.jpg" alt="Great Adventure Karakoram trek photo 16" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
-      <div class="img-frame gal-num gal-extra"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/17.jpg" alt="Great Adventure Karakoram trek photo 17" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
-      <div class="img-frame gal-num gal-extra"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/18.jpg" alt="Great Adventure Karakoram trek photo 18" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
-      <div class="img-frame gal-num gal-extra"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/19.jpg" alt="Great Adventure Karakoram trek photo 19" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
-      <div class="img-frame gal-num gal-extra"><div class="img-skeleton"><span class="skel-text">Loading&hellip;</span></div><img class="js-photo" src="images/gallery/20.jpg" alt="Great Adventure Karakoram trek photo 20" loading="lazy" onclick="openLightbox(this)" onerror="this.closest('.img-frame').remove(); checkGalleryMoreButton();"></div>
-    </div>
-    <div class="gal-more-wrap">
-      <button class="btn btn-outline-dark" style="width:auto;padding:12px 26px;" id="galMoreBtn" onclick="toggleGalleryPhotos()">View more photos &darr;</button>
-    </div>
-  </div>
-</section>
-
-<div class="lightbox-overlay" id="lightboxOverlay" role="dialog" aria-modal="true" aria-label="Photo viewer" onclick="if(event.target===this) closeLightbox()">
-  <button class="lb-close" onclick="closeLightbox()" aria-label="Close">&times;</button>
-  <button class="lb-nav lb-prev" onclick="lightboxStep(-1)" aria-label="Previous photo">&#10094;</button>
-  <div class="lb-stage">
-    <img id="lightboxImg" src="" alt="">
-    <div class="lb-counter" id="lightboxCounter"></div>
-  </div>
-  <button class="lb-nav lb-next" onclick="lightboxStep(1)" aria-label="Next photo">&#10095;</button>
-</div>
 
 <section class="testi" id="reviews">
   <div class="wrap">
@@ -643,7 +725,6 @@
     </div>
   </div>
 </div>
-
 
 <section class="faq" id="faq">
   <div class="wrap">
@@ -751,6 +832,7 @@
   </div>
 </section>
 
+
 <div class="float-stack">
   <a href="https://wa.me/923555585368?text=Hi%20Great%20Adventure%21%20I%27d%20like%20to%20know%20more%20about%20your%20treks%20in%20Baltistan." target="_blank" rel="noopener" class="float-btn wa-float" aria-label="Chat on WhatsApp" title="Chat on WhatsApp">&#9990;</a>
   <a href="https://www.facebook.com/greatadvtours" target="_blank" rel="noopener" class="float-btn fb-float" aria-label="Message on Facebook" title="Message on Facebook">f</a>
@@ -795,5 +877,21 @@ function showAllTours(){
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="js/main.js?v=19"></script>
+<script>
+/* Tours filter: matching cards are shown (and re-flow to the top of the grid), the rest are removed from the layout */
+(function(){
+  var bar=document.getElementById('tourFilters'), grid=document.getElementById('tourGrid');
+  if(!bar||!grid) return;
+  function apply(){
+    var act=bar.querySelector('.filter-tab.active'); var f=act?act.getAttribute('data-filter'):'All';
+    grid.querySelectorAll('.tcard').forEach(function(c){
+      var ok=(f==='All')||c.getAttribute('data-category')===f;
+      c.style.display=ok?'':'none';
+    });
+  }
+  bar.addEventListener('click',function(){ setTimeout(apply,0); setTimeout(apply,400); });
+})();
+</script>
+
 </body>
 </html>
