@@ -282,6 +282,32 @@ document.addEventListener('DOMContentLoaded', function(){
   }
 });
 
+// ---------- EmailJS: email notification for every new enquiry ----------
+const EMAILJS_PUBLIC_KEY  = "ZhiCR2W_cDe4Lc5Ra";
+const EMAILJS_SERVICE_ID  = "service_mbyz9eb";
+const EMAILJS_TEMPLATE_ID = "template_ov9xn66";
+async function sendEnquiryEmail(p){
+  try{
+    const r = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        service_id: EMAILJS_SERVICE_ID,
+        template_id: EMAILJS_TEMPLATE_ID,
+        user_id: EMAILJS_PUBLIC_KEY,
+        template_params: {
+          name: p.name, email: p.email, phone: p.phone || 'Not given', country: p.country || 'Not given',
+          tour: p.tour || 'Not specified', start_date: p.start_date || '?', end_date: p.end_date || '?',
+          date_notes: p.date_notes || '-', group_size: p.group_size || 'Not given', message: p.message,
+          time: new Date().toLocaleString()
+        }
+      })
+    });
+    if(!r.ok){ console.error('EmailJS error:', r.status, await r.text()); }
+    else { console.log('EmailJS: email sent OK'); }
+  }catch(e){ console.error('EmailJS failed:', e); /* never break the enquiry form */ }
+}
+
 async function submitInquiry(evt){
   evt.preventDefault();
   const btn = document.getElementById('inq-submit-btn');
@@ -355,6 +381,7 @@ async function submitInquiry(evt){
         if(legacy.error) throw legacy.error;
       }
     }
+    await sendEnquiryEmail(payload);
     if(window.gtag) gtag('event', 'generate_lead', { method: 'enquiry_form', tour: payload.tour || 'none' });
     showStatus("Thanks, " + payload.name.split(' ')[0] + "! We've received your enquiry and will reply within a day.", false);
     document.getElementById('inquiryForm').reset();
