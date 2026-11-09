@@ -56,12 +56,27 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://greatadv.com/expeditions/latok-i-expedition/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://greatadv.com/expeditions/muztagh-tower-expedition/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://greatadv.com/trekking/k2-base-camp/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://greatadv.com/trekking/gondogoro-la/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://greatadv.com/trekking/snow-lake-hispar-la/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -136,3 +151,6 @@
     <priority>0.3</priority>
   </url>
 </urlset>
+
+
+
