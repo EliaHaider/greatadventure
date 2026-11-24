@@ -34,3 +34,6 @@ phir mujhe URL aur anon key bhej dein, main main.js aur admin.html mein laga dun
 6) PURANE PROJECT SE DATA (agar purane project mein koi asli enquiry/review hai)
    Purane project ke Table Editor > har table > Export CSV, phir naye project mein Import CSV.
    Agar kuch nahi hai to ye step chhod dein.
+
+
+

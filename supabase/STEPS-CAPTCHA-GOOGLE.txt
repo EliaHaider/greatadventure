@@ -55,3 +55,6 @@ PART H - Aakhri safai
        drop policy if exists "Visitors can send an enquiry" on public.inquiries;
 
 Masla aaye to: browser mein F12 > Console ka screenshot, aur Supabase > Edge Functions > submit-enquiry > Logs ka screenshot bhejein.
+
+
+

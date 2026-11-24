@@ -97,3 +97,6 @@ create policy "Public reads active departures" on public.departures
 drop policy if exists "Admin manages departures" on public.departures;
 create policy "Admin manages departures" on public.departures
   for all to authenticated using (true) with check (true);
+
+
+

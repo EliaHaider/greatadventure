@@ -36,3 +36,6 @@ CODE MEIN LIKHA HAI LEKIN FILE NAHI HAI
 
 SHARED TASVEEREN: K2 Expedition card = tour-k2-base-camp.jpg, Gasherbrum II card = tour-gasherbrum-g1.jpg
   (naye naam suggest: images/tours/tour-k2-expedition.jpg, tour-gasherbrum-ii.jpg)
+
+
+

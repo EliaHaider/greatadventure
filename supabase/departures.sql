@@ -26,3 +26,6 @@ create policy "Public can read active departures"
 -- Only add dates you really intend to run. Example (do not run unless real):
 -- insert into public.departures (tour, start_date, end_date, price_usd, note)
 -- values ('K2 Base Camp & Concordia', '2027-07-05', '2027-07-24', 2110, 'Confirms once 4 travellers have joined');
+
+
+

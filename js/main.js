@@ -767,3 +767,6 @@ document.addEventListener('DOMContentLoaded', loadDepartures);
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fix); else fix();
 })();
+
+
+

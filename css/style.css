@@ -709,3 +709,6 @@ a.brand{text-decoration:none;color:inherit}
 .ft2-bar a{color:#fff;font-weight:500}
 @media (max-width:900px){.ft2-grid{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){.ft2-grid{grid-template-columns:1fr}.ft2-bar{flex-direction:column}}
+
+
+
